@@ -1,15 +1,9 @@
-<html>
-<head>
-	<title>This is an example view</title>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
-</head>
-<body>
+<?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
-<h1>Management</h1>
-<form method="get" action="/Clients/search" class="form-inline">
+<h1>Items</h1>
+<form method="get" action="/Items/search" class="form-inline">
 <div class="form-group">
-<label for="q">Search by firstName</label>
+<label for="q">Search by firstName </label>
 <input type="text" class="form-control" name="q" id="q" />
 </div>
 <div class="form-group">
@@ -21,26 +15,29 @@
 
 <table class="table table-striped">
 	<tr>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Email</th>
-		<th>Phone</th>
-		<th>Country</th>
-		<th>Action</th>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Image</th>
+		<th>Price</th>
+		<th>Category</th>
+		<th>Rating</th>
+		<th>Status</th>
 	</tr>
 	<?php
-	foreach($data['clients'] as $client){
-		echo "<tr><td>$client->firstName</td>";
-		echo "<td>$client->lastName</td>";
-		echo "<td>$client->email</td>";
-		echo "<td>$client->phone</td>";
-		echo "<td>$client->country</td>";
-		echo "<td><a href='/Clients/delete/$client->ID'>DELETE!!!!!</a></td></tr>";
+	foreach($data['items'] as $item){
+		echo "<tr><td>$item->name</td>";
+		echo "<td>$item->description</td>";
+		echo "<td>$item->image_path</td>";
+		echo "<td>$item->price</td>";
+		echo "<td>$item->category</td>";
+		echo "<td>$item->rating</td>";
+		echo "<td>$item->status</td>";
+		echo "<td><a href='/Items/delete/$item->ID'>DELETE!!!!!</a></td></tr>";
 	}
 	?>
 </table>
 
-<form method="post" action="/Clients/newClient" class="form-horizontal">
+<form method="post" action="/Items/newItem" class="form-horizontal">
 	<div class="form-group">
 	<label for="firstName">First Name</label>
 	<input type="text" class="form-control" name="firstName" id="firstName" />
