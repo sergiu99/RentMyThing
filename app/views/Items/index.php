@@ -3,11 +3,11 @@
 <h1>Items</h1>
 <form method="get" action="/Items/search" class="form-inline">
 <div class="form-group">
-<label for="q">Search by firstName </label>
-<input type="text" class="form-control" name="q" id="q" />
+<label for="q">Search by name of item   </label>
+<input style="margin-left: 10px;" type="text" class="form-control" name="q" id="q" />
 </div>
 <div class="form-group">
-<input type="submit" class="btn btn-default" name="action" value='search' />
+<input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='search' />
 </div>
 </form><br>
 <br>
@@ -59,7 +59,7 @@
 	<input type="text" class="form-control" name="country" id="country" />
 	</div>
 	<div class="form-group">
-	<input type="submit" class="btn btn-default" name="action" value="Save this record" />
+	<input type="submit" class="btn btn-default" name="action" value="Save new item" />
 	</div>
 </form>
 
