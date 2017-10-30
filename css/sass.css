@@ -1,0 +1,34 @@
+@import 'bootstrap-4.0.0-beta.1';
+body > * {
+  background-size: cover;
+}
+.opaque-overlay {
+  overflow: hidden;
+  position: relative;
+}
+.opaque-overlay > *:first-child:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  pointer-events: none;
+  background: rgba(52, 58, 64, 0.25);
+}
+.gradient-overlay {
+  overflow: hidden;
+  position: relative;
+}
+.gradient-overlay > *:first-child:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  pointer-events: none;
+  background: linear-gradient(to top, #343a40 0%, transparent 100%);
+}
