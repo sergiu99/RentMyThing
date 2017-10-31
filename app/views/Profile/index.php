@@ -26,7 +26,7 @@
   <div class="form-group">
     <label for="display_name">Joined On:</label>
     <?php
-      echo "<input type='text' class='form-control' id='join_date' name='join_date' value='$user->join_date' disabled>";
+      echo "<input type='text' class='form-control' id='join_date' name='join_date' value='$user->join_date' readonly>";
     ?>
   </div>
   <div class="form-group">
@@ -93,10 +93,10 @@
   <div class="checkbox">
     <label>
     <?php
-        if($user->show_phone == 0){
-          echo "<input type='checkbox' name ='show_phone'>";
+        if($user->show_address == 0){
+          echo "<input type='checkbox' name ='show_address'>";
         }else{
-          echo "<input type='checkbox' name ='show_phone' checked>";
+          echo "<input type='checkbox' name ='show_address' checked>";
         }
     ?> Show Street Address</label>
   </div>

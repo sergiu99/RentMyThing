@@ -20,12 +20,37 @@ class Profile extends Controller{
 		$updateUser->city_address = $_POST['city_address'];
 		$updateUser->province_address = $_POST['province_address'];
 		$updateUser->postal_code_address = $_POST['postal_code_address'];
+		$updateUser->city_address = $_POST['city_address'];
+		$updateUser->province_address = $_POST['province_address'];
+		$updateUser->postal_code_address = $_POST['postal_code_address'];
+
+		if(isset($_POST['show_phone'])){
+			$updateUser->show_phone = 1;
+		}else{
+			$updateUser->show_phone = 0;
+		}
+
+		if(isset($_POST['show_email'])){
+			$updateUser->show_email = 1;
+		}else{
+			$updateUser->show_email = 0;
+		}
+
+		if(isset($_POST['show_address'])){
+			$updateUser->show_address = 1;
+		}else{
+			$updateUser->show_address = 0;
+		}
+
+		if(isset($_POST['old_password'])){
+			if($_POST['old_password']){
+				
+			}
+		}
 
 		$updateUser->update();
 
-		$aUser = $this->model('User');
-		$thisUser = $aUser->find($_SESSION['userID']);
-		$this->view('Profile/index',['user'=>$thisUser]);
+		$this->index();
 	}
 }
 ?>
