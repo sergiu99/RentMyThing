@@ -1,4 +1,7 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
+
+<div class="container">
+<h2>New Item Listing</h2>
 <form method="post" action="/Items/newItem" class="form-horizontal">
 	<div class="form-group">
 	<label for="name">Name</label>
@@ -26,6 +29,6 @@
 </form>
 
 
-<div>
+</div>
 </body>
 </html>

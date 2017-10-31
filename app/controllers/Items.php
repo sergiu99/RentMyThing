@@ -1,10 +1,11 @@
 <?php
 
 class Items extends Controller{
+	$userId =  $_SESSION['userID'];
 	function index(){
 		$aItem = $this->model('Item');
-		$userId =  $_SESSION['userID'];
-		$myItems = $aItem->where('user_id','='," " . $userId . " ")->get();
+		
+		$myItems = $aItem->where('user_id','=',$userId)->get();
 		$this->view('Items/index',['items'=>$myItems]);
 
 	}
@@ -17,17 +18,23 @@ class Items extends Controller{
 
 	}
 
+	
 	function newItem(){
-		$newClient = $this->model('Item');
-		$newClient->firstName = $_POST['firstName'];
-		$newClient->lastName = $_POST['lastName'];
-		$newClient->email = $_POST['email'];
-		$newClient->phone = $_POST['phone'];
-		$newClient->country = $_POST['country'];
+		if(isset($_POST['action'])){
+		$newItem = $this->model('Item');
+		
+		$newItem->user_id = $userId;
+		$newItem->name = $_POST['name'];
+		$newItem->description = $_POST['description'];
+		$newItem->image_path = $_POST['image_path'];
+		$newItem->price = $_POST['price'];
+		$newItem->category = $_POST['category'];
 
-		$newClient->insert();
+		$newItem->insert();
 		header("location:/Items/someMethod");
-
+		} else {
+			$this->view('Items/createItem');
+		}
 	}
 
 	function delete($id){
