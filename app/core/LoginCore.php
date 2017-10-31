@@ -21,5 +21,9 @@ class LoginCore{
 		unset($_SESSION['username']);
 		unset($_SESSION['userID']);
 	}
+
+	public static function getUser(){
+		return $_SESSION['userID'];
+	}
 }
 ?>
