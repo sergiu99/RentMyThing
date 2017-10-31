@@ -3,7 +3,8 @@
 class Items extends Controller{
 	function index(){
 		$aItem = $this->model('Item');
-		$myItems = $aItem->where('user_id','=',"%$searchTerm%")->get();
+		$userId =  $_SESSION['userID'];
+		$myItems = $aItem->where('user_id','='," " . $userId . " ")->get();
 		$this->view('Items/index',['items'=>$myItems]);
 
 	}

@@ -6,7 +6,7 @@ class Login extends Controller{
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 			LoginCore::login($email, $password);
-			header('location:/Clients/');
+			header('location:/Items/');
 		}else
 			$this->view('Login/index');
 	}
