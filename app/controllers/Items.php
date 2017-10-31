@@ -40,6 +40,29 @@ class Items extends Controller{
 		}
 	}
 
+	function editItem(){
+		if(isset($_POST['action'])){
+		$newItem = $this->model('Item');
+		
+		$userId =  $_SESSION['userID'];
+		
+		$newItem->user_id = $userId;
+		$newItem->status = 'enabled';
+		$newItem->name = $_POST['name'];
+		$newItem->description = $_POST['description'];
+		$newItem->image_path = $_POST['image_path'];
+		$newItem->price = $_POST['price'];
+		$newItem->category = $_POST['category'];
+
+		$newItem->update();
+		header("location:/Items/someMethod");
+		} else {
+			$aItem = $this->model('Item');
+		    $aItem = $aItem->find($id);
+			$this->view('Items/editItem',['item'=>$aItem ]);
+		}
+	}
+	
 	function delete($id){
 		$aItem = $this->model('Item');
 		$aItem = $aItem->find($id);
