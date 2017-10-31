@@ -1,13 +1,15 @@
-<?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
+<?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php');
+$item = $data['item'];
+ ?>
 
 <div class="container">
 <br>
 <br>
 <h2>Edit Item Listing</h2>
-<form method="post" action="/Items/editItem/<?php $item = $data['user']; echo "$item->id";?>" class="form-horizontal">
+<?php echo"<form method='post' action='/Items/editItem/$item->id' class='form-horizontal'>"?>
 	<div class="form-group">
 	<label for="name">Name</label>
-	<input type="text" class="form-control" required="true" name="name" id="name" />
+	<?php echo"<input type='text' class='form-control' required='true' name='name' id='name' value='$item->name' />" ;?>
 	</div>
 	<div class="form-group">
 	<label for="description">Description</label>
