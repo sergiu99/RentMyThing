@@ -5,7 +5,7 @@ class Model{
     protected $_className = null;
     protected $_whereClause;
     protected $_orderBy;
-    protected $_PKName = 'ID';// default name for the primary key
+    protected $_PKName = 'id';// default name for the primary key
 	
 	//TODO: add JOIN clauses
 	
@@ -112,8 +112,11 @@ class Model{
 			//update
 			$setClause = [];
 			
-			foreach($properties as $item)
-				$setClause[] = sprintf('%s = :%s', $item, $item);
+			foreach($properties as $item){
+                if($item != "id"){
+                    $setClause[] = sprintf('%s = :%s', $item, $item);
+                }
+            }
 			$setClause = implode(', ', $setClause);
 			$update = 'UPDATE ' . $this->_className . ' SET ' . $setClause . " WHERE $this->_PKName = :$this->_PKName";
 		}

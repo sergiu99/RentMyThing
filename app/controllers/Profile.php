@@ -10,6 +10,7 @@ class Profile extends Controller{
 
 	function save(){
 		$updateUser = $this->model('User');
+		$updateUser->id = $_SESSION['userID'];
 		$updateUser->display_name = $_POST['display_name'];
 		$updateUser->first_name = $_POST['first_name'];
 		$updateUser->last_name = $_POST['last_name'];

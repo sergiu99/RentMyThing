@@ -26,7 +26,7 @@
   <div class="form-group">
     <label for="display_name">Joined On:</label>
     <?php
-      echo "<p>$user->join_date</p>";
+      echo "<input type='text' class='form-control' id='join_date' name='join_date' value='$user->join_date' disabled>";
     ?>
   </div>
   <div class="form-group">
@@ -35,7 +35,7 @@
   <div class="form-group">
     <label for="email">Email address:</label>
     <?php
-      echo "<input type='text' class='form-control' id='email' name='email' value='$user->email' required>";
+      echo "<input type='email' class='form-control' id='email' name='email' value='$user->email' required>";
     ?>
   </div>
   <div class="form-group">
