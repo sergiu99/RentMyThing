@@ -26,6 +26,8 @@
 		<th>Rating</th>
 		<th>Status</th>
 		<th>Action</th>
+		<th></th>
+		<th></th>
 	</tr>
 	<?php
 	foreach($data['items'] as $item){
@@ -35,8 +37,9 @@
 		echo "<td>$item->category</td>";
 		echo "<td>$item->rating</td>";
 		echo "<td>$item->status</td>";
-		echo "<td><a href='/Items/delete/$item->id'>View</a></td></tr>";
-			echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
+		echo "<td><a href='/Items/delete/$item->id'>View</a></td>";
+		echo "<td><a href='/Items/delete/$item->id'>Edit</a></td>";
+		echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
 	}
 	?>
 </table>
