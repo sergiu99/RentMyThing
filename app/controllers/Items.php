@@ -26,6 +26,7 @@ class Items extends Controller{
 		$userId =  $_SESSION['userID'];
 		
 		$newItem->user_id = $userId;
+		$newItem->status = 'enabled';
 		$newItem->name = $_POST['name'];
 		$newItem->description = $_POST['description'];
 		$newItem->image_path = $_POST['image_path'];

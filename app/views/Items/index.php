@@ -9,8 +9,12 @@
 <div class="form-group">
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='search' />
 </div>
-</form><br>
+</form>
 <br>
+<br>
+<div class="form-group">
+<a href="/Items/newItem"><button  class="btn btn-default" >Create a new Listing</button></a>
+</div>
 
 
 <table class="table table-striped">
@@ -21,6 +25,7 @@
 		<th>Category</th>
 		<th>Rating</th>
 		<th>Status</th>
+		<th>Action</th>
 	</tr>
 	<?php
 	foreach($data['items'] as $item){
@@ -30,8 +35,8 @@
 		echo "<td>$item->category</td>";
 		echo "<td>$item->rating</td>";
 		echo "<td>$item->status</td>";
-		echo "<td><a href='/Items/delete/$item->id'>DELETE!!!!!</a></td></tr>";
-			echo "<td><a href='/Items/delete/$item->id'>DELETE!!!!!</a></td></tr>";
+		echo "<td><a href='/Items/delete/$item->id'>View</a></td></tr>";
+			echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
 	}
 	?>
 </table>
