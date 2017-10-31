@@ -1,10 +1,10 @@
 <?php
 
 class Items extends Controller{
-	$userId =  $_SESSION['userID'];
+	
 	function index(){
 		$aItem = $this->model('Item');
-		
+		$userId =  $_SESSION['userID'];
 		$myItems = $aItem->where('user_id','=',$userId)->get();
 		$this->view('Items/index',['items'=>$myItems]);
 
@@ -22,6 +22,8 @@ class Items extends Controller{
 	function newItem(){
 		if(isset($_POST['action'])){
 		$newItem = $this->model('Item');
+		
+		$userId =  $_SESSION['userID'];
 		
 		$newItem->user_id = $userId;
 		$newItem->name = $_POST['name'];
