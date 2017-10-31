@@ -1,5 +1,6 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
+<br>
 <h1>Items</h1>
 <form method="get" action="/Items/search" class="form-inline">
 <div class="form-group">
@@ -10,7 +11,6 @@
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='search' />
 </div>
 </form>
-<br>
 <br>
 <div class="form-group">
 <a href="/Items/newItem"><button  class="btn btn-default" >Create a new Listing</button></a>
