@@ -8,19 +8,19 @@
     <label for="display_name">Display Name:</label>
     <?php
       $user = $data['user'];
-      echo "<input type='text' class='form-control' id='display_name' name='display_name' placeholder='$user->display_name' required>";
+      echo "<input type='text' class='form-control' id='display_name' name='display_name' value='$user->display_name' required>";
     ?>
   </div>
   <div class="form-group">
     <label for="first_name">First Name:</label>
     <?php
-      echo "<input type='text' class='form-control' id='first_name' name='first_name' placeholder='$user->first_name'>";
+      echo "<input type='text' class='form-control' id='first_name' name='first_name' value='$user->first_name'>";
     ?>
   </div>
   <div class="form-group">
     <label for="last_name">Last Name:</label>
     <?php
-      echo "<input type='text' class='form-control' id='last_name' name='last_name' placeholder='$user->last_name'>";
+      echo "<input type='text' class='form-control' id='last_name' name='last_name' value='$user->last_name'>";
     ?>
   </div>
   <div class="form-group">
@@ -35,38 +35,38 @@
   <div class="form-group">
     <label for="email">Email address:</label>
     <?php
-      echo "<input type='text' class='form-control' id='email' name='email' placeholder='$user->email' required>";
+      echo "<input type='text' class='form-control' id='email' name='email' value='$user->email' required>";
     ?>
   </div>
   <div class="form-group">
     <label for="phone_number">Phone Number:</label>
     <?php
-      echo "<input type='text' class='form-control' id='phone_number' name='phone_number' placeholder='$user->phone_number'>";
+      echo "<input type='text' class='form-control' id='phone_number' name='phone_number' value='$user->phone_number'>";
     ?>
   </div>
   <div class="form-group">
     <label for="street_address">Street Address:</label>
     <?php
-      echo "<input type='text' class='form-control' id='street_address' name='street_address' placeholder='$user->street_address'>";
+      echo "<input type='text' class='form-control' id='street_address' name='street_address' value='$user->street_address'>";
     ?>
   </div>
   <div class="form-group">
   <div class="form-group">
     <label for="city_address">City:</label>
     <?php
-      echo "<input type='text' class='form-control' id='city_address' name='city_address' placeholder='$user->city_address'>";
+      echo "<input type='text' class='form-control' id='city_address' name='city_address' value='$user->city_address'>";
     ?>
   </div>
   <div class="form-group">
     <label for="province_address">Province:</label>
     <?php
-      echo "<input type='text' class='form-control' id='province_address' name='province_address' placeholder='$user->province_address'>";
+      echo "<input type='text' class='form-control' id='province_address' name='province_address' value='$user->province_address'>";
     ?>
   </div>
   <div class="form-group">
     <label for="postal_code_address">Postal Code:</label>
     <?php
-      echo "<input type='text' class='form-control' id='postal_code_address' name='postal_code_address' placeholder='$user->postal_code_address' required>";
+      echo "<input type='text' class='form-control' id='postal_code_address' name='postal_code_address' value='$user->postal_code_address' required>";
     ?>
   </div>
   <h6>Your Privacy Settings</h6>
