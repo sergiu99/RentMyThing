@@ -7,6 +7,7 @@ class Item extends Model{
 	public $image_path;
 	public $price;
 	public $category;
+	public $category_name;
 	public $rating;
 	public $status;
 
@@ -17,5 +18,6 @@ class Item extends Model{
 	function isValid(){
 		return ($this->name!='' && $this->user_id != '');
 	}
+
 }
 ?>
