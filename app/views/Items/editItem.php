@@ -4,7 +4,7 @@
 <br>
 <br>
 <h2>Edit Item Listing</h2>
-<form method="post" action="/Items/editItem" class="form-horizontal">
+<form method="post" action="/Items/editItem/<?php $item = $data['user']; echo "$item->id";?>" class="form-horizontal">
 	<div class="form-group">
 	<label for="name">Name</label>
 	<input type="text" class="form-control" required="true" name="name" id="name" />

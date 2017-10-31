@@ -40,7 +40,7 @@ class Items extends Controller{
 		}
 	}
 
-	function editItem(){
+	function editItem($id){
 		if(isset($_POST['action'])){
 		$newItem = $this->model('Item');
 		
