@@ -23,16 +23,16 @@
  <a class="btn navbar-btn ml-2 text-white btn-secondary"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>       
 	   <ul class="navbar-nav">
 		<li class="nav-item">
-            <a class="nav-link" href="Listings/"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Listings</a>
+            <a class="nav-link" href="/Listings"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Listings</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="Rentals/"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Rentals</a>
+            <a class="nav-link" href="/Rentals"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Rentals</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="Items/"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Items</a>
+            <a class="nav-link" href="/Items"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Items</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="Profile/"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Profile</a>
+            <a class="nav-link" href="/Profile"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Profile</a>
           </li>
         </ul>
         <a class="btn navbar-btn ml-2 text-white btn-secondary"><i class="fa d-inline fa-lg fa-sign-out"></i> Sign out</a>
