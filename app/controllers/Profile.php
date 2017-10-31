@@ -7,5 +7,9 @@ class Profile extends Controller{
 		
 		$this->view('Profile/index',['user'=>$thisUser]);
 	}
+
+	function save(){
+		
+	}
 }
 ?>
