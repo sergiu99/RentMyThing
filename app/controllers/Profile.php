@@ -42,9 +42,14 @@ class Profile extends Controller{
 			$updateUser->show_address = 0;
 		}
 
-		if(isset($_POST['old_password'])){
-			if($_POST['old_password']){
-				
+		if($_POST['old_password'] != ""){
+			echo "Password input";
+			$aUser = $this->model('User');
+			$thisUser = $aUser->find($_SESSION['userID']);
+			echo var_dump(isset($thisUser));
+			echo $thisUser->password;
+			if(password_verify($_POST['old_password'], $password_hash)){
+				echo ("correct pass");
 			}
 		}
 
