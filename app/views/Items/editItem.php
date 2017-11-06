@@ -5,7 +5,7 @@ $item = $data['item'];
 <div class="container">
 <br>
 <br>
-<h2>Edit Item Listing</h2>
+<h2>Edit Item Listing </h2>
 <?php echo"<form method='post' action='/Items/editItem/$item->id' class='form-horizontal'>"?>
 	<div class="form-group">
 	<label for="name">Name</label>
@@ -13,19 +13,27 @@ $item = $data['item'];
 	</div>
 	<div class="form-group">
 	<label for="description">Description</label>
-	<input type="text" class="form-control" required="true" name="description" id="description" />
+	<?php echo"<input type='text' class='form-control' required='true' name='description' id='description' value='$item->description' />" ;?>
 	</div>
 	<div class="form-group">
 	<label for="image_path">Image</label>
-	<input type="text" class="form-control" required="true" name="image_path" id="image_path" />
+	<?php echo"<input type='text' class='form-control' required='true' name='image_path' id='image_path' value='$item->image_path' />" ;?>
 	</div>
 	<div class="form-group">
 	<label for="price">Price</label>
-	<input type="text" class="form-control" required="true" name="price" id="price" />
+	<?php echo"<input type='number' class='form-control' required='true' name='price' id='price' value='$item->price' />" ;?>
 	</div>
 	<div class="form-group">
 	<label for="category">Category</label>
-	<input type="text" class="form-control" required="true" name="category" id="category" />
+
+	<select class='form-control' required='true' name='category' id='category' >
+
+		<?php
+	foreach($data['category'] as $category){
+		echo "<option value='$category->id' > $category->name</option>";
+	}
+	?>
+</select>
 	</div>
 	<div class="form-group">
 	<input type="submit" class="btn btn-default" name="action" value="Update item" />

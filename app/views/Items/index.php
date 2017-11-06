@@ -33,7 +33,7 @@
 	foreach($data['items'] as $item){
 		echo "<tr><td>$item->name</td>";
 		echo "<td>$item->description</td>";
-		echo "<td>$item->price</td>";
+		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";
 		echo "<td>$item->rating</td>";
 		echo "<td>$item->status</td>";

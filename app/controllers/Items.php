@@ -5,7 +5,7 @@ class Items extends Controller{
 	function index(){
 		$aItem = $this->model('Item');
 		$userId =  $_SESSION['userID'];
-		$myItems = $aItem->where('user_id','=',$userId)->get();
+		$myItems = $aItem->where('user_id','=',$userId)->getDisplayInfo();
 		$this->view('Items/index',['items'=>$myItems]);
 
 	}
@@ -34,9 +34,14 @@ class Items extends Controller{
 		$newItem->category = $_POST['category'];
 
 		$newItem->insert();
-		header("location:/Items/someMethod");
+		header("location:/Items");
 		} else {
-			$this->view('Items/createItem');
+			
+			$category = $this->model('Category');
+		    $category = $category->get();
+			
+			
+			$this->view('Items/createItem',['category'=>$category ]);
 		}
 	}
 
@@ -45,7 +50,7 @@ class Items extends Controller{
 		$newItem = $this->model('Item');
 		
 		$userId =  $_SESSION['userID'];
-		
+		$newItem = $newItem->find($id);
 		$newItem->user_id = $userId;
 		$newItem->status = 'enabled';
 		$newItem->name = $_POST['name'];
@@ -55,11 +60,15 @@ class Items extends Controller{
 		$newItem->category = $_POST['category'];
 
 		$newItem->update();
-		header("location:/Items/someMethod");
+		header("location:/Items");
 		} else {
 			$aItem = $this->model('Item');
 		    $aItem = $aItem->find($id);
-			$this->view('Items/editItem',['item'=>$aItem ]);
+			
+			$category = $this->model('Category');
+		    $category = $category->get();
+			
+			$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
 		}
 	}
 	
@@ -67,7 +76,7 @@ class Items extends Controller{
 		$aItem = $this->model('Item');
 		$aItem = $aItem->find($id);
 		$aItem->delete();
-		header("location:/Items/someMethod");
+		header("location:/Items");
 	}
 
 

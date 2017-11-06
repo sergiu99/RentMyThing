@@ -19,11 +19,18 @@
 	</div>
 	<div class="form-group">
 	<label for="price">Price</label>
-	<input type="text" class="form-control" required="true" name="price" id="price" />
+	<input type="number" class="form-control" required="true" name="price" id="price" />
 	</div>
 	<div class="form-group">
 	<label for="category">Category</label>
-	<input type="text" class="form-control" required="true" name="category" id="category" />
+<select class='form-control' required='true' name='category' id='category' >
+
+		<?php
+	foreach($data['category'] as $category){
+		echo "<option value='$category->id' > $category->name</option>";
+	}
+	?>
+</select>
 	</div>
 	<div class="form-group">
 	<input type="submit" class="btn btn-default" name="action" value="Save new item" />
