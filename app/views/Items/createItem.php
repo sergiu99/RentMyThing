@@ -14,8 +14,8 @@
 	<input type="text" class="form-control" required="true" name="description" id="description" />
 	</div>
 	<div class="form-group">
-	<label for="image_path">Image</label>
-	<input type="text" class="form-control" required="true" name="image_path" id="image_path" />
+	<label for="image_path">Image</label><br/>
+	<input type="file" name="image_path" id="image_path" class="form-control btn-primary">
 	</div>
 	<div class="form-group">
 	<label for="price">Price</label>
