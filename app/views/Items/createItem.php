@@ -4,7 +4,7 @@
 <br>
 <br>
 <h2>New Item Listing</h2>
-<form method="post" action="/Items/newItem" class="form-horizontal">
+<form method="post" action="/Items/newItem" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
 	<label for="name">Name</label>
 	<input type="text" class="form-control" required="true" name="name" id="name" />
@@ -15,7 +15,7 @@
 	</div>
 	<div class="form-group">
 	<label for="image_path">Image</label><br/>
-	<input type="file" name="image_path" id="image_path" class="form-control btn-primary">
+	<input type="file" name="fileToUpload" id="fileToUpload" class="form-control btn-primary">
 	</div>
 	<div class="form-group">
 	<label for="price">Price</label>
