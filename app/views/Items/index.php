@@ -32,6 +32,7 @@
 	</tr>
 	
 	<?php
+	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
 	foreach($data['items'] as $item){
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='$item->image_path' width='100' height='100'></td>";
