@@ -42,14 +42,13 @@ class Profile extends Controller{
 			$updateUser->show_address = 0;
 		}
 
+		//TODO match passwords, update password
 		if($_POST['old_password'] != ""){
-			echo "Password input";
-			$aUser = $this->model('User');
-			$thisUser = $aUser->find($_SESSION['userID']);
-			echo var_dump(isset($thisUser));
-			echo $thisUser->password;
+			$password_hash = $updateUser->getPasswordHash();
 			if(password_verify($_POST['old_password'], $password_hash)){
 				echo ("correct pass");
+			}else{
+				echo ("incorrect pass: " + $password_hash);
 			}
 		}
 

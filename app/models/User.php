@@ -20,6 +20,15 @@ class User extends Model
 		parent::__construct();
 	}
 
+	public static function getPasswordHash(){
+		$id = $_SESSION['userID'];
+		$select = "SELECT password FROM user WHERE id = $id";
+		$result = $this->_connection->query($select);
+        while($rec = $result->fetch()){
+            $returnVal = $rec["password"];
+        }
+        return $returnVal;
+	}
 }
 
 ?>
