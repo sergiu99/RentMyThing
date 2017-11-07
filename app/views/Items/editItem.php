@@ -17,7 +17,7 @@ $item = $data['item'];
 	</div>
 	<div class="form-group">
 	<label for="image_path">Image</label>
-	<?php echo"<input type='text' class='form-control' required='true' name='image_path' id='image_path' value='$item->image_path' />" ;?>
+	<?php echo"<input type='file' id='picture_path' name='picture_path' name='pic' accept='images/*' >" ;?>
 	</div>
 	<div class="form-group">
 	<label for="price">Price</label>
