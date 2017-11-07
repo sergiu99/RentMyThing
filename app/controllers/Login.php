@@ -3,6 +3,7 @@ class Login extends Controller{
 	public function index(){
 		$user = $this->model('User');
 		if(isset($_POST['action']) && $_POST['action'] == 'Login'){
+
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 			LoginCore::login($email, $password);

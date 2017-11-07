@@ -6,6 +6,7 @@ class LoginCore{
 		
 		if(isset($users[0])){
 			if(password_verify($password, $users[0]->password)){
+				session_start();
 				$_SESSION['username'] = $username;
 				$_SESSION['userID'] = $users[0]->ID;
 			}
@@ -18,8 +19,13 @@ class LoginCore{
 	}
 	
 	public static function logout(){
+		$_SESSION['username'] = 'NADA';
+		$_SESSION['userID'] = 'NADA';
 		unset($_SESSION['username']);
 		unset($_SESSION['userID']);
+		session_unset(); 
+		session_destroy();
+		$_SESSION = array();
 	}
 
 	public static function getUser(){

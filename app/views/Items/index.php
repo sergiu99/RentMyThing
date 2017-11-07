@@ -30,6 +30,7 @@
 		<th></th>
 		<th></th>
 	</tr>
+	
 	<?php
 	foreach($data['items'] as $item){
 		echo "<tr><td>$item->name</td>";

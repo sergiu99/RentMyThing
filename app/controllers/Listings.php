@@ -3,7 +3,7 @@
 class Listings extends Controller{
 	
 	function index(){
-		$aItem = $this->model('Item');
+		$aItem = $this->model('Listing');
 		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo();
 		$category = $this->model('Category');
 		    $category = $category->get();
