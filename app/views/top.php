@@ -35,7 +35,7 @@
             <a class="nav-link" href="/Profile"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Profile</a>
           </li>
         </ul>
-        <a href="/Login/signout" class="btn navbar-btn ml-2 text-white btn-secondary"><i class="fa d-inline fa-lg fa-sign-out"></i> Sign out</a>
+        <a href="/Login/logout" class="btn navbar-btn ml-2 text-white btn-secondary"><i class="fa d-inline fa-lg fa-sign-out"></i> Sign out</a>
       </div>
     </div>
   </nav>

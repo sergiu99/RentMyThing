@@ -22,6 +22,7 @@
 		<th>Description</th>
 		<th>Price</th>
 		<th>Category</th>
+		<th>Postal Code</th>
 		<th>Rating</th>
 		<th>Action</th>
 	</tr>
@@ -32,6 +33,8 @@
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";
+		$postalcode = strtoupper ($item->postal_code);
+       echo "<td>$postalcode</td>";	
 		echo "<td>$item->rating</td>";
 		echo "<td><a href='/Listings/viewItem/$item->id'>View</a></td>";
 	}
