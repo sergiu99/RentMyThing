@@ -23,6 +23,7 @@ class Profile extends Controller{
 		$updateUser->city_address = $_POST['city_address'];
 		$updateUser->province_address = $_POST['province_address'];
 		$updateUser->postal_code_address = $_POST['postal_code_address'];
+		$updateUser->join_date = $_POST['join_date'];
 
 		if(isset($_POST['show_phone'])){
 			$updateUser->show_phone = 1;

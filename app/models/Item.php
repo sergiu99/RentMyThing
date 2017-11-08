@@ -1,6 +1,7 @@
 <?php
 
 class Item extends Model{
+	public $id;
 	public $name;
 	public $user_id;
 	public $description;

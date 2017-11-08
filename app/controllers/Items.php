@@ -7,7 +7,6 @@ class Items extends Controller{
 		$userId =  $_SESSION['userID'];
 		$myItems = $aItem->where('user_id','=',$userId)->getDisplayInfo();
 		$this->view('Items/index',['items'=>$myItems]);
-
 	}
 
 	function search(){
@@ -31,23 +30,18 @@ class Items extends Controller{
 		$newItem->description = $_POST['description'];
 		$newItem->price = $_POST['price'];
 		$newItem->category = $_POST['category'];
-
-		$target_dir = "images/";	//the folder where files will be saved
-		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-		$uploadOk = 1;
-		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-		// Check if image file is a actual image or fake image
-			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-			if($check !== false) {
-				echo "File is an image - " . $check["mime"] . ".";
-				$uploadOk = 1;
-			} else {
-				echo "File is not an image.";
-				$uploadOk = 0;
-			}
-
-		$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"]);
-		$newItem->insert();
+		$newId = $newItem->insert();
+		
+		$newItem = $this->model('Item');
+		$newItem->id = $newId;
+		$newItem->user_id = $userId;
+		$newItem->name = $_POST['name'];
+		$newItem->description = $_POST['description'];
+		$newItem->category = $_POST['category'];
+		$newItem->price = $_POST['price'];
+		$newItem->status = 'enabled';
+		$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $newId);
+		$newItem->update();
 		//header("location:/Items");
 		} else {
 			
@@ -72,7 +66,6 @@ class Items extends Controller{
 		$newItem->image_path = $_POST['image_path'];
 		$newItem->price = $_POST['price'];
 		$newItem->category = $_POST['category'];
-
 		$newItem->update();
 		header("location:/Items");
 		} else {
@@ -93,7 +86,7 @@ class Items extends Controller{
 		header("location:/Items");
 	}
 
-	function uploadImage($theFile){
+	function uploadImage($theFile, $id){
 		$target_dir = "images/";	//the folder where files will be saved
 		$allowedTypes = array("jpg", "png", "jpeg", "gif", "bmp");// Allow certain file formats
 		$max_upload_bytes = 5000000;
@@ -111,7 +104,7 @@ class Items extends Controller{
 				}
 				$extension = strtolower(pathinfo(basename($theFile["name"]),PATHINFO_EXTENSION));
 				//give a name to the file such that it should never collide with an existing file name.
-				$target_file_name = uniqid().'.'.$extension;	
+				$target_file_name = $id.'.'.$extension;	
 				$target_path = $target_dir . $target_file_name;
 				//NOTE: that this file path probably should be saved to the database for later retrieval
 		

@@ -102,6 +102,7 @@ class Model{
 		}
         $stmt = $this->_connection->prepare($insert);
         $stmt->execute($this->toArray($properties));
+        return $this->_connection->lastInsertId();
 	}
 
 	public function update(){
