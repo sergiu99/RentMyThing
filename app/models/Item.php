@@ -15,7 +15,7 @@ class Item extends Model{
 		parent::__construct();
 	}
 	
-	function isValid(){
+public	function isValid(){
 		return ($this->name!='' && $this->user_id != '');
 	}
 	

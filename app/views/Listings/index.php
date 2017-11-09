@@ -29,7 +29,7 @@
 	<?php
 	foreach($data['items'] as $item){
 		echo "<tr><td>$item->name</td>";
-		echo "<td><img src='$item->image_path' width='100' height='100'></td>";
+		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";

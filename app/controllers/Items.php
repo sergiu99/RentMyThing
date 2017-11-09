@@ -42,7 +42,7 @@ class Items extends Controller{
 		$newItem->status = 'enabled';
 		$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $newId);
 		$newItem->update();
-		//header("location:/Items");
+		header("location:/Items");
 		} else {
 			
 			$category = $this->model('Category');
@@ -77,6 +77,16 @@ class Items extends Controller{
 			
 			$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
 		}
+	}
+
+
+	function viewItem($id){
+		$aItem = $this->model('Item');
+		$aItem = $aItem->find($id);
+		if($aItem->name !=''){
+		$this->view('Items/viewItem',['item'=>$aItem]);
+		} else { header("location:/Items");}
+
 	}
 	
 	function delete($id){
