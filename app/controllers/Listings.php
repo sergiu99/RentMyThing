@@ -50,6 +50,16 @@ class Listings extends Controller{
 		}
 	}
 
+	function viewItem($id){
+		$aItem = $this->model('Item');
+		$aItem = $aItem->find($id);
+		if($aItem->name !=''){
+		$this->view('Listings/viewItem',['item'=>$aItem]);
+		} else { header("location:/Listings");}
+
+	}
+	
+
 	function editItem($id){
 		if(isset($_POST['action'])){
 		$newItem = $this->model('Item');
