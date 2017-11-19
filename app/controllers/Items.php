@@ -17,7 +17,6 @@ class Items extends Controller{
 
 	}
 
-	
 	function newItem(){
 		if(isset($_POST['action'])){
 		$newItem = $this->model('Item');
@@ -63,10 +62,13 @@ class Items extends Controller{
 		$newItem->status = 'enabled';
 		$newItem->name = $_POST['name'];
 		$newItem->description = $_POST['description'];
-		$newItem->image_path = $_POST['image_path'];
 		$newItem->price = $_POST['price'];
 		$newItem->category = $_POST['category'];
+		if($_FILES['fileToUpload']['size'] != 0){
+			$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
+		}
 		$newItem->update();
+
 		header("location:/Items");
 		} else {
 			$aItem = $this->model('Item');
@@ -99,7 +101,7 @@ class Items extends Controller{
 	function uploadImage($theFile, $id){
 		$target_dir = "images/";	//the folder where files will be saved
 		$allowedTypes = array("jpg", "png", "jpeg", "gif", "bmp");// Allow certain file formats
-		$max_upload_bytes = 5000000;
+		$max_upload_bytes = 50000000;
 			$uploadOk = 1;
 			if(isset($theFile)) {
 				//Check if image file is a actual image or fake image
@@ -114,7 +116,7 @@ class Items extends Controller{
 				}
 				$extension = strtolower(pathinfo(basename($theFile["name"]),PATHINFO_EXTENSION));
 				//give a name to the file such that it should never collide with an existing file name.
-				$target_file_name = $id.'.'.$extension;	
+				$target_file_name = $id . '.' . $extension;	
 				$target_path = $target_dir . $target_file_name;
 				//NOTE: that this file path probably should be saved to the database for later retrieval
 		
@@ -143,12 +145,14 @@ class Items extends Controller{
 				} else {// if everything is ok, try to upload file - to move it from the temp folder to a permanent folder
 					if (move_uploaded_file($theFile["tmp_name"], $target_path)) {
 						echo "The file ". basename( $theFile["name"]). " has been uploaded as <a href='$target_path'>$target_path</a>.";
-						return $target_path;
+						return 'images/' . $id . '.' . $extension;
 					} else {
 						echo "Sorry, there was an error uploading your file.";
 					}
 				}
-		}
+			}
+
+		return $target_dir . 'noimage.png';
 	}
 }
 ?>
