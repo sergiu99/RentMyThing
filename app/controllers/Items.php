@@ -9,13 +9,13 @@ class Items extends Controller{
 		$this->view('Items/index',['items'=>$myItems]);
 	}
 
-	function search(){
+	/*function search(){
 		$searchTerm = $_GET['q'];
 		$aItem = $this->model('Item');
 		$myItems = $aItem->where('firstName','LIKE',"%$searchTerm%")->get();
 		$this->view('Items/index',['items'=>$myItems]);
 
-	}
+	}*/
 
 	function newItem(){
 		if(isset($_POST['action'])){

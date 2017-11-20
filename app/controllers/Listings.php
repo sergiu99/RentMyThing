@@ -8,19 +8,19 @@ class Listings extends Controller{
 		$category = $this->model('Category');
 		    $category = $category->get();
 		
-		$this->view('Listings/index',['items'=>$myItems, 'category'=>$category ]);
-
+		$this->view('Listings/index',['items'=>$myItems, 'category'=>$category]);
 	}
 
 	function search(){
-		$searchTerm = $_GET['q'];
-		$aItem = $this->model('Item');
-		$myItems = $aItem->where('firstName','LIKE',"%$searchTerm%")->get();
-		
-		
-			
-		$this->view('Items/index',['items'=>$myItems]);
-
+		if(isset($_POST['category'])){
+			$category = $_POST['category'];
+		}else{
+			$category = "";
+		}
+		$keyword = $_POST['keyword'];
+		$anItem = $this->model('Item');
+		$searchItems = $anItem->search($category, $keyword)->getDisplayInfo();
+		$this->view('Listings/index',['items'=>$searchItems]);
 	}
 
 	

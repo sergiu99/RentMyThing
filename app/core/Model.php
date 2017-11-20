@@ -70,6 +70,17 @@ class Model{
         return $this;
     }
 
+    public function whereFields($fields){
+        $value = $this->_connection->quote($value);
+        foreach($fields as $field){
+            if($this->_whereClause == '')
+                $this->_whereClause .= "WHERE $field[0] $field[1] $field[2]";
+            else
+                $this->_whereClause .= " AND $field[0] $field[1] $field[2]";
+        }
+        return $this;
+    }
+
     // SELECT * FROM Client ... ORDERBY firstName ASC, lastName ASC
     public function orderBy($field, $order = 'ASC'){
         if($this->_orderBy == '')

@@ -1,19 +1,25 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
 <br>
-<h1>Listings</h1>
-<form method="get" action="/Items/search" class="form-inline">
+<h1>Listings</h1></br>
+<form method="post" action="/Listings/search" class="form-inline">
 <div class="form-group">
-<label for="q">Search by name of item   </label>
-<input style="margin-left: 10px;" type="text" class="form-control" name="q" id="q" />
+<label for="categories">Search for &nbsp;</label>
+<select class="form-control" id="category" name="category">
+	<option disabled selected>Category</option>
+	<?php
+		foreach($data['category'] as $category){
+			echo "<option value='$category->name'>$category->name</option>";
+		}
+	?>
+  </select>
+  <input style="margin-left: 10px;" type="text" class="form-control" name="keyword" id="keyword" placeholder="Keyword"/>
 </div>
 <div class="form-group">
-<input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='search' />
+<input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='Search'/>
 </div>
 </form>
 <br>
-
-
 
 <table class="table table-striped">
 	<tr>
