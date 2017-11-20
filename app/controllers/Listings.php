@@ -24,32 +24,6 @@ class Listings extends Controller{
 	}
 
 	
-	function newItem(){
-		if(isset($_POST['action'])){
-		$newItem = $this->model('Item');
-		
-		$userId =  $_SESSION['userID'];
-		
-		$newItem->user_id = $userId;
-		$newItem->status = 'enabled';
-		$newItem->name = $_POST['name'];
-		$newItem->description = $_POST['description'];
-		$newItem->image_path = $_POST['image_path'];
-		$newItem->price = $_POST['price'];
-		$newItem->category = $_POST['category'];
-
-		$newItem->insert();
-		header("location:/Items");
-		} else {
-			
-			$category = $this->model('Category');
-		    $category = $category->get();
-			
-			
-			$this->view('Items/createItem',['category'=>$category ]);
-		}
-	}
-
 	function viewItem($id){
 		$aItem = $this->model('Item');
 		$aItem = $aItem->find($id);
@@ -60,40 +34,40 @@ class Listings extends Controller{
 	}
 	
 
-	function editItem($id){
-		if(isset($_POST['action'])){
-		$newItem = $this->model('Item');
+	function rentItem(){
+	if(isset($_POST['action'])){
+		$newRental = $this->model('Rental');
 		
 		$userId =  $_SESSION['userID'];
-		$newItem = $newItem->find($id);
-		$newItem->user_id = $userId;
-		$newItem->status = 'enabled';
-		$newItem->name = $_POST['name'];
-		$newItem->description = $_POST['description'];
-		$newItem->image_path = $_POST['image_path'];
-		$newItem->price = $_POST['price'];
-		$newItem->category = $_POST['category'];
+		$newRental->user_id = $userId;
+		$newRental->item_id = $_POST['item_id'];
+		$newRental->status = "pending";
+		$startDate = $_POST['start_date'];
+		$endDate = $_POST['end_date'];
+		$newRental->start_date = $startDate;
+		$newRental->end_date = $endDate;
 
-		$newItem->update();
-		header("location:/Items");
+		$aItem = $this->model('Item');
+	    $aItem = $aItem->find($_POST['item_id']);
+
+	    $pricePerDay = $aItem->price;
+		$date1 = date_create($startDate);
+		$date2 = date_create($endDate);
+		$diff = date_diff($date1,$date2);
+		$datediff = $diff->format("%a");
+		$total = ($datediff + 1) * $pricePerDay;
+
+
+		$newRental->total = $total;
+		$newRental = $newRental->insert();
+		
+		
+		header("location:/Rentals");
 		} else {
-			$aItem = $this->model('Item');
-		    $aItem = $aItem->find($id);
-			
-			$category = $this->model('Category');
-		    $category = $category->get();
-			
-			$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
+			header("location:/Listings");
 		}
 	}
 	
-	function delete($id){
-		$aItem = $this->model('Item');
-		$aItem = $aItem->find($id);
-		$aItem->delete();
-		header("location:/Items");
-	}
-
 
 
 public function getDisplayInfo(){

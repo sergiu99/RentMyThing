@@ -29,12 +29,14 @@ $item = $data['item'];
 	
 	?>
 </table>
+<form method="post" action="/Listings/rentItem" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
+<input type='hidden' class='form-control' name='item_id'  id='item_id'  value ="<?php echo $item->id;?>"/>
 		<div class ="row">
 			
 <div class="col-md-3">
 	<label for="start_date">Start Date</label>
-	<input type='date' class='form-control' required='true' name='start_date' id='start_date' disabled="" />
+	<input type='date' class='form-control' required='true' name='start_date' onchange="calculate()" required='true' id='start_date'  />
 </div>
 <div class="col-md-3">
 	<label for="end_date">End Date</label>
@@ -46,8 +48,10 @@ $item = $data['item'];
 </div>
 <div class="col-md-12">
 	<br>
-	<a onclick='calculate();'"><button  class="btn btn-default" >Calculate</button></a>
-		<?php echo "<a href='/Listings/rentItem/$item->id'><button disabled='' class='btn btn-primary rentbutn' id='rentbutn'>Rent Item</button></a>" ?>
+	
+			<input type="submit" id='rentbutn'  class="btn btn-default" name="action" value="Rent Item" />
+			</form>
+	
 </div>
 
 	</div>
@@ -72,8 +76,10 @@ $item = $data['item'];
 
 			var endDateInput = document.getElementById("end_date").value;
 			var endDate = new Date(endDateInput);
+			var selectedStart = document.getElementById("start_date").value;
+			var starttDate = new Date(selectedStart);
 
-			var inDays = Math.floor((endDate - today) / (1000*60*60*24));
+			var inDays = Math.floor((endDate - starttDate) / (1000*60*60*24));
 			var total = (inDays+2) * 1;
 			
    			//console.log(inDays);
