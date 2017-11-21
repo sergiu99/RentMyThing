@@ -18,9 +18,11 @@ class Listings extends Controller{
 			$category = "";
 		}
 		$keyword = $_POST['keyword'];
-		$anItem = $this->model('Item');
-		$searchItems = $anItem->search($category, $keyword)->getDisplayInfo();
-		$this->view('Listings/index',['items'=>$searchItems]);
+		$anItem = $this->model('Listing');
+		$searchItems = $anItem->search($category, $keyword);
+		$category = $this->model('Category');
+		$categories = $category->get();
+		$this->view('Listings/index',['items'=>$searchItems, 'category'=>$categories]);
 	}
 
 	
@@ -30,7 +32,6 @@ class Listings extends Controller{
 		if($aItem->name !=''){
 		$this->view('Listings/viewItem',['item'=>$aItem]);
 		} else { header("location:/Listings");}
-
 	}
 	
 
@@ -70,7 +71,7 @@ class Listings extends Controller{
 	
 
 
-public function getDisplayInfo(){
+/*public function getDisplayInfo(){
 		$select	= "SELECT t1.id, t1.user_id, t1.name, t1.description, t1.image_path, t1.price, t2.name as category, t1.rating, t1.status FROM item t1 INNER JOIN category t2 ON t1.category = t2.id $this->_whereClause $this->_orderBy";
 
         $stmt = $this->_connection->prepare($select);
@@ -81,7 +82,7 @@ public function getDisplayInfo(){
             $returnVal[] = $rec;
         }
         return $returnVal;
-    }
+    }*/
 
 }
 ?>

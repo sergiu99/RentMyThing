@@ -40,7 +40,7 @@
 		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";
 		$postalcode = strtoupper ($item->postal_code);
-       echo "<td>$postalcode</td>";	
+       	echo "<td>$postalcode</td>";	
 		echo "<td>$item->rating</td>";
 		echo "<td><a href='/Listings/viewItem/$item->id'>View</a></td>";
 	}

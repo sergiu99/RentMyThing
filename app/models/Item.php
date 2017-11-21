@@ -33,32 +33,39 @@ public function getDisplayInfo(){
 	}
 	
 	public function search($category, $keyword){
-		$value = $this->_connection->quote($value);
-		$this->_whereClause = 'WHERE category = (SELECT id FROM category WHERE name = "Home Renovation Materials") AND (name LIKE "%Potter%" OR description LIKE "Potter")';
-		
-
-		return $this;
-		$select = 'SELECT * FROM item WHERE category = (SELECT id FROM category WHERE name = "Home Renovation Materials") AND (name LIKE "%Potter%" OR description LIKE "Potter")';
-		/*if($category != ""){
-			$select .= " category = 
-							(SELECT id 
-							FROM category 
-							WHERE name = $category) AND (name LIKE '%$keyword%' OR decription LIKE '%$keyword%')";
-			
+		$select = "SELECT * FROM item WHERE ";
+		$categoryQuote = $this->_connection->quote($category);
+		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
+		if($category != ""){
+			if($keyword != ""){
+				$this->_whereClause .= "WHERE t1.category = 
+							(SELECT c.id 
+							FROM category c
+							WHERE c.name = $categoryQuote) AND (t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote)";
+			}else{
+				$this->_whereClause .= "WHERE t1.category = 
+							(SELECT c.id 
+							FROM category c
+							WHERE c.name = $categoryQuote)";
+			}
 		}else{
 			if($keyword != ""){
-				$select .= " name LIKE '%$keyword%' OR decription LIKE '%$keyword%'";
+				$this->_whereClause .= "WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote";
 			}
-		}*/
+		}
+
+		return $this->getDisplayInfo();
 
 		/*$stmt = $this->_connection->prepare($select);
         $stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
+		
 		$returnVal = [];
         while($rec = $stmt->fetch()){
             $returnVal[] = $rec;
         }
-        return $returnVal;*/
+		return $returnVal;
+		return $stmt;*/
 	}
 }
 ?>

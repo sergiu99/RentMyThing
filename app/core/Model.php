@@ -142,6 +142,6 @@ class Model{
 		$delete = "DELETE FROM $this->_className WHERE $this->_PKName = :$this->_PKName";
         $stmt = $this->_connection->prepare($delete);
         $stmt->execute(array($this->_PKName=>$this->{$this->_PKName}));
-	}
+    }
 }
 ?>

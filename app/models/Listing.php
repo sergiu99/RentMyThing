@@ -30,6 +30,42 @@ public function getDisplayInfo(){
             $returnVal[] = $rec;
         }
         return $returnVal;
-    }
+	}
+	
+	public function search($category, $keyword){
+		$select = "SELECT * FROM item WHERE ";
+		$categoryQuote = $this->_connection->quote($category);
+		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
+		if($category != ""){
+			if($keyword != ""){
+				$this->_whereClause .= "WHERE t1.category = 
+							(SELECT c.id 
+							FROM category c
+							WHERE c.name = $categoryQuote) AND (t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote)";
+			}else{
+				$this->_whereClause .= "WHERE t1.category = 
+							(SELECT c.id 
+							FROM category c
+							WHERE c.name = $categoryQuote)";
+			}
+		}else{
+			if($keyword != ""){
+				$this->_whereClause .= "WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote";
+			}
+		}
+	
+		return $this->getDisplayInfo();
+	
+		/*$stmt = $this->_connection->prepare($select);
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
+		
+		$returnVal = [];
+		while($rec = $stmt->fetch()){
+			$returnVal[] = $rec;
+		}
+		return $returnVal;
+		return $stmt;*/
+	}
 }
 ?>
