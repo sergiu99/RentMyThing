@@ -1,34 +1,49 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
 <br>
-<h1>Listings</h1></br>
 <form method="post" action="/Listings/search" class="form-inline">
-<div class="form-group">
-<label for="categories">Search for &nbsp;</label>
-<select class="form-control" id="category" name="category">
+<div class="form-group" id="searchForm">
+
+<label for="type">Search for &nbsp;</label>
 	<?php
-		$category = $data['category'];
-		if($category != ""){
-			echo "<option disabled>Category $category</option>";
-			foreach($data['categories'] as $aCategory){
-				if($aCategory->name == $category){
-					echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
-				}else{
+		if($data['type'] == "listings"){
+			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
+					<option value='listings'>Listings</option>
+					<option value='users'>Users</option>
+				</select>&nbsp;&nbsp;with keyword&nbsp;";
+
+			$keyword = $data['keyword'];
+			if($keyword != ""){ 
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='$keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
+			}else{
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
+			}
+
+			echo "<select class='form-control' id='category' name='category'>";
+			$category = $data['category'];
+			if($category != ""){
+				echo "<option disabled>Category $category</option>";
+				foreach($data['categories'] as $aCategory){
+					if($aCategory->name == $category){
+						echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
+					}else{
+						echo "<option value='$aCategory->name'>$aCategory->name</option>";
+					}
+				}
+			}else{
+				echo "<option disabled selected>Category</option>";
+				foreach($data['categories'] as $aCategory){
 					echo "<option value='$aCategory->name'>$aCategory->name</option>";
 				}
 			}
+			echo "</select>";
 		}else{
-			echo "<option disabled selected>Category</option>";
-			foreach($data['categories'] as $aCategory){
-				echo "<option value='$aCategory->name'>$aCategory->name</option>";
-			}
-		}
-		echo "</select>";
-		if(isset($data['keyword'])){ 
-			$keyword = $data['keyword'];
-			echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='$keyword'/>";
-		}else{
-			echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>";
+			echo "<label for='type'>Search for &nbsp;</label>"
+			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
+					<option value='users'>Users</option>
+					<option value='listings'>Listings</option>
+				</select>&nbsp;&nbsp;with keyword&nbsp;";
+			
 		}
 	?>
 </div>
@@ -36,10 +51,9 @@
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='Search'/>
 </div>
 </form>
-<br>
-
-
+</br>
 	<?php
+	echo "<h2></h2><br>";
 	if(count($data['items']) > 0){
 		echo "<table class='table table-striped'>
 				<tr>
@@ -70,4 +84,31 @@
 	?>
 </div>
 </body>
+
+<script type="text/javascript">
+	var categories = "<?php 
+						$categories = "";
+						foreach($data['categories'] as $aCategory){
+							$categories .= "<option value='$aCategory->name'>$aCategory->name</option>";
+						}
+						echo $categories;
+					?>";
+	function selectChange(){
+		if(document.getElementById("type").value == "listings"){
+			document.getElementById("searchForm").action="/Listings/search";
+			document.getElementById("searchForm").innerHTML="<label for='type'>Search for &nbsp;</label>";
+			document.getElementById("searchForm").innerHTML+="<select class='form-control' id='type' name='type' onchange='selectChange()'><option value='listings'>Listings</option><option value='users'>Users</option></select>&nbsp;&nbsp;with keyword&nbsp;";
+			document.getElementById("searchForm").innerHTML+="<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
+			var selectCategoryList = "<select class='form-control' id='category' name='category'><option disabled selected>Category</option>" + categories + "</select>";
+			document.getElementById("searchForm").innerHTML+= selectCategoryList;
+		}else{
+			document.getElementById("searchForm").innerHTML='';
+			document.getElementById("searchForm").action="/Profile/search";
+			document.getElementById("searchForm").innerHTML="<label for='type'>Search for &nbsp;</label>";
+			document.getElementById("searchForm").innerHTML+="<select class='form-control' id='type' name='type' onchange='selectChange()'><option value='users'>Users</option><option value='listings'>Listings</option></select>&nbsp;&nbsp;with keyword&nbsp;";
+			document.getElementById("searchForm").innerHTML+="<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>";
+		}
+	}
+</script>
+
 </html>

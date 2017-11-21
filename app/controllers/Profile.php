@@ -57,5 +57,14 @@ class Profile extends Controller{
 
 		$this->index();
 	}
+
+	function search(){
+		$keyword = $_POST['keyword'];
+		$anItem = $this->model('User');
+		$searchUsers = $anItem->where('display_name', 'LIKE', "%$keyword%");
+		$aCategory = $this->model('Category');
+		$categories = $aCategory->get();
+		$this->view('Listings/index',['items'=>$searchUsers, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Users"]);
+	}
 }
 ?>

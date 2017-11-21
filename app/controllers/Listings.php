@@ -8,7 +8,7 @@ class Listings extends Controller{
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
 		
-		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>""]);
+		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings"]);
 	}
 
 	function search(){
@@ -26,7 +26,7 @@ class Listings extends Controller{
 		$searchItems = $anItem->search($category, $keyword);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword]);
+		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'type'=>"Listings"]);
 	}
 
 	
