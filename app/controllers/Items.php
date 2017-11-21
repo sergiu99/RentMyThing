@@ -57,7 +57,11 @@ class Items extends Controller{
 		$newItem = $this->model('Item');
 		
 		$userId =  $_SESSION['userID'];
+
+         // ** TO WORK ON IT
+		//if($userId == $_POST['user_id']){
 		$newItem = $newItem->find($id);
+
 		$newItem->user_id = $userId;
 		$newItem->status = 'enabled';
 		$newItem->name = $_POST['name'];
@@ -68,7 +72,7 @@ class Items extends Controller{
 			$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
 		}
 		$newItem->update();
-
+	//}
 		header("location:/Items");
 		} else {
 			$aItem = $this->model('Item');

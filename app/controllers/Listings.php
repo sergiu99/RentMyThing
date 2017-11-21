@@ -64,8 +64,10 @@ class Listings extends Controller{
 
 
 		$newRental->total = $total;
+
+		if ($total > 0){
 		$newRental = $newRental->insert();
-		
+		}
 		
 		header("location:/Rentals");
 		} else {
