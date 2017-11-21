@@ -5,10 +5,10 @@ class Listings extends Controller{
 	function index(){
 		$aItem = $this->model('Listing');
 		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo();
-		$category = $this->model('Category');
-		    $category = $category->get();
+		$aCategory = $this->model('Category');
+		$categories = $aCategory->get();
 		
-		$this->view('Listings/index',['items'=>$myItems, 'category'=>$category]);
+		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>""]);
 	}
 
 	function search(){
@@ -17,12 +17,16 @@ class Listings extends Controller{
 		}else{
 			$category = "";
 		}
-		$keyword = $_POST['keyword'];
+		if(isset($_POST['keyword'])){
+			$keyword = $_POST['keyword'];
+		}else{
+			$keyword = "";
+		}
 		$anItem = $this->model('Listing');
 		$searchItems = $anItem->search($category, $keyword);
-		$category = $this->model('Category');
-		$categories = $category->get();
-		$this->view('Listings/index',['items'=>$searchItems, 'category'=>$categories]);
+		$aCategory = $this->model('Category');
+		$categories = $aCategory->get();
+		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword]);
 	}
 
 	
