@@ -1,49 +1,23 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
 <br>
-	<?php
-			echo "<form method='post' action='/Listings/search' class='form-inline' id='searchAction'>
-					<div class='form-group' id='searchForm'>
-						<label for='type'>Search for &nbsp;</label>";
-			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
-					<option value='listings'>Listings</option>
-					<option value='users'>Users</option>
-				</select>&nbsp;&nbsp;with keyword&nbsp;";
-
-			$keyword = $data['keyword'];
-			if($keyword != ""){ 
-				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='$keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
-			}else{
-				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
-			}
-
-			echo "<select class='form-control' id='category' name='category'>";
-			$category = $data['category'];
-			if($category != ""){
-				echo "<option disabled>Category $category</option>";
-				foreach($data['categories'] as $aCategory){
-					if($aCategory->name == $category){
-						echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
-					}else{
-						echo "<option value='$aCategory->name'>$aCategory->name</option>";
-					}
-				}
-			}else{
-				echo "<option disabled selected>Category</option>";
-				foreach($data['categories'] as $aCategory){
-					echo "<option value='$aCategory->name'>$aCategory->name</option>";
-				}
-			}
-			echo "</select>";
-	?>
+<form method="post" action="/Profile/search" class="form-inline" id="searchAction">
+	<div class="form-group" id="searchForm">
+		<label for="type">Search for &nbsp;</label>
+        <select class="form-control" id="type" name="type" onchange="selectChange()">
+			<option value="users">Users</option>
+			<option value="listings">Listings</option>
+		</select>&nbsp;&nbsp;with keyword&nbsp;
+		<input style="margin-left: 10px;" type="text" class="form-control" name="keyword" id="keyword" placeholder="Keyword"/>
 </div>
 <div class="form-group">
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
 </div>
 </form>
-<h2>Listing</h2><br>
+<br><h2>Users</h2><br>
 </br>
 	<?php
+    //TODO Display users
 	if(count($data['items']) > 0){
 		echo "<table class='table table-striped'>
 				<tr>
@@ -69,11 +43,12 @@
 		}
 		echo "</table>";
 	}else{
-		echo "<h3>No listings were found!</h3>";
+		echo "<h3>No users were found!</h3>";
 	}
 	?>
 </div>
 </body>
+
 <script type="text/javascript">
 	var categories = "<?php 
 						$categories = "";

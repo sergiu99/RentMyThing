@@ -64,7 +64,7 @@ class Profile extends Controller{
 		$searchUsers = $anItem->where('display_name', 'LIKE', "%$keyword%");
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$this->view('Listings/index',['items'=>$searchUsers, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Users"]);
+		$this->view('Profile/search',['items'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword]);
 	}
 }
 ?>
