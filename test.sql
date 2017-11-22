@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2017 at 08:48 PM
+-- Generation Time: Nov 22, 2017 at 06:45 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -175,8 +175,7 @@ CREATE TABLE `user` (
   `last_name` varchar(50) DEFAULT NULL,
   `phone_number` int(10) DEFAULT NULL,
   `join_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `number_address` varchar(20) DEFAULT NULL,
-  `street_address` varchar(50) DEFAULT NULL,
+  `street_address` varchar(255) DEFAULT NULL,
   `city_address` varchar(20) DEFAULT NULL,
   `postal_code_address` varchar(6) NOT NULL,
   `province_address` varchar(20) DEFAULT NULL,
@@ -189,11 +188,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `number_address`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`) VALUES
-(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', 0, '2017-10-26 18:58:20', '', '', '', '', '', 0, 0, 0),
-(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', 0, '2017-10-26 18:58:20', '', '', '', '', '', 0, 0, 0),
-(5, 'user3@yahoo.com', 'dasd', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'dasd', 'asdsad', 234234, '2017-10-26 19:40:24', 'asdasd', '', '', 'h4b1t2', '', 0, 0, 0),
-(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'fiasdmo', 'asddalsdlsad', 2147483647, '2017-10-30 18:21:15', '123123', '124213', 'montreal', 'h4b2w8', 'qyebec', 0, 0, 0);
+INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`) VALUES
+(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0),
+(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0),
+(5, 'user3@yahoo.com', 'dasd', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'dasd', 'asdsad', 234234, '2017-10-26 19:40:24', 'asdasd ', '', 'h4b1t2', '', 0, 0, 0),
+(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'fiasdmo', 'asddalsdlsad', 2147483647, '2017-10-30 18:21:15', '123123 124213', 'montreal', 'h4b2w8', 'qyebec', 0, 0, 0),
+(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', 2147483647, '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -302,7 +302,7 @@ ALTER TABLE `rental`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
