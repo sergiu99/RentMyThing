@@ -35,11 +35,7 @@
 	<input type="number" class="form-control" name="phone_number" id="phone_number" />
 	</div>
 	<div class="form-group">
-	<label for="username">Street Number</label>
-	<input type="text" class="form-control" name="number_address" id="number_address" />
-	</div>
-	<div class="form-group">
-	<label for="username">Street Name</label>
+	<label for="username">Street Address</label>
 	<input type="text" class="form-control" name="street_address" id="street_address" />
 	</div>
 	<div class="form-group">
@@ -57,7 +53,6 @@
 	<div class="form-group">
 	<input type="submit" class="btn btn-default" name="action" value="Register" />
 	</div>
-
 </form>
 
 

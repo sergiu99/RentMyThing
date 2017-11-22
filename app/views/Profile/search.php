@@ -17,29 +17,36 @@
 <br><h2>Users</h2><br>
 </br>
 	<?php
-    //TODO Display users
-	if(count($data['items']) > 0){
+	$count = count($data['users']);
+	if($count > 0){
 		echo "<table class='table table-striped'>
 				<tr>
 					<th>Name</th>
-					<th>Image</th>
-					<th>Description</th>
-					<th>Price</th>
-					<th>Category</th>
+					<th>Joined On</th>
+					<th>Listings posted</th>
+					<th>Phone Number</th>
+					<th>Address</th>
 					<th>Postal Code</th>
-					<th>Rating</th>
-					<th>Action</th>
 				</tr>";
-		foreach($data['items'] as $item){
-			echo "<tr><td>$item->name</td>";
-			echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
-			echo "<td>$item->description</td>";
-			echo "<td>$ $item->price</td>";
-			echo "<td>$item->category</td>";
-			$postalcode = strtoupper ($item->postal_code);
-			echo "<td>$postalcode</td>";	
-			echo "<td>$item->rating</td>";
-			echo "<td><a href='/Listings/viewItem/$item->id'>View</a></td>";
+		foreach($data['users'] as $user){
+			echo "<tr><td><a href='/Profile/viewUser/$user->id'>$user->display_name</a></td>";
+			echo "<td>$user->join_date</td>";
+			echo "<td>$user->count</td>";
+			if($user->phone_number == ""){
+				echo "<td>Not Available</td>";
+			}else{
+				echo "<td>$user->phone_number</td><tr>";
+			}
+			$address = "";
+			if($user->street_address != ""){
+				$address = $user->street_address;
+			}
+			if($address == ""){
+				$address ==  $user->city_address . ', ' . $user->province_address;
+			}else{
+				$address .=  ', ' . $user->city_address . ', ' . $user->province_address;
+			}
+			echo "<tr><td>$user->postal_code_address</td>";
 		}
 		echo "</table>";
 	}else{

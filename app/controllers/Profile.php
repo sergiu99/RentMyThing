@@ -60,11 +60,19 @@ class Profile extends Controller{
 
 	function search(){
 		$keyword = $_POST['keyword'];
-		$anItem = $this->model('User');
-		$searchUsers = $anItem->where('display_name', 'LIKE', "%$keyword%");
+		$aUser = $this->model('User');
+		$searchUsers = $aUser->search($keyword);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$this->view('Profile/search',['items'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword]);
+		$this->view('Profile/search',['users'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword]);
+	}
+
+	function details(){
+
+	}
+
+	function getUserDetails(){
+		
 	}
 }
 ?>

@@ -10,7 +10,6 @@ class User extends Model
 	public $password;
 	public $phone_number;
 	public $join_date;
-	public $number_address;
 	public $street_address;
 	public $city_address;
 	public $postal_code_address;
@@ -28,6 +27,19 @@ class User extends Model
             $returnVal = $rec["password"];
         }
         return $returnVal;
+	}
+
+	function search($keyword){
+		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
+		$select = "SELECT u.id, u.display_name, u.phone_number, u.street_address, u.city_address, u.postal_code_address, u.province_address, (SELECT COUNT(i.id) FROM item i WHERE i.user_id = u.ID) as count FROM user u WHERE u.display_name LIKE $keywordQuote";
+		$stmt = $this->_connection->prepare($select);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
+        $returnVal = [];
+        while($rec = $stmt->fetch()){
+			$returnVal[] = $rec;
+		}
+		return $returnVal;
 	}
 }
 
