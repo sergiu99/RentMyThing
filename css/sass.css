@@ -1,4 +1,13 @@
 @import 'bootstrap-4.0.0-beta.1';
+#contactdiv {
+       bottom: 0;
+       right: 0;
+       position: fixed;
+       z-index: 3000;
+       padding-right: 30px;
+       padding-bottom: 10px;
+        }
+
 body > * {
   background-size: cover;
 }

@@ -8,12 +8,19 @@
 <div class="container-fluid">
 	<div class="row">
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Renting from others</a></li>
-  <li><a data-toggle="tab" href="#menu2">Renting to others</a></li>
-   <li><a data-toggle="tab" href="#menu1">Proposals to you</a></li>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#home">Renting from others</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"  data-toggle="tab" href="#menu2">Renting to others</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu1">Proposals to you</a>
+  </li>
 </ul>
 
+<br>
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
   	<br>

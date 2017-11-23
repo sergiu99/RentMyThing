@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2017 at 06:45 PM
+-- Generation Time: Nov 23, 2017 at 08:01 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -115,7 +115,8 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `user_id`, `name`, `description`, `image_path`, `price`, `category`, `rating`, `status`) VALUES
-(1, 5, 'Harry Potter', 'its a book', 'book1.jpg', 1, 13, NULL, 'enabled');
+(1, 5, 'Harry Potter', 'its a book', 'images/book.png', 1, 13, NULL, 'enabled'),
+(2, 6, 'Jigly Book', 'iz a book', 'images/noimage.png', 40, 18, NULL, 'enabled');
 
 -- --------------------------------------------------------
 
@@ -158,6 +159,27 @@ CREATE TABLE `rental` (
   `end_date` date NOT NULL,
   `total` int(11) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rental`
+--
+
+INSERT INTO `rental` (`id`, `user_id`, `item_id`, `start_date`, `end_date`, `total`, `status`) VALUES
+(2, 6, 1, '2017-11-23', '2017-11-17', 7, 'pending'),
+(3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket`
+--
+
+CREATE TABLE `ticket` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -252,6 +274,12 @@ ALTER TABLE `rental`
   ADD KEY `rental_item_id_fk` (`item_id`);
 
 --
+-- Indexes for table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -282,7 +310,7 @@ ALTER TABLE `favorite`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `message`
 --
@@ -297,7 +325,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --

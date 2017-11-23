@@ -14,6 +14,10 @@
 <style type="text/css">
 </style>
 <body>
+<div id="contactdiv">
+  <a href="#" class="btn btn-danger" role="button">Need Help?</a>
+</div>
+
   <nav id="navbar" class="navbar navbar-expand-md bg-primary navbar-dark">
     <div class="container">
       <a class="navbar-brand" href="#"><i class="fa d-inline fa-lg fa-cloud"></i><b>&nbsp;RentMyThing</b></a>
