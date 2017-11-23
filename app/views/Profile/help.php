@@ -11,13 +11,13 @@
 	</div>
 	<div class="form-group">
 	<label for="description">Description</label>
-	<input type="text" class="form-control" required="true" name="description" id="description" />
+	<textarea rows="4" type="text" class="form-control" required="true" name="description" id="description"></textarea>
 	</div>
-	<div class="form-group">
+	<div class="form-group  row col-sm-3">
 <label for="urgency">Urgency</label> <br>
-<select class="custom-select" name="urgency" id="urgency">
+<select class="form-control" name="urgency" required="true" id="urgency">
   <option value="High">High</option>
-  <option value="Mediocre">Medium</option>
+  <option value="Medium">Medium</option>
   <option value="Low">Low</option>
 </select>
 </div>

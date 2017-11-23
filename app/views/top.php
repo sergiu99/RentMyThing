@@ -15,12 +15,12 @@
 </style>
 <body>
 <div id="contactdiv">
-  <a href="#" class="btn btn-danger" role="button">Need Help?</a>
+  <a href="/Profile/contactUs" class="btn btn-danger" role="button">Need Help?</a>
 </div>
 
   <nav id="navbar" class="navbar navbar-expand-md bg-primary navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="#"><i class="fa d-inline fa-lg fa-cloud"></i><b>&nbsp;RentMyThing</b></a>
+      <a class="navbar-brand" href="/Listings"><i class="fa d-inline fa-lg fa-cloud"></i><b>&nbsp;RentMyThing</b></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false"
         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
