@@ -11,7 +11,11 @@
         function getChatText() {
             $.ajax({
                 type: "GET",
+<<<<<<< HEAD
                 url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&receiverID=" + document.getElementByID("chatInput").name;
+=======
+                url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&receiver=" + ;
+>>>>>>> 94d309d56f102b4905c04ba3860817769d426061
             }).done( function( data )
             {
                 var jsonData = JSON.parse(data);
@@ -41,8 +45,12 @@
     <div id="view_ajax"></div>
     <div id="ajaxForm">
     <?php 
+<<<<<<< HEAD
         $receiver = $data['receiver'];
         echo "<input type='text' id='chatInput' name='$receiver'/><input type='button' value='Send' id='btnSend'/>";
+=======
+        echo "<input type='text' id='chatInput' /><input type='button' value='Send' id='btnSend' name=''/>";
+>>>>>>> 94d309d56f102b4905c04ba3860817769d426061
     ?>
     </div>
   </body>
