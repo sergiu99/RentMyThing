@@ -41,8 +41,7 @@
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
 </div>
 </form>
-<h2>Listings</h2><br>
-</br>
+<br><h2>Listings</h2><br>
 	<?php
 	if(count($data['items']) > 0){
 		echo "<table class='table table-striped'>
