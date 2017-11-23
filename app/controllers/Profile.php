@@ -91,6 +91,15 @@ class Profile extends Controller{
 	function contactUs(){
 		if(isset($_POST['title']) && isset($_POST['description']) && isset($_POST['urgency'])){
 
+		$userId =  $_SESSION['userID'];
+		$newItem = $this->model('Ticket');
+		$newItem->user_id = $userId;
+		$newItem->title = $_POST['title'];
+		$newItem->description = $_POST['description'];
+		$newItem->urgency = $_POST['urgency'];
+		$newItem->status = "open";
+		$newId = $newItem->insert();
+		header("location:/Listings");
 		} else { 
 				$this->view('Profile/help');
 		}
