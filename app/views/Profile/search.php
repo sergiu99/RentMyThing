@@ -23,7 +23,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Joined On</th>
-					<th>Listings posted</th>
+					<th>Listings Posted</th>
 					<th>Phone Number</th>
 					<th>Address</th>
 					<th>Postal Code</th>
@@ -35,7 +35,7 @@
 			if($user->phone_number == ""){
 				echo "<td>Not Available</td>";
 			}else{
-				echo "<td>$user->phone_number</td><tr>";
+				echo "<td>$user->phone_number</td>";
 			}
 			$address = "";
 			if($user->street_address != ""){
@@ -46,7 +46,8 @@
 			}else{
 				$address .=  ', ' . $user->city_address . ', ' . $user->province_address;
 			}
-			echo "<tr><td>$user->postal_code_address</td>";
+			echo "<td>$address</td>";
+			echo "<td>$user->postal_code_address</td></tr>";
 		}
 		echo "</table>";
 	}else{

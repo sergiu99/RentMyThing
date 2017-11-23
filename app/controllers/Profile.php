@@ -67,12 +67,12 @@ class Profile extends Controller{
 		$this->view('Profile/search',['users'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword]);
 	}
 
-	function details(){
-
-	}
-
-	function getUserDetails(){
-		
+	function viewUser($id){
+		$aUser = $this->model('User');
+		$theUser = $aUser->find($id);
+		$anItem = $this->model('Item');
+		$userListings = $anItem->where('user_id','=',$id);
+		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings]);
 	}
 }
 ?>

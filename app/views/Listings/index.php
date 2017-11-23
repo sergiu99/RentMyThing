@@ -41,7 +41,7 @@
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
 </div>
 </form>
-<h2>Listing</h2><br>
+<h2>Listings</h2><br>
 </br>
 	<?php
 	if(count($data['items']) > 0){
