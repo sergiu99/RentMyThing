@@ -123,7 +123,6 @@ class Model{
 		if ($num  > 0){
 			//update
 			$setClause = [];
-			
 			foreach($properties as $item){
                 if($item != "id"){
                     $setClause[] = sprintf('%s = :%s', $item, $item);
