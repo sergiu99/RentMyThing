@@ -4,6 +4,8 @@ class Ticket extends Model{
 	public $title;
 	public $description;
 	public $user_id;
+	public $urgency;
+	public $status;
 	public function __construct(){
 		parent::__construct();
 	}

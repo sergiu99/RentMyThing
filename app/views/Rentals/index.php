@@ -10,7 +10,7 @@
 
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#home">Renting from others</a>
+    <a class="nav-link active" data-toggle="tab" href="#home">Renting from others</a>
   </li>
   <li class="nav-item">
     <a class="nav-link"  data-toggle="tab" href="#menu2">Renting to others</a>
@@ -22,7 +22,7 @@
 
 <br>
 <div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
+  <div id="home" class="tab-pane fade in active show">
   	<br>
  <h3>Items that you are renting from others</h3>
 

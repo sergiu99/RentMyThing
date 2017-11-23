@@ -22,8 +22,6 @@ class Login extends Controller{
 			$user->display_name = $_POST['display_name'];
 			$user->password = password_hash($_POST['password'],PASSWORD_DEFAULT);
 			$user->phone_number = $_POST['phone_number'];
-			$user->join_date = $_POST['join_date'];
-			$user->number_address = $_POST['number_address'];
 			$user->street_address = $_POST['street_address'];
 			$user->city_address = $_POST['city_address'];
 			$user->postal_code_address = $_POST['postal_code_address'];

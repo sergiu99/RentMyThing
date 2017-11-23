@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2017 at 08:01 PM
+-- Generation Time: Nov 23, 2017 at 09:13 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -179,8 +179,20 @@ CREATE TABLE `ticket` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `urgency` varchar(10) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `title`, `description`, `urgency`, `user_id`, `status`) VALUES
+(2, 'I need yo help', 'check yo privliges son', 'Low', 6, ''),
+(3, 'fEEwf', 'SFSFD', 'Medium', 6, ''),
+(4, 'Kirill has pipi on his face', 'Help me  now!', 'High', 6, ''),
+(5, 'dsasdas', 'dasdasd', 'High', 6, 'open');
 
 -- --------------------------------------------------------
 
@@ -203,19 +215,22 @@ CREATE TABLE `user` (
   `province_address` varchar(20) DEFAULT NULL,
   `show_phone` tinyint(1) NOT NULL DEFAULT '0',
   `show_email` tinyint(1) NOT NULL DEFAULT '0',
-  `show_address` tinyint(1) NOT NULL DEFAULT '0'
+  `show_address` tinyint(1) NOT NULL DEFAULT '0',
+  `account_status` varchar(10) NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`) VALUES
-(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0),
-(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0),
-(5, 'user3@yahoo.com', 'dasd', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'dasd', 'asdsad', 234234, '2017-10-26 19:40:24', 'asdasd ', '', 'h4b1t2', '', 0, 0, 0),
-(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'fiasdmo', 'asddalsdlsad', 2147483647, '2017-10-30 18:21:15', '123123 124213', 'montreal', 'h4b2w8', 'qyebec', 0, 0, 0),
-(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', 2147483647, '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0);
+INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`, `account_status`) VALUES
+(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
+(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
+(5, 'user3@yahoo.com', 'dasd', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'dasd', 'asdsad', 234234, '2017-10-26 19:40:24', 'asdasd ', '', 'h4b1t2', '', 0, 0, 0, 'active'),
+(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'fiasdmo', 'asddalsdlsad', 2147483647, '2017-10-30 18:21:15', '123123 124213', 'montreal', 'h4b2w8', 'qyebec', 0, 0, 0, 'active'),
+(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', 2147483647, '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0, 'active'),
+(8, 'jiojdieoaijdo@hotmail.com', 'freddy kruegger', '$2y$10$1R631JdsO8s5ebXYF2jNWOvfqe3j92kT9p6PhvuElZ0lLi1Np8mZ.', 'Jerry', 'Brown', 2147483647, '2017-11-23 20:07:11', '4129943343 rehicashi', 'montreal', 'H4B2W9', 'quebec', 0, 0, 0, 'active'),
+(9, 'superman@yahoo.com', 'superman', '$2y$10$Fe.7c9ywliLriL32roexNuRWCglikXEE9pIo0JXYF/4CaAoIzWc7q', 'JERRY', 'krueg', 123213, '2017-11-23 20:07:38', '43', 'montreal', 'H4B2W9', 'quebec', 0, 0, 0, 'active');
 
 --
 -- Indexes for dumped tables
@@ -327,10 +342,15 @@ ALTER TABLE `notification`
 ALTER TABLE `rental`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --
