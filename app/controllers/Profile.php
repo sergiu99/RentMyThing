@@ -10,6 +10,7 @@ class Profile extends Controller{
 
 	function save(){
 		$updateUser = $this->model('User');
+		$updateUser = $updateUser->find($_SESSION['userID']);
 		$updateUser->id = $_SESSION['userID'];
 		$updateUser->display_name = $_POST['display_name'];
 		$updateUser->first_name = $_POST['first_name'];
@@ -45,12 +46,24 @@ class Profile extends Controller{
 
 		//TODO match passwords, update password
 		if($_POST['old_password'] != ""){
-			$password_hash = $updateUser->getPasswordHash();
+			$password_hash = $updateUser->password;
 			if(password_verify($_POST['old_password'], $password_hash)){
 				echo ("correct pass");
+				if($_POST['new_password'] != ""){
+					if($_POST['new_password'] == $_POST['confirm_password']){
+						echo "matching pass";
+						$updateUser->password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+					}else{
+						echo "pass do not match";
+					}
+				}else{
+					echo "empty new pass";
+				}
 			}else{
-				echo ("incorrect pass: " + $password_hash);
+				echo "incorrect pass";
 			}
+		}else{
+			echo "empty pass";
 		}
 
 		$updateUser->update();
@@ -70,8 +83,8 @@ class Profile extends Controller{
 	function viewUser($id){
 		$aUser = $this->model('User');
 		$theUser = $aUser->find($id);
-		$anItem = $this->model('Item');
-		$userListings = $anItem->where('user_id','=',$id);
+		$anItem = $this->model('Listing');
+		$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
 		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings]);
 	}
 }

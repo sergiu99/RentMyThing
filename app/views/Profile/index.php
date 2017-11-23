@@ -103,15 +103,15 @@
   <h6>Change Your Password: </h6>
   <div class="form-group">
     <label for="old_password">Old Password:</label>
-    <input type="text" class="form-control" id="old_password" name="old_password">
+    <input type="password" class="form-control" id="old_password" name="old_password">
   </div>
   <div class="form-group">
     <label for="new_password">New Password:</label>
-    <input type="text" class="form-control" id="new_password" name="new_password">
+    <input type="password" class="form-control" id="new_password" name="new_password">
   </div>
   <div class="form-group">
     <label for="confirm_password">Confirm New Password:</label>
-    <input type="text" class="form-control" id="confirm_password" name="confirm_password">
+    <input type="password" class="form-control" id="confirm_password" name="confirm_password">
   </div>
   <button type="submit" class="btn btn-default">Save Changes</button>
 </form>
