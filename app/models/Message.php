@@ -18,7 +18,11 @@ class Message extends Model
 		return $returnVal;
     }
 
+<<<<<<< HEAD
     function getNewMessages($user1, $user2, $lastId){
+=======
+    function getMessages($user1, $user2, $lastId){
+>>>>>>> 60515836c00f526af2e68dd8de565b5ce6800fe8
         $select = "SELECT * FROM message WHERE id >$lastId AND ((sender_id = $user1 AND rental_id = $user2) OR (sender_id = $user2 AND rental_id = $user1))";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();

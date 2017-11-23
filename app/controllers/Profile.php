@@ -87,5 +87,13 @@ class Profile extends Controller{
 		$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
 		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings]);
 	}
+
+	function contactUs(){
+		if(isset($_POST['title']) && isset($_POST['description']) && isset($_POST['urgency'])){
+
+		} else { 
+				$this->view('Profile/help');
+		}
+	}
 }
 ?>
