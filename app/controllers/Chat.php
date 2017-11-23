@@ -11,16 +11,14 @@ class Chat extends Controller
     }
 
     function sendMessage($message){
-
     }
 
-    function getNewMessages($lastId){
+    function getNewMessages(){
+        $id = intval( $_GET['lastTimeID'] );
+        $receiver = intval($_GET['receiverID']);
         $aMessage = $this->model('Message');
-<<<<<<< HEAD
         $newMessages = $aMessage->getNewMessages($lastId, $_SESSION['userID'], $receiver);
-=======
-        $newMessages = $aMessage->getMessages($lastId, $_SESSION['userID'], $receiver);
->>>>>>> 60515836c00f526af2e68dd8de565b5ce6800fe8
+        echo var_dump($newMessages);
     }
 }
 ?>
