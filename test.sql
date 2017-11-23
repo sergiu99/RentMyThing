@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2017 at 08:01 PM
+-- Generation Time: Nov 23, 2017 at 08:57 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -179,8 +179,20 @@ CREATE TABLE `ticket` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `urgency` varchar(10) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `title`, `description`, `urgency`, `user_id`, `status`) VALUES
+(2, 'I need yo help', 'check yo privliges son', 'Low', 6, ''),
+(3, 'fEEwf', 'SFSFD', 'Medium', 6, ''),
+(4, 'Kirill has pipi on his face', 'Help me  now!', 'High', 6, ''),
+(5, 'dsasdas', 'dasdasd', 'High', 6, 'open');
 
 -- --------------------------------------------------------
 
@@ -326,6 +338,11 @@ ALTER TABLE `notification`
 --
 ALTER TABLE `rental`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --
