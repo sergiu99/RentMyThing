@@ -1,7 +1,6 @@
 <html>
   <head>
     <!-- https://www.phpclasses.org/blog/package/3213/post/1-Tutorial-on-Creating-an-AJAX-based-Chat-system-in-PHP.html -->
-
     <title>Chat Room Example</title>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">

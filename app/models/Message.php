@@ -6,7 +6,7 @@ class Message extends Model
     public $sender_id;
     public $created_on;
 
-    public getConversation($user1, $user2){
+    public getMessages($user1, $user2){
         $select = "SELECT * FROM message WHERE (sender_id = $user1 AND rental_id = $user2) OR (sender_id = $user2 AND rental_id = $user1)";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
@@ -18,8 +18,12 @@ class Message extends Model
 		return $returnVal;
     }
 
-    public getNewMessages(){
+    public getNewMessages($lastId){
         
+    }
+
+    public postMessage($sender, $receiver){
+
     }
 }
 ?>
