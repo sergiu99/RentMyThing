@@ -61,12 +61,21 @@ class Listings extends Controller{
 		$diff = date_diff($date1,$date2);
 		$datediff = $diff->format("%a");
 		$total = ($datediff + 1) * $pricePerDay;
-
-
+		
+		$date = new DateTime();
+		$date->format('Y-m-d H:i:s');
+		$newNotification = $this->model('Notification');
+		$newNotification->user_id = $aItem->user_id;
+		$contentt = 'Someone wants to rent your '. $aItem->name .' item.';
+		$newNotification->content = $contentt;
+		$newNotification->created_on = "dsda";
+		$newNotification->redirect = "dsda";
+ 
 		$newRental->total = $total;
 
-		if ($total > 0){
+		if ($endDate > $startDate){
 		$newRental = $newRental->insert();
+		$newNotification = $newNotification->insert();
 		}
 		
 		header("location:/Rentals");
