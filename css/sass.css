@@ -8,9 +8,39 @@
        padding-bottom: 10px;
         }
 
-body > * {
-  background-size: cover;
+
+#chatDiv {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: 3000;
+  margin-right: 500px;
+  width: 300px;
+  padding-bottom: 10px;
+  border:  1.5px solid black;
 }
+
+#view_ajax{
+  max-height: 400px;
+  overflow-x:hidden;
+  overflow-y: scroll;
+}
+
+.chatLine{
+  max-width: 250px;
+  border-radius: 5px;
+  border:  1px solid blue;
+  word-wrap: break-word;
+}
+
+.my-message {
+  background: green;
+}
+
+.other-message {
+  background: skyblue;
+}
+
 .opaque-overlay {
   overflow: hidden;
   position: relative;

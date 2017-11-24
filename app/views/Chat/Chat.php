@@ -22,10 +22,13 @@
                 var html = "";
                 for (var i = 0; i < jsonLength; i++) {
                     var message = messages.results[i];
-                    html += "<p>" + message.created_on + ": <strong>" + message.sender_id + "</strong> " + message.content + "</p>";
+                    html += "<p>Sent on: " + message.created_on + "</p>";
+                    html += "<p class='chatLine'>" + message.content + "</p>";
                     lastTimeID = message.id;
                 }
-                 $('#view_ajax').append(html);
+                $('#view_ajax').append(html);
+                var objDiv = document.getElementById("view_ajax");
+                objDiv.scrollTop = objDiv.scrollHeight;
             });
         }
         
@@ -43,12 +46,15 @@
             }
         }
     </script>
-    <div id="view_ajax"></div>
+    <div id="chatDiv">
+        <h5 style="width:100%">Chat</h5>
+        <div id="view_ajax"></div>
+        <?php 
+            $receiver = $data['receiver'];
+            echo "<input type='text' id='chatInput' name='$receiver'/><input type='button' value='Send' id='btnSend' onclick='sendChatText()'/>";
+        ?>
+    </div>
     <div id="ajaxForm">
-    <?php 
-        $receiver = $data['receiver'];
-        echo "<input type='text' id='chatInput' name='$receiver'/><input type='button' value='Send' id='btnSend' onclick='sendChatText()'/>";
-    ?>
     </div>
   </body>
 </html>
