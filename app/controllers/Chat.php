@@ -4,10 +4,11 @@ class Chat extends Controller
     function index(){
         $this->view('Listings/index');
     }
-    function Conversation($receiver){
+    function Conversation($rentalId){
         $aMessage = $this->model('Message');
-        $conversation = $aMessage->getMessages($_SESSION['userID'], $receiver);
-        $this->view('Chat/Chat', ['conversation'=>$conversation, 'receiver'=>$receiver]);
+        $conversation = $aMessage->getMessages($_SESSION['userID'], $rentalId);
+        echo var_dump($conversation);
+        $this->view('Chat/Chat', ['conversation'=>$conversation, 'this_user'=>$_SESSION['userID'], 'receiver'=>$receiver]);
     }
 
     function sendMessage(){

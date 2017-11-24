@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2017 at 09:14 PM
+-- Generation Time: Nov 24, 2017 at 07:01 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -128,8 +128,48 @@ CREATE TABLE `message` (
   `id` int(11) NOT NULL,
   `rental_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `content` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `rental_id`, `sender_id`, `created_on`, `content`) VALUES
+(1, 2, 7, '2017-11-24 16:42:38', 'fgdfg'),
+(2, 2, 7, '2017-11-24 16:42:42', 'gfhfgh'),
+(3, 2, 7, '2017-11-24 16:58:10', 'hello'),
+(4, 2, 7, '2017-11-24 16:58:14', 'hello'),
+(5, 2, 7, '2017-11-24 16:58:39', 'hello'),
+(6, 2, 7, '2017-11-24 17:15:08', 'sdfsdf'),
+(7, 2, 7, '2017-11-24 17:30:37', 'dfhfhjg'),
+(8, 2, 7, '2017-11-24 17:30:39', 'ghjghj'),
+(9, 2, 7, '2017-11-24 17:30:56', 'gfhfghffgh'),
+(10, 2, 7, '2017-11-24 17:30:57', 'hfghfg'),
+(11, 2, 7, '2017-11-24 17:30:58', 'fghfgh'),
+(12, 2, 7, '2017-11-24 17:30:59', 'fghfgh'),
+(13, 2, 7, '2017-11-24 17:31:03', 'fgjghjg'),
+(14, 2, 7, '2017-11-24 17:31:04', 'ghjgh'),
+(15, 2, 7, '2017-11-24 17:31:07', 'ghjfgf'),
+(16, 2, 7, '2017-11-24 17:31:11', 'fghfhjgd'),
+(17, 2, 7, '2017-11-24 17:31:14', 'hfghfg'),
+(18, 2, 7, '2017-11-24 17:31:16', 'sds'),
+(19, 2, 7, '2017-11-24 17:31:18', 'fgdf'),
+(20, 2, 7, '2017-11-24 17:31:22', 'sdfsd'),
+(21, 2, 7, '2017-11-24 17:31:24', 'dfgdfg'),
+(22, 2, 7, '2017-11-24 17:31:25', 'sdfsdf'),
+(23, 2, 7, '2017-11-24 17:31:26', 'sdfsdf'),
+(24, 2, 7, '2017-11-24 17:31:28', 'sdfsdf'),
+(25, 2, 2, '2017-11-24 17:45:10', 'sdfsdf'),
+(26, 2, 7, '2017-11-24 17:31:30', 'sdfsdf'),
+(27, 2, 7, '2017-11-24 17:31:31', 'sdfsdf'),
+(28, 2, 7, '2017-11-24 17:31:32', 'sdfsdf'),
+(29, 2, 7, '2017-11-24 17:31:33', 'sdfsd'),
+(30, 2, 7, '2017-11-24 17:31:34', 'sdfsdf'),
+(31, 2, 7, '2017-11-24 17:31:36', 'sdfsd'),
+(32, 2, 7, '2017-11-24 17:34:59', ';drop table message;'),
+(33, 2, 2, '2017-11-24 17:40:49', 'msfsdjfgsdfashd');
 
 -- --------------------------------------------------------
 
@@ -167,7 +207,8 @@ CREATE TABLE `rental` (
 
 INSERT INTO `rental` (`id`, `user_id`, `item_id`, `start_date`, `end_date`, `total`, `status`) VALUES
 (2, 6, 1, '2017-11-23', '2017-11-17', 7, 'pending'),
-(3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted');
+(3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted'),
+(4, 7, 2, '2017-11-24', '2017-11-27', 160, 'pending');
 
 -- --------------------------------------------------------
 
@@ -330,7 +371,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `notification`
 --
@@ -340,7 +381,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ticket`
 --

@@ -7,8 +7,8 @@ class Message extends Model
     public $created_on;
     public $content;
 
-    function getMessages($user1, $user2){
-        $select = "SELECT * FROM message WHERE (sender_id = $user1 AND rental_id = $user2) OR (sender_id = $user2 AND rental_id = $user1)";
+    function getMessages($user1, $rentalId){
+        $select = "SELECT * FROM message WHERE id = $rentalId";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);

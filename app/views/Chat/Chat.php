@@ -22,12 +22,16 @@
                 var html = "";
                 for (var i = 0; i < jsonLength; i++) {
                     var message = messages.results[i];
-                    html += "<p>Sent on: " + message.created_on + "</p>";
-                    html += "<p class='chatLine'>" + message.content + "</p>";
+                    html += "<li class='clearfix'><div class='message-data align-right'><span class='message-data-time'>" + message.created_on + "</span></div>";
+                    if(message.sender == <?php echo $data['this_user']?>){
+                        html += "<div class='message my-message float-right'>" + message.content + "</div></li>";
+                    }else{
+                        html += "<div class='message other-message float-left'>" + message.content + "</div></li>";
+                    }
                     lastTimeID = message.id;
                 }
                 $('#view_ajax').append(html);
-                var objDiv = document.getElementById("view_ajax");
+                var objDiv = document.getElementById("chat_history");
                 objDiv.scrollTop = objDiv.scrollHeight;
             });
         }
@@ -47,12 +51,19 @@
         }
     </script>
     <div id="chatDiv">
-        <h5 style="width:100%">Chat</h5>
-        <div id="view_ajax"></div>
-        <?php 
-            $receiver = $data['receiver'];
-            echo "<input type='text' id='chatInput' name='$receiver'/><input type='button' value='Send' id='btnSend' onclick='sendChatText()'/>";
-        ?>
+        <h5 style="width:100%; padding:5px">Chat</h5>
+        <div id="chat_history">
+            <ul id="view_ajax">
+
+            </ul>
+        </div>
+        <div id="send_div">
+            <?php 
+                $receiver = $data['$receiver'];
+                echo "<input type='text' id='chatInput' name='$receiver' style='width:80%'/>";
+            ?>
+            <input type="button" value="Send" id="btnSend" onclick="sendChatText()"/>
+        </div>
     </div>
     <div id="ajaxForm">
     </div>
