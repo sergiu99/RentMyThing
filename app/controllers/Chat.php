@@ -10,20 +10,24 @@ class Chat extends Controller
         $this->view('Chat/Chat', ['conversation'=>$conversation, 'receiver'=>$receiver]);
     }
 
-    function sendMessage($message){
+    function sendMessage(){
+        $receiver = $_GET['receiverID'];
+        $content = $_GET['content'];
+        $newMessage = $this->model('Message');
+        $newMessage->rental_id = $receiver;
+        $newMessage->sender_id = $_SESSION['userID'];
+        $newMessage->content = $content;
+        $newId = $newMessage->insert();
+        echo $newId;
+        return $newId;
     }
 
     function getNewMessages(){
-<<<<<<< HEAD
-        $id = intval( $_GET['lastTimeID'] );
+        $lastId = intval( $_GET['lastTimeID'] );
         $receiver = intval($_GET['receiverID']);
         $aMessage = $this->model('Message');
         $newMessages = $aMessage->getNewMessages($lastId, $_SESSION['userID'], $receiver);
-        echo var_dump($newMessages);
-=======
-        $aMessage = $this->model('Message');
-        $newMessages = $aMessage->getNewMessages($lastId, $_SESSION['userID'], $receiver);
->>>>>>> 94d309d56f102b4905c04ba3860817769d426061
+        echo json_encode($newMessages);
     }
 }
 ?>
