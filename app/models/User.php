@@ -14,7 +14,7 @@ class User extends Model
 	public $city_address;
 	public $postal_code_address;
 	public $province_address;
-	public $status;
+	public $account_status;
 
 	public function __construct(){
 		parent::__construct();

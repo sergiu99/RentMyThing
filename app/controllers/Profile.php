@@ -18,6 +18,7 @@ class Profile extends Controller{
 		$updateUser->email = $_POST['email'];
 		$updateUser->phone_number = $_POST['phone_number'];
 		$updateUser->street_address = $_POST['street_address'];
+		$updateUser->account_status = 'active';
 		$updateUser->city_address = $_POST['city_address'];
 		$updateUser->province_address = $_POST['province_address'];
 		$updateUser->postal_code_address = $_POST['postal_code_address'];
@@ -48,22 +49,22 @@ class Profile extends Controller{
 		if($_POST['old_password'] != ""){
 			$password_hash = $updateUser->password;
 			if(password_verify($_POST['old_password'], $password_hash)){
-				echo ("correct pass");
+				//echo ("correct pass");
 				if($_POST['new_password'] != ""){
 					if($_POST['new_password'] == $_POST['confirm_password']){
-						echo "matching pass";
+					//	echo "matching pass";
 						$updateUser->password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 					}else{
-						echo "pass do not match";
+						//echo "pass do not match";
 					}
 				}else{
-					echo "empty new pass";
+					//echo "empty new pass";
 				}
 			}else{
-				echo "incorrect pass";
+				//echo "incorrect pass";
 			}
 		}else{
-			echo "empty pass";
+			//echo "empty pass";
 		}
 
 		$updateUser->update();
