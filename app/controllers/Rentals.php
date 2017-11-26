@@ -12,7 +12,7 @@ class Rentals extends Controller{
         $currentlyRenting = $this->model('Rental');
         $currentlyRenting = $currentlyRenting->getMyRentingItems();
 
-		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting]);
+		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting, 'this_user'=>$_SESSION['userID']]);
 
 
 	}

@@ -102,6 +102,13 @@ class Items extends Controller{
 		header("location:/Items");
 	}
 
+	function setStatus(){
+	   $id = intval( $_GET['itemId'] );
+	   $status = $_GET['status'];
+	   $anItem = $this->model('Item');
+	   return $anItem->setStatus($id, $status);
+   }
+
 	function uploadImage($theFile, $id){
 		$target_dir = "images/";	//the folder where files will be saved
 		$allowedTypes = array("jpg", "png", "jpeg", "gif", "bmp");// Allow certain file formats

@@ -8,11 +8,10 @@
         function startChat(){
             setInterval(function() { getChatText(); }, 2000);
         }
-//https://codepen.io/anon/pen/JOZBzy 
         function getChatText() {
             $.ajax({
                 type: "GET",
-                url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&receiverID=" + document.getElementById("chatInput").name
+                url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name
             }).done( function( data )
             {
                 var messages = JSON.parse(data);
@@ -41,7 +40,7 @@
             var chatInput = $('#chatInput').val();
             if(chatInput != ""){
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "/Chat/sendMessage?receiverID=" + document.getElementById("chatInput").name + "&content=" + encodeURIComponent(chatInput)
                 }).done(function (data){
                     console.log(data);
@@ -59,8 +58,8 @@
         </div>
         <div id="send_div">
             <?php 
-                $receiver = $data['$receiver'];
-                echo "<input type='text' id='chatInput' name='$receiver' style='width:80%'/>";
+                $rentalId = $data['rentalId'];
+                echo "<input type='text' id='chatInput' name='$rentalId' style='width:80%'/>";
             ?>
             <input type="button" value="Send" id="btnSend" onclick="sendChatText()"/>
         </div>

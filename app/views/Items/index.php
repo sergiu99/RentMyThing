@@ -25,7 +25,7 @@
 		<th>Price</th>
 		<th>Category</th>
 		<th>Rating</th>
-		<th>Status</th>
+		<th>Enable</th>
 		<th>Action</th>
 		<th></th>
 		<th></th>
@@ -39,7 +39,11 @@
 		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";
 		echo "<td>$item->rating</td>";
-		echo "<td>$item->status</td>";
+		if($item->status == "enabled"){
+			echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)' checked/></td>";
+		}else{
+			echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)'/></td>";
+		}
 		echo "<td><a href='/Items/viewItem/$item->id'>View</a></td>";
 		echo "<td><a href='/Items/editItem/$item->id'>Edit</a></td>";
 		echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
@@ -50,5 +54,22 @@
 
 
 </div>
+<script>
+	function enableCheck(id){
+		if(document.getElementById("checkbox" + id).checked == true){
+			$.ajax({
+                type: "GET",
+            	url: "/Items/setStatus?itemId=" + id + "&status=enabled"
+            });
+		}else{
+			$.ajax({
+                type: "GET",
+            	url: "/Items/setStatus?itemId=" + id + "&status=disabled"
+            }).done(function (){
+            });;
+		}
+	}
+</script>
+
 </body>
 </html>

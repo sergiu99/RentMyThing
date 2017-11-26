@@ -1,21 +1,17 @@
 <?php 
 class Chat extends Controller
 {
-    function index(){
-        $this->view('Listings/index');
-    }
-    function Conversation($rentalId){
+    function index($rentalId){
         $aMessage = $this->model('Message');
-        $conversation = $aMessage->getMessages($_SESSION['userID'], $rentalId);
-        echo var_dump($conversation);
-        $this->view('Chat/Chat', ['conversation'=>$conversation, 'this_user'=>$_SESSION['userID'], 'receiver'=>$receiver]);
+        $conversation = $aMessage->getMessages($rentalId);
+        echo json_encode($conversation);
     }
 
     function sendMessage(){
-        $receiver = $_GET['receiverID'];
-        $content = $_GET['content'];
+        $rentalId = $_POST['rentalID'];
+        $content = $_POST['content'];
         $newMessage = $this->model('Message');
-        $newMessage->rental_id = $receiver;
+        $newMessage->rental_id = $rentalId;
         $newMessage->sender_id = $_SESSION['userID'];
         $newMessage->content = $content;
         $newId = $newMessage->insert();
@@ -25,9 +21,9 @@ class Chat extends Controller
 
     function getNewMessages(){
         $lastId = intval( $_GET['lastTimeID'] );
-        $receiver = intval($_GET['receiverID']);
+        $rentalId = intval($_GET['rentalID']);
         $aMessage = $this->model('Message');
-        $newMessages = $aMessage->getNewMessages($lastId, $_SESSION['userID'], $receiver);
+        $newMessages = $aMessage->getNewMessages($lastId, $rentalId);
         echo json_encode($newMessages);
     }
 }

@@ -7,7 +7,7 @@ class Message extends Model
     public $created_on;
     public $content;
 
-    function getMessages($user1, $rentalId){
+    function getMessages($rentalId){
         $select = "SELECT * FROM message WHERE id = $rentalId";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
@@ -19,9 +19,9 @@ class Message extends Model
 		return $returnVal;
     }
 
-    function getNewMessages($lastId, $user1, $user2){
+    function getNewMessages($lastId, $rentalId){
         $returnVal = '{"results":[';
-        $select = "SELECT * FROM message WHERE id > $lastId AND ((sender_id = $user1 AND rental_id = $user2) OR (sender_id = $user2 AND rental_id = $user1))";
+        $select = "SELECT * FROM message WHERE id > $lastId AND rental_id = $rentalId";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);

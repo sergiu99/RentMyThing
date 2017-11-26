@@ -18,7 +18,7 @@ class Item extends Model{
 public	function isValid(){
 		return ($this->name!='' && $this->user_id != '');
 	}
-	
+
 public function getDisplayInfo(){
 		$select	= "SELECT t1.id, t1.user_id, t1.name, t1.description, t1.image_path, t1.price, t2.name as category, t1.rating, t1.status FROM item t1 INNER JOIN category t2 ON t1.category = t2.id $this->_whereClause $this->_orderBy";
 
@@ -66,6 +66,14 @@ public function getDisplayInfo(){
         }
 		return $returnVal;
 		return $stmt;*/
+	}
+
+	function setStatus($itemId, $status){
+		$status = $this->_connection->quote($status);
+		$update	= "UPDATE item SET status = $status WHERE id = $itemId";
+		$stmt = $this->_connection->prepare($update);
+		$stmt->execute();
+		return "updated";
 	}
 }
 ?>
