@@ -19,6 +19,9 @@
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#menu1">Proposals to you</a>
   </li>
+   <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu3">Completed Rentals</a>
+  </li>
 </ul>
 
 <br>
@@ -90,7 +93,7 @@ echo "		<tr><td>$item->name</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
 		echo "<td>$item->status</td>";
-		echo "<td><a href='/Rentals/chat/$item->id'>Chat</a></td>";
+		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";
 
 		echo "<form method='post' action='/Rentals/Action'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
@@ -132,12 +135,47 @@ echo "		<tr><td>$item->name</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
 		echo "<td>$item->status</td>";
-		echo "<td><a href='/Rentals/chat/$item->id'>Chat</a></td>";       
+		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";     
 
 		echo "<form method='post' action='/Rentals/Action'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
         echo "<input id='actionType' name='actionType' type='hidden' value='complete'/>";
 		echo "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		echo "</form>";
+	}
+	?>
+</table>
+  </div>
+    <div id="menu3" class="tab-pane fade">
+  	<br>
+			<h3>Completed Rentals</h3>
+			<table class="table table-striped">
+	<tr>
+		<th>Name</th>
+		<th>Image</th>
+		<th>Description</th>
+		<th>Total Price</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>Status</th>
+		<th>Action</th>
+		<th></th>
+	</tr>
+	
+	<?php
+	foreach($data['completedItems'] as $item){
+		echo "<tr><td>$item->name</td>";
+		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
+		echo "<td>$item->description</td>";
+		echo "<td>$ $item->total</td>";
+		echo "<td>$item->start_date</td>";
+		echo "<td>$item->end_date</td>";
+		echo "<td>$item->status</td>";
+		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";  
+
+		echo "<form method='post' action='/Rentals/Action'>";
+        echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
+        echo "<input id='actionType' name='actionType' type='hidden' value='complete'/></tr>";
 		echo "</form>";
 	}
 	?>
