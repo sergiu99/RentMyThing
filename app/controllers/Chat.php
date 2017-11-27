@@ -8,14 +8,13 @@ class Chat extends Controller
     }
 
     function sendMessage(){
-        $rentalId = $_POST['rentalID'];
-        $content = $_POST['content'];
+        $rentalId = $_GET['rentalID'];
+        $content = $_GET['content'];
         $newMessage = $this->model('Message');
         $newMessage->rental_id = $rentalId;
         $newMessage->sender_id = $_SESSION['userID'];
         $newMessage->content = $content;
         $newId = $newMessage->insert();
-        echo $newId;
         return $newId;
     }
 

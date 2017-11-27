@@ -1,5 +1,5 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
-<div class="container">
+<div class="container" onload="initMap">
 <br>
 	<?php
 			echo "<form method='post' action='/Listings/search' class='form-inline' id='searchAction'>
@@ -35,12 +35,33 @@
 				}
 			}
 			echo "</select>";
+			echo "&nbsp;&nbsp;near&nbsp;<input type='button' class='form-control' data-toggle='collapse' data-target='#searchMapDiv' value='location V'/>";
+	
 	?>
 </div>
 <div class="form-group">
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
 </div>
-</form>
+</form></br>
+
+<div id="searchMapDiv" class="collapse">
+	<div id="mapDiv">
+	
+	</div>
+</div>
+
+<script type="text/javascript">
+	function initMap(){
+		console.log("Loading map");
+		var map = new google.maps.Map(document.getElementById('mapDiv'), {
+    		zoom: 8,
+    		center: {lat: 40.731, lng: -73.997}
+  		});;
+	}
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
+
 <br><h2>Listings</h2><br>
 	<?php
 	if(count($data['items']) > 0){

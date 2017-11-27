@@ -15,11 +15,8 @@ class Rentals extends Controller{
 		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting, 'this_user'=>$_SESSION['userID']]);
 
 
-	}
-
-
-
-
+    }
+    
     function Action(){
 var_dump($_POST);
 

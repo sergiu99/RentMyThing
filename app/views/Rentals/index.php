@@ -164,6 +164,7 @@ function toggleChat(id){
 }
 
 function getChatText(id) {
+	console.log("Getting: " + "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name);
 	$.ajax({
 		type: "GET",
 		url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name
@@ -171,13 +172,11 @@ function getChatText(id) {
 	{
 		var messages = JSON.parse(data);
 		messages = JSON.parse(messages);
-		mesages = messages;
 		var jsonLength = messages.results.length;
 		var html = "";
+		console.log(messages);
 		for (var i = 0; i < jsonLength; i++) {
 			var message = messages.results[i];
-			console.log("Sender: " + message.sender_id);
-			console.log("Receiver: " + <?php echo $data['this_user']?>);
 			if(message.sender_id == <?php echo $data['this_user']?>){
 				html += "<li class='clearfix'><div class='message-data align-right'><span class='message-data-time'>" + message.created_on + "</span></div>";
 				html += "<div class='message my-message float-right'>" + message.content + "</div></li>";
@@ -194,8 +193,8 @@ function getChatText(id) {
 }
 
 function sendChatText(){
-	console.log("SENDING");
 	var chatInput = $('#chatInput').val();
+	console.log("SENDING " + "/Chat/sendMessage?rentalID=" + document.getElementById("chatInput").name + "&content=" + encodeURIComponent(chatInput));
 	if(chatInput != ""){
 		$.ajax({
 			type: "GET",

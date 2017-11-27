@@ -4,7 +4,6 @@ $item = $data['item'];
 
 <div class="container">
 <br>
-<br>
 <h2>Item Listing </h2>
 	
 <table class="table table-striped">
@@ -29,6 +28,11 @@ $item = $data['item'];
 	
 	?>
 </table>
+	<label for="totalInput">Map</label>
+	<div id="mapDiv" onLoad="initMap()">
+		
+	</div>
+
 <form method="post" action="/Listings/rentItem" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
 <input type='hidden' class='form-control' name='item_id'  id='item_id'  value ="<?php echo $item->id;?>"/>
@@ -45,12 +49,6 @@ $item = $data['item'];
 <div class="col-md-3">
 	<label for="totalInput">Total</label>
 	<input type='text' class='form-control' required='true' name='totalInput' id='totalInput' disabled=""/>
-</div>
-<div class="col-md-3">
-	<label for="totalInput">Map</label>
-	<div id="mapDiv" onLoad="initMap()">
-		
-	</div>
 </div>
 <script type="text/javascript">
 	function initMap(){
