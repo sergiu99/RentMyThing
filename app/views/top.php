@@ -41,7 +41,7 @@
 function getNotifications() {
   $.ajax({
     type: "GET",
-    url: "/Notification/getNotifs"
+    url: "/Notifications/getNotifs"
   }).done( function( data )
   {
     console.log(data);
