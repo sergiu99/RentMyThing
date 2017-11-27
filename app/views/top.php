@@ -42,7 +42,11 @@ function getNotifications() {
   $.getJSON({
     type: "GET",
     url: "/Notifications/getNotifs"
+<<<<<<< HEAD
   }, function( data )
+=======
+  }).done( function( data )
+>>>>>>> 56e00120c8acbdbf39e41e1732cf29e0ebffe388
   {
     console.log(data);
     //var messages = JSON.parse(data);
