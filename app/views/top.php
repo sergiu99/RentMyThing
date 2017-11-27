@@ -30,7 +30,7 @@
            <li class="dropdown">
  <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>    
 
-          <ul id='view_ajax' class="dropdown-menu">
+          <ul id='view_ajax' class="dropdown-menu ">
 
           </ul>
 
@@ -39,21 +39,22 @@
 
 
 function getNotifications() {
-  $.ajax({
+  $.getJSON({
     type: "GET",
-    url: "/Notification/getNotifs"
-  }).done( function( data )
+    url: "/Notifications/getNotifs"
+  }, function( data )
   {
     console.log(data);
-    var messages = JSON.parse(data);
-    messages = JSON.parse(messages);
-    mesages = messages;
-    var jsonLength = messages.results.length;
+    //var messages = JSON.parse(data);
+   // var messages = JSON.parse(data);
+
+    // messages = JSON.parse(messages);
+    var jsonLength = data.length;
     var html = "";
     for (var i = 0; i < jsonLength; i++) {
-      var message = messages.results[i];
+      var message = data[i];
 
-        html += "<li><a href="+ message.redirect + ">"+message.content+"</a></li>";
+        html = "<li class='list-group-item '><a class="submit-link" href="+ message.redirect + ">"+message.content+"</a></li><form method='post' action='/Rentals/Action'><form method='post' action='/Rentals/Action'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/></form>" + html;
      
     }
     //console.log(html);
