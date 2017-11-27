@@ -91,10 +91,17 @@
   cursor:pointer;
 }
 
+#mapDiv {
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+}
+
 .opaque-overlay {
   overflow: hidden;
   position: relative;
 }
+
 .opaque-overlay > *:first-child:before {
   content: '';
   width: 100%;

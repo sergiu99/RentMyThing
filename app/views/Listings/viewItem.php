@@ -46,6 +46,35 @@ $item = $data['item'];
 	<label for="totalInput">Total</label>
 	<input type='text' class='form-control' required='true' name='totalInput' id='totalInput' disabled=""/>
 </div>
+<div class="col-md-3">
+	<label for="totalInput">Map</label>
+	<div id="mapDiv" onLoad="initMap()">
+		
+	</div>
+</div>
+<script type="text/javascript">
+	function initMap(){
+		var map = new google.maps.Map(document.getElementById('mapDiv'), {
+    		zoom: 8,
+    		center: {lat: 40.731, lng: -73.997}
+  		});;
+		var geocoder = new google.maps.Geocoder;
+		geocoder.geocode( { 'address': "<?php echo substr($item->postal_code, 0, 3)?>"}, function(results, status) {
+			if (status == 'OK') {
+			  map.setCenter(results[0].geometry.location);
+			  var marker = new google.maps.Marker({
+				  map: map,
+				  position: results[0].geometry.location
+			  });
+			} else {
+			  alert('Geocode was not successful for the following reason: ' + status);
+			}
+		});
+	}
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
+
 <div class="col-md-12">
 	<br>
 	
@@ -62,9 +91,7 @@ $item = $data['item'];
 			var startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 			document.getElementById("start_date").value = startDate;
 			//document.getElementById("end_date").value = "2017-11-20";
-			
 
-			
 			function calculate(){
 			var selectedText = document.getElementById('end_date').value;
    			var selectedDate = new Date(selectedText);

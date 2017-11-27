@@ -31,10 +31,10 @@ class Listings extends Controller{
 
 	
 	function viewItem($id){
-		$aItem = $this->model('Item');
-		$aItem = $aItem->find($id);
-		if($aItem->name !=''){
-		$this->view('Listings/viewItem',['item'=>$aItem]);
+		$thisItem = $this->model('Listing');
+		$thisItem = $thisItem->getItem($id)[0];
+		if($thisItem->name !=''){
+			$this->view('Listings/viewItem',['item'=>$thisItem]);
 		} else { header("location:/Listings");}
 	}
 	
