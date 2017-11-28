@@ -9,5 +9,16 @@ class Notifications extends Controller
     }
 
 
+    function deleteNotif(){
+    	$id = $_POST['notifId'];
+    	$redirect =  $_POST['redirect'];
+		$aItem = $this->model('Notification');
+		$aItem = $aItem->find($id);
+		$aItem->viewed = '1';
+		$aItem->update();
+		header("location:" . $redirect);
+
+    }
+
 }
 ?>
