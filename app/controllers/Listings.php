@@ -12,6 +12,7 @@ class Listings extends Controller{
 	}
 
 	function search(){
+		$locations = [];
 		if(isset($_POST['category'])){
 			$category = $_POST['category'];
 		}else{
@@ -22,13 +23,18 @@ class Listings extends Controller{
 		}else{
 			$keyword = "";
 		}
+		if(isset($_POST['location'])){
+			$locationString = $_POST['location'];
+			$locations[] = split('-', $locationString);
+		}else{
+			$locations = null;
+		}
 		$anItem = $this->model('Listing');
-		$searchItems = $anItem->search($category, $keyword);
+		$searchItems = $anItem->search($category, $keyword, $locations);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
 		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'type'=>"Listings"]);
 	}
-
 	
 	function viewItem($id){
 		$thisItem = $this->model('Listing');

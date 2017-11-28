@@ -44,10 +44,21 @@ public function getDisplayInfo(){
         return $returnVal;
 	}
 
-	public function search($category, $keyword){
+	public function search($category, $keyword, $location){
 		$select = "SELECT * FROM item WHERE ";
 		$categoryQuote = $this->_connection->quote($category);
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
+		$locationWhere = "LOCATIONS";
+		/*if($location != null){
+			$locationWhere = "AND user_id IN (SELECT id FROM user WHERE SUBSTRING(postal_code_address,0,3) IN (";
+			for($i = 0; i < sizeof($location) - 1; $i++){
+				$locationWhere .= $this->_connection->quote($location[$i]);
+				$locationWhere .= ",";
+			}
+			$locationWhere .= $this->_connection->quote($location[sizeof($location) - 1]);
+			$locationWhere .= ")";
+		}*/
+
 		if($category != ""){
 			if($keyword != ""){
 				$this->_whereClause .= "WHERE t1.category = 
@@ -62,10 +73,11 @@ public function getDisplayInfo(){
 			}
 		}else{
 			if($keyword != ""){
-				$this->_whereClause .= "WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote";
+				$this->_whereClause .= "(WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote)";
 			}
 		}
-
+		$this->_whereClause .= "(WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote)";
+		$this->_whereClause .= $locationWhere;
 		return $this->getDisplayInfo();
 
 		/*$stmt = $this->_connection->prepare($select);

@@ -35,8 +35,8 @@
 				}
 			}
 			echo "</select>";
-			echo "&nbsp;&nbsp;near&nbsp;<input type='button' class='form-control' data-toggle='collapse' data-target='#searchMapDiv' value='location V'/>";
-	
+			echo "&nbsp;&nbsp;near&nbsp;&nbsp;<input type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' value='choose location'/>";
+			echo "<input name='location' id='location' value='' hidden/>";
 	?>
 </div>
 <div class="form-group">
@@ -45,6 +45,7 @@
 </form></br>
 
 <div id="searchMapDiv" class="collapse">
+	<h6>Click on the map to select a location</h6>
 	<div id="mapDiv">
 	
 	</div>
@@ -54,26 +55,70 @@
 	//http://www.geonames.org/export/web-services.html#findNearbyPostalCodes
 	var marker;
 	var map;
+	var markerPC;
+	var geocoder;
+	
 	function initMap(){
 		map = new google.maps.Map(document.getElementById('mapDiv'), {
-    		zoom: 8,
-    		center: {lat: 40.731, lng: -73.997}
+    		zoom: 5,
+    		center: {lat: 45.731, lng: -73.997}
   		});
 
 		map.addListener('click', function(event){
 			console.log("map click");
 			placeMarker(event.latLng);
 		});
+		geocoder = new google.maps.Geocoder;
 	}
 
-	function placeMarker(location) {
+	function placeMarker(latlng) {
 		if(marker != null){
 			marker.setMap(null);
 		}
     	marker = new google.maps.Marker({
-        	position: location, 
+        	position: latlng, 
         	map: map
     	});
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+				var searchAddressComponents = results[0].address_components,
+    				searchPostalCode="";
+
+				$.each(searchAddressComponents, function(){
+    				if(this.types[0]=="postal_code"){
+        				searchPostalCode=this.short_name;
+					}
+				});
+				
+              	document.getElementById("locationButton").value = searchPostalCode;
+			  	getNearbyPostalCodes(searchPostalCode);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Invalid location');
+          }
+        });
+	}
+
+	function getNearbyPostalCodes(postalCodeValue){
+		var splitPostalCode = postalCodeValue.split(" ");
+		postalCodeValue = splitPostalCode[0] + splitPostalCode[1];
+		console.log(postalCodeValue);
+		$.ajax({
+			type: "GET",
+			url: "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + postalCodeValue + "&country=CA&radius=3&username=rentmything",
+     		dataType: "json"
+		}).done(function (data){
+			console.log(data);
+			var results = "";
+			for(var i = 0; i < data.postalCodes.length - 1; i ++){
+				results += data.postalCodes[i].postalCode + "-";
+			}
+			results += data.postalCodes[data.postalCodes.length - 1].postalCode;
+			document.getElementById("location").value = results;
+		});
 	}
 </script>
 

@@ -52,7 +52,6 @@ class Model{
 
         $stmt = $this->_connection->prepare($selectOne);
         $stmt->execute(array($this->_PKName=>$ID));
-
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
 		$value = $stmt->fetch();
 		//TODO: should this cause an exception when no record is found?
