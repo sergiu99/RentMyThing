@@ -17,8 +17,10 @@
 		<input type="password" class="form-control" name="password" id="password" />
 	</div>
 	<div class="form-group">
-		<input type="submit" name="action" value="Login" />
-	</div>
+		<input class="btn btn-default" type="submit" name="action" value="Login" />
+	
 	</form>
+	<a href="/Login/signup" class="btn btn-default" >Register</a>
+	</div>
 </div>
 </body></html>

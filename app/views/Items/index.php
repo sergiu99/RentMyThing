@@ -22,7 +22,7 @@
 		<th>Name</th>
 		<th>Image</th>
 		<th>Description</th>
-		<th>Price</th>
+		<th>Price/Day</th>
 		<th>Category</th>
 		<th>Rating</th>
 		<th>Enable</th>

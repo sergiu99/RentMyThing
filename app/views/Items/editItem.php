@@ -20,7 +20,7 @@ $item = $data['item'];
 	<input type="file" name="fileToUpload" id="fileToUpload" class="form-control btn-primary">
 	</div>
 	<div class="form-group">
-	<label for="price">Price</label>
+	<label for="price">Price Per Day</label>
 	<?php echo"<input type='number' class='form-control' required='true' name='price' id='price' value='$item->price' />" ;?>
 	</div>
 	<div class="form-group">

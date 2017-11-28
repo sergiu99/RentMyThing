@@ -21,7 +21,7 @@
 
   <nav id="navbar" class="navbar navbar-expand-md bg-primary navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="/Listings"><i class="fa d-inline fa-lg fa-cloud"></i><b>&nbsp;RentMyThing</b></a>
+      <a class="navbar-brand" href="/Listings"><i class="fa d-inline fa-lg fa-adjust"></i><b>&nbsp;RentMyThing</b></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false"
         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
@@ -30,9 +30,11 @@
            <li class="dropdown">
  <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>    
 
-          <ul id='view_notifications' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
-
+          <ul id='view_ajax2' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
+          
           </ul>
+
+
 <script type="text/javascript">
 
 
@@ -40,7 +42,7 @@ function getNotifications() {
   $.getJSON({
     type: "GET",
     url: "/Notifications/getNotifs"
-  }).done( function( data )
+  }, function( data )
   {
     console.log(data);
     var jsonLength = data.length;
@@ -59,7 +61,8 @@ function getNotifications() {
        html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
       }
     //console.log(html);
-    $('#view_notifications').append(html);
+    
+    $('#view_ajax2').append(html);
   });
 }
 getNotifications();
@@ -67,16 +70,16 @@ getNotifications();
 
 	   </li>
 		<li class="nav-item">
-            <a class="nav-link" href="/Listings"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Listings</a>
+            <a class="nav-link" href="/Listings"><i class="fa d-inline fa-lg fa-star-o"></i> Listings</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="/Rentals"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Rentals</a>
+            <a class="nav-link" href="/Rentals"><i class="fa d-inline fa-lg fa-calendar-o"></i> Rentals</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="/Items"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Items</a>
+            <a class="nav-link" href="/Items"><i class="fa d-inline fa-lg fa-hdd-o"></i> Items</a>
           </li>
 		  <li class="nav-item">
-            <a class="nav-link" href="/Profile"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Profile</a>
+            <a class="nav-link" href="/Profile"><i class="fa d-inline fa-lg fa-user-o"></i> Profile</a>
           </li>
         </ul>
         <a href="/Login/logout" class="btn navbar-btn ml-2 text-white btn-secondary"><i class="fa d-inline fa-lg fa-sign-out"></i> Sign out</a>

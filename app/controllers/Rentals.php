@@ -30,7 +30,8 @@ var_dump($_POST);
         if($_POST['actionType'] == 'delete'){
         $aItem = $this->model('Rental');
         $aItem = $aItem->find($id);
-        $aItem->delete();
+        $aItem->status = 'declined';
+        $aItem->update();   
 
         $newNotification = $this->model('Notification');
         $newNotification->user_id = $aItem->user_id;

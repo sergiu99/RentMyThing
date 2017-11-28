@@ -15,6 +15,7 @@
   position: fixed;
   z-index: 3000;
   margin-right: 500px;
+  padding: 5px;
   width: 300px;
   padding-bottom: 10px;
   border:  1.5px solid black;
@@ -70,7 +71,7 @@
 }
 
 .my-message {
-  background: green;
+  background: #80bbff;
 }
 
 .other-message {
@@ -89,18 +90,6 @@
   color: rgb(46, 46, 141);
   text-decoration: underline;
   cursor:pointer;
-}
-
-#chatHeading{
-  width:100%; 
-  padding:5px; 
-  background-color:orange; 
-  margin-bottom: 0px !important;
-}
-
-#chatHeading:hover{
-  cursor:pointer;
-  background-color:rgb(218, 139, 3); 
 }
 
 #mapDiv {
@@ -140,3 +129,4 @@
   pointer-events: none;
   background: linear-gradient(to top, #343a40 0%, transparent 100%);
 }
+

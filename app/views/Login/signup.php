@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-<h1>Signup</h1>
+<h1>Register</h1>
 
 <form method="post" action="/Login/signup" class="form-horizontal">
 	<div class="form-group">
@@ -52,8 +52,10 @@
 	</div>
 	<div class="form-group">
 	<input type="submit" class="btn btn-default" name="action" value="Register" />
+	</form>
+	<a href="/Login" class="btn btn-default" >Back to Login</a>
 	</div>
-</form>
+
 
 
 <div>

@@ -18,7 +18,7 @@
 	<input type="file" name="fileToUpload" id="fileToUpload" class="form-control btn-primary">
 	</div>
 	<div class="form-group">
-	<label for="price">Price</label>
+	<label for="price">Price Per Day</label>
 	<input type="number" class="form-control" required="true" name="price" id="price" />
 	</div>
 	<div class="form-group">

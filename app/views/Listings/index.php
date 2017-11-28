@@ -70,7 +70,7 @@
 					<th>Name</th>
 					<th>Image</th>
 					<th>Description</th>
-					<th>Price</th>
+					<th>Price/Day</th>
 					<th>Category</th>
 					<th>Postal Code</th>
 					<th>Rating</th>
