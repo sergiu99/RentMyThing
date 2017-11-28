@@ -30,16 +30,9 @@
            <li class="dropdown">
  <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>    
 
-<<<<<<< HEAD
-          <ul id='view_notifications' class="dropdown-menu ">
+          <ul id='view_notifications' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
 
-=======
-          <ul id='view_ajax2' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
-          
->>>>>>> 618bac8034801ced7417765c1897fcfc8a6aa0e1
           </ul>
-
-
 <script type="text/javascript">
 
 
@@ -47,11 +40,7 @@ function getNotifications() {
   $.getJSON({
     type: "GET",
     url: "/Notifications/getNotifs"
-<<<<<<< HEAD
   }).done( function( data )
-=======
-  }, function( data )
->>>>>>> 618bac8034801ced7417765c1897fcfc8a6aa0e1
   {
     console.log(data);
     var jsonLength = data.length;
@@ -64,22 +53,13 @@ function getNotifications() {
     for (var i = 0; i < jsonLength; i++) {
       var message = data[i];
 
-<<<<<<< HEAD
-        html = "<li class='list-group-item '><a class='submit-link' href=" + message.redirect + ">"+message.content+"</a></li><form method='post' action='/Rentals/Action'><form method='post' action='/Rentals/Action'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/></form>" + html;
-=======
         html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value="+message.redirect+"/><button class='btn' style='color:white; background-color: #007bff;' type='submit'>"+message.content+"</button></form>" + html;
->>>>>>> 618bac8034801ced7417765c1897fcfc8a6aa0e1
      
       }
        html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
       }
     //console.log(html);
-<<<<<<< HEAD
     $('#view_notifications').append(html);
-=======
-    
-    $('#view_ajax2').append(html);
->>>>>>> 618bac8034801ced7417765c1897fcfc8a6aa0e1
   });
 }
 getNotifications();

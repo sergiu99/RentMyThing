@@ -12,6 +12,7 @@ function toggleChat(id){
 }
 
 function getChatText(id) {
+	console.log("getting");
 	$.ajax({
 		type: "GET",
 		url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name
@@ -64,6 +65,7 @@ function collapseChat(){
 function closeChat(){
     document.getElementById("toggleChat").innerHTML = "";
     clearInterval(chatInterval);
+	lastTimeID = 0;
 }
 
 </script>
