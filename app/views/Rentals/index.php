@@ -211,14 +211,20 @@ echo "		<tr><td>$item->name</td>";
 		<th>End Date</th>
 		<th>Status</th>
 		<th>Action</th>
+<<<<<<< HEAD
 		<th></th>
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 
 	</tr>
 	
 	<?php
 	foreach($data['completedItems'] as $item){
 		$statuss = $item->status;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
@@ -235,6 +241,7 @@ echo "		<tr><td>$item->name</td>";
 		} else {
 			$statuss = 'Awaiting your action to Complete';
 		} 
+<<<<<<< HEAD
 
 		$itemuserid = $item->user_id;
 		$thisusersss = $data['this_user'];
@@ -243,6 +250,8 @@ echo "		<tr><td>$item->name</td>";
 		} else {
 			$actionss =  "<td><button class='btn btn-default disabled'  type='submit'>Finished</button></td></tr>";
 		}
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
