@@ -41,12 +41,29 @@
 		<th>Status</th>
 		<th>Action</th>
 		<th></th>
+		<th></th>
 	</tr>
 	
 		
 	<?php
 	foreach($data['myRentals'] as $item){
-		
+	$statuss = $item->status;
+	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		if($item->status == 'reqcompleted' . $data['this_user']) {
+			$statuss = 'You have requested this Rental to complete.';
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+		} else if($item->status == 'pending'){
+			$statuss = 'Pending';
+		}
+		else if($item->status == 'completed')
+		{
+			$statuss = 'Completed';
+		}else if($item->status == 'accepted')
+		{
+			$statuss = 'Accepted';
+		} else {
+			$statuss = 'Awaiting your action to Complete';
+		} 
 
 echo "		<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
@@ -54,13 +71,13 @@ echo "		<tr><td>$item->name</td>";
 		echo "<td>$ $item->total</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
-		echo "<td>$item->status</td>";
+		echo "<td>$statuss</td>";
 		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";
 
         echo "<td><form method='post' action='/Rentals/Action'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
         echo "<input id='actionType' name='actionType' type='hidden' value='complete'/>";
-		echo "<button class='btn btn-default'  type='submit'>Complete</button>";
+		echo $completeAction;
 		echo "</form></td></tr>";
 		
 	}
@@ -86,13 +103,30 @@ echo "		<tr><td>$item->name</td>";
 	
 	<?php
 	foreach($data['myRentalProposals'] as $item){
+		$statuss = $item->status;
+	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		if($item->status == 'reqcompleted' . $data['this_user']) {
+			$statuss = 'You have requested this Rental to complete.';
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+		} else if($item->status == 'pending'){
+			$statuss = 'Pending';
+		}
+		else if($item->status == 'completed')
+		{
+			$statuss = 'Completed';
+		}else if($item->status == 'accepted')
+		{
+			$statuss = 'Accepted';
+		} else {
+			$statuss = 'Awaiting your action to Complete';
+		} 
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->total</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
-		echo "<td>$item->status</td>";
+		echo "<td>$statuss</td>";
 		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";
 
 		echo "<form method='post' action='/Rentals/Action'>";
@@ -104,7 +138,7 @@ echo "		<tr><td>$item->name</td>";
 	    echo "<form method='post' action='/Rentals/Action'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
         echo "<input id='actionType' name='actionType' type='hidden' value='delete'/>";
-		echo "<td><button class='btn btn-default' type='submit'>Decline</button></td></tr>";
+		echo $completeAction;
 		echo "</form>";
 	}
 	?>
@@ -128,19 +162,37 @@ echo "		<tr><td>$item->name</td>";
 	
 	<?php
 	foreach($data['getMyRentingItems'] as $item){
+
+		$statuss = $item->status;
+	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		if($item->status == 'reqcompleted' . $data['this_user']) {
+			$statuss = 'You have requested this Rental to complete.';
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+		} else if($item->status == 'pending'){
+			$statuss = 'Pending';
+		}
+		else if($item->status == 'completed')
+		{
+			$statuss = 'Completed';
+		}else if($item->status == 'accepted')
+		{
+			$statuss = 'Accepted';
+		} else {
+			$statuss = 'Awaiting your action to Complete';
+		} 
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->total</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
-		echo "<td>$item->status</td>";
+		echo "<td>$statuss</td>";
 		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";     
 
 		echo "<form method='post' action='/Rentals/Action'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
         echo "<input id='actionType' name='actionType' type='hidden' value='complete'/>";
-		echo "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		echo $completeAction; 
 		echo "</form>";
 	}
 	?>
@@ -159,24 +211,61 @@ echo "		<tr><td>$item->name</td>";
 		<th>End Date</th>
 		<th>Status</th>
 		<th>Action</th>
+<<<<<<< HEAD
 		<th></th>
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
+
 	</tr>
 	
 	<?php
 	foreach($data['completedItems'] as $item){
+		$statuss = $item->status;
+<<<<<<< HEAD
+		
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
+	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		if($item->status == 'reqcompleted' . $data['this_user']) {
+			$statuss = 'You have requested this Rental to complete.';
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+		} else if($item->status == 'pending'){
+			$statuss = 'Pending';
+		}
+		else if($item->status == 'completed')
+		{
+			$statuss = 'Completed';
+		}else if($item->status == 'accepted')
+		{
+			$statuss = 'Accepted';
+		} else {
+			$statuss = 'Awaiting your action to Complete';
+		} 
+<<<<<<< HEAD
+
+		$itemuserid = $item->user_id;
+		$thisusersss = $data['this_user'];
+		if( $itemuserid == $thisusersss ) {
+			$actionss =  "<td><button class='btn btn-default'  type='submit'>Leave Comment </button></td></tr>";
+		} else {
+			$actionss =  "<td><button class='btn btn-default disabled'  type='submit'>Finished</button></td></tr>";
+		}
+=======
+>>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->total</td>";
 		echo "<td>$item->start_date</td>";
 		echo "<td>$item->end_date</td>";
-		echo "<td>$item->status</td>";
+		echo "<td>$statuss</td>";
 		echo "<td><p onclick='toggleChat($item->id)' class='openChat'>Chat</p></td>";  
 
-		echo "<form method='post' action='/Rentals/Action'>";
+		
+		echo "<form method='post' action='/Rentals/createComment'>";
         echo "<input id='rentalId' name='rentalId' type='hidden' value='$item->id'/>";
-        echo "<input id='actionType' name='actionType' type='hidden' value='complete'/></tr>";
-		echo "</form>";
+        echo $actionss;
+		echo "</form></tr>";
 	}
 	?>
 </table>

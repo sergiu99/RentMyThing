@@ -115,5 +115,6 @@
   </div>
   <button type="submit" class="btn btn-default">Save Changes</button>
 </form>
+<a href="/Profile/deleteAccount" class="btn btn-danger pull-right" style="">Delete Account</a>
 </body>
 </html>
