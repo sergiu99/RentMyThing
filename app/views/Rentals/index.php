@@ -196,8 +196,7 @@ var mesages;
 $('#chatInput').val("");
 
 function toggleChat(id){
-	console.log("chat toggled");
-	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; '/><span class='input-group-addon' id='btnSend' onclick='sendChatText()'>Send</span></div></div></div>";
+	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 class='chatHeading' style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;' onclick='collapseChat()'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; '/><span class='input-group-btn'><button class='btn btn-secondary' type='button' onclick='sendChatText()'>Send</button></span></div></div></div>";
 	setInterval(function() { getChatText(id); }, 2000);
 }
 
@@ -242,6 +241,22 @@ function sendChatText(){
 		});
 		$('#chatInput').val("");
 	}
+}
+
+function collapseChat(){
+    if(document.getElementById("chat_history").hasAttribute("hidden")){
+        document.getElementById("chat_history").removeAttribute("hidden");
+        document.getElementById("sendDiv").removeAttribute("hidden");
+    }else{
+        document.getElementById("chat_history").setAttribute("hidden", "hidden");
+        document.getElementById("sendDiv").setAttribute("hidden", "hidden");
+    }
+}
+
+function closeChat(){
+    document.getElementById("toggleChat").innerHTML = "";
+    clearInterval(chatInterval);
+	lastTimeID = 0;
 }
 </script>
 

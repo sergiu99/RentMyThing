@@ -51,12 +51,29 @@
 </div>
 
 <script type="text/javascript">
+	//http://www.geonames.org/export/web-services.html#findNearbyPostalCodes
+	var marker;
+	var map;
 	function initMap(){
-		console.log("Loading map");
-		var map = new google.maps.Map(document.getElementById('mapDiv'), {
+		map = new google.maps.Map(document.getElementById('mapDiv'), {
     		zoom: 8,
     		center: {lat: 40.731, lng: -73.997}
-  		});;
+  		});
+
+		map.addListener('click', function(event){
+			console.log("map click");
+			placeMarker(event.latLng);
+		});
+	}
+
+	function placeMarker(location) {
+		if(marker != null){
+			marker.setMap(null);
+		}
+    	marker = new google.maps.Marker({
+        	position: location, 
+        	map: map
+    	});
 	}
 </script>
 

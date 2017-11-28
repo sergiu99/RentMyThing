@@ -6,19 +6,18 @@
        z-index: 3000;
        padding-right: 30px;
        padding-bottom: 10px;
-        }
-
+}
 
 #chatDiv {
   bottom: 0;
-  right: 0;
+  right: 200px;
   position: fixed;
   z-index: 3000;
-  margin-right: 500px;
   padding: 5px;
   width: 300px;
   padding-bottom: 10px;
-  border:  1.5px solid black;
+  border:  1.0px solid black;
+  border-radius: 0.25em;
   background-color: white;
 }
 
@@ -26,6 +25,10 @@
   max-height: 400px;
   overflow-x:hidden;
   overflow-y: scroll;
+}
+
+#chatHeading:hover{
+  cursor:pointer;
 }
 
 #view_ajax{
