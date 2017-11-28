@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2017 at 07:01 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Nov 28, 2017 at 03:39 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -169,7 +171,11 @@ INSERT INTO `message` (`id`, `rental_id`, `sender_id`, `created_on`, `content`) 
 (30, 2, 7, '2017-11-24 17:31:34', 'sdfsdf'),
 (31, 2, 7, '2017-11-24 17:31:36', 'sdfsd'),
 (32, 2, 7, '2017-11-24 17:34:59', ';drop table message;'),
-(33, 2, 2, '2017-11-24 17:40:49', 'msfsdjfgsdfashd');
+(33, 2, 2, '2017-11-24 17:40:49', 'msfsdjfgsdfashd'),
+(34, 3, 6, '2017-11-28 02:37:31', 'asd'),
+(35, 3, 6, '2017-11-28 02:37:33', 'dasdasd'),
+(36, 6, 6, '2017-11-28 02:37:37', 'sadasd'),
+(37, 3, 6, '2017-11-28 02:37:43', 'd');
 
 -- --------------------------------------------------------
 
@@ -182,8 +188,19 @@ CREATE TABLE `notification` (
   `user_id` int(11) NOT NULL,
   `content` varchar(1000) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `redirect` varchar(100) NOT NULL
+  `redirect` varchar(100) NOT NULL,
+  `viewed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `user_id`, `content`, `created_on`, `redirect`, `viewed`) VALUES
+(1, 6, 'Someone wants to rent your Jigly Book item.', '0000-00-00 00:00:00', 'dsda', 0),
+(2, 6, 'One of your rentals has been completed', '2017-11-28 02:23:58', '/Rentals', 0),
+(3, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:33:05', '/Rentals', 0),
+(4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 0);
 
 -- --------------------------------------------------------
 
@@ -208,7 +225,10 @@ CREATE TABLE `rental` (
 INSERT INTO `rental` (`id`, `user_id`, `item_id`, `start_date`, `end_date`, `total`, `status`) VALUES
 (2, 6, 1, '2017-11-23', '2017-11-17', 7, 'pending'),
 (3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted'),
-(4, 7, 2, '2017-11-24', '2017-11-27', 160, 'pending');
+(4, 7, 2, '2017-11-24', '2017-11-27', 160, 'pending'),
+(5, 6, 2, '2017-11-26', '2017-11-30', 200, 'completed'),
+(6, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending'),
+(7, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending');
 
 -- --------------------------------------------------------
 
@@ -371,17 +391,17 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `ticket`
 --
@@ -435,6 +455,7 @@ ALTER TABLE `notification`
 ALTER TABLE `rental`
   ADD CONSTRAINT `rental_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
   ADD CONSTRAINT `rental_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
