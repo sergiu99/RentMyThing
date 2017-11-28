@@ -30,7 +30,7 @@
            <li class="dropdown">
  <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>    
 
-          <ul id='view_ajax' class="dropdown-menu ">
+          <ul id='view_notifications' class="dropdown-menu ">
 
           </ul>
 
@@ -42,11 +42,7 @@ function getNotifications() {
   $.getJSON({
     type: "GET",
     url: "/Notifications/getNotifs"
-<<<<<<< HEAD
-  }, function( data )
-=======
   }).done( function( data )
->>>>>>> 56e00120c8acbdbf39e41e1732cf29e0ebffe388
   {
     console.log(data);
     //var messages = JSON.parse(data);
@@ -58,11 +54,11 @@ function getNotifications() {
     for (var i = 0; i < jsonLength; i++) {
       var message = data[i];
 
-        html = "<li class='list-group-item '><a class="submit-link" href="+ message.redirect + ">"+message.content+"</a></li><form method='post' action='/Rentals/Action'><form method='post' action='/Rentals/Action'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/></form>" + html;
+        html = "<li class='list-group-item '><a class='submit-link' href=" + message.redirect + ">"+message.content+"</a></li><form method='post' action='/Rentals/Action'><form method='post' action='/Rentals/Action'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/></form>" + html;
      
     }
     //console.log(html);
-    $('#view_ajax').append(html);
+    $('#view_notifications').append(html);
   });
 }
 getNotifications();
