@@ -89,6 +89,26 @@ class Profile extends Controller{
 		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings]);
 	}
 
+function deleteAccount(){
+		if(isset($_POST['description']) && isset($_POST['urgency'])){
+
+			if($_POST['urgency'] == 'yes'){
+		$updateUser = $this->model('User');
+		$updateUser = $updateUser->find($_SESSION['userID']);
+		$updateUser->id = $_SESSION['userID'];
+		$updateUser->account_status = 'disabled';
+		$updateUser->update();
+		header("location:/Login/logout");
+		}
+		else {
+			header("location:/Profile");
+		}
+		
+		} else { 
+				$this->view('Profile/deleteAccount');
+		}
+	}
+
 	function contactUs(){
 		if(isset($_POST['title']) && isset($_POST['description']) && isset($_POST['urgency'])){
 

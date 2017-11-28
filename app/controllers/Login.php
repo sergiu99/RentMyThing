@@ -26,6 +26,7 @@ class Login extends Controller{
 			$user->city_address = $_POST['city_address'];
 			$user->postal_code_address = $_POST['postal_code_address'];
 			$user->province_address = $_POST['province_address'];
+			$user->account_status = 'active';
 			$user->insert();
 
 			

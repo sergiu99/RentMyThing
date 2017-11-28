@@ -2,7 +2,7 @@
 class LoginCore{
 	public static function login($username, $password){
 		$user = Controller::model('User');
-		$users = $user->where('email','=',$username)->get();
+		$users = $user->where('email','=',$username)->where('account_status','=','active')->get();
 		
 		if(isset($users[0])){
 			if(password_verify($password, $users[0]->password)){
