@@ -1,10 +1,15 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php');
 $item = $data['item'];
+$urlItemNameWords = explode(' ', $item->name);
+$urlName = $urlItemNameWords[0];
+for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
+	$urlName .= "%20" . $urlItemNameWords[$i];
+}
  ?>
 
 <div class="container">
 <br>
-<h2>Item Listing </h2>
+<h2>Item Listing &nbsp;&nbsp;Share:&nbsp;&nbsp;<a class="" href="mailto:?subject=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&amp;body=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F<?php echo $item->id?>" title="Email Listing"><i class="fa d-inline fa-lg fa-envelope-o"></i></a></h2>
 	
 <table class="table table-striped">
 	<tr>
