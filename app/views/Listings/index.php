@@ -109,7 +109,7 @@
 		console.log(postalCodeValue);
 		$.ajax({
 			type: "GET",
-			url: "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + postalCodeValue + "&country=CA&radius=3&username=rentmything",
+			url: "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + postalCodeValue + "&country=CA&radius=4&username=rentmything",
      		dataType: "json"
 		}).done(function (data){
 			console.log(data);
@@ -140,6 +140,7 @@
 
 <br><h2>Listings</h2><br>
 	<?php
+	$favorites = $data['favorites'];
 	if(count($data['items']) > 0){
 		echo "<table class='table table-striped'>
 				<tr>
@@ -150,7 +151,8 @@
 					<th>Category</th>
 					<th>Postal Code</th>
 					<th>Rating</th>
-					<th>Action</th>
+					<th>Favorite</th>
+					<th>View</th>
 				</tr>";
 		foreach($data['items'] as $item){
 			echo "<tr><td>$item->name</td>";
@@ -161,6 +163,11 @@
 			$postalcode = strtoupper ($item->postal_code);
 			echo "<td>$postalcode</td>";	
 			echo "<td>$item->rating</td>";
+			if(in_array($item->id, $favorites)){
+				echo "<td><input type='checkBox' id='favorite$item->id' checked onclick='setFavorite($item->id)'/></td>";
+			}else{
+				echo "<td><input type='checkBox' id='favorite$item->id' onclick='setFavorite($item->id)'/></td>";
+			}
 			echo "<td><a href='/Listings/viewItem/$item->id'>View</a></td>";
 		}
 		echo "</table>";
@@ -170,6 +177,14 @@
 	?>
 </div>
 </body>
+
+<script>
+	function setFavorite(id){
+
+	}
+
+</script>
+
 <script type="text/javascript">
 	var categories = "<?php 
 						$categories = "";

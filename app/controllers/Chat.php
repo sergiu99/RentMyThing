@@ -15,6 +15,11 @@ class Chat extends Controller
         $newMessage->sender_id = $_SESSION['userID'];
         $newMessage->content = $content;
         $newId = $newMessage->insert();
+
+        //Create notification
+        $notification = $this->model('Notification');
+        
+
         return $newId;
     }
 

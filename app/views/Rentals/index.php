@@ -104,7 +104,7 @@ echo "		<tr><td>$item->name</td>";
 	<?php
 	foreach($data['myRentalProposals'] as $item){
 		$statuss = $item->status;
-	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Decline</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
 			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
@@ -211,20 +211,14 @@ echo "		<tr><td>$item->name</td>";
 		<th>End Date</th>
 		<th>Status</th>
 		<th>Action</th>
-<<<<<<< HEAD
 		<th></th>
-=======
->>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 
 	</tr>
 	
 	<?php
 	foreach($data['completedItems'] as $item){
 		$statuss = $item->status;
-<<<<<<< HEAD
 		
-=======
->>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
 	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
@@ -241,7 +235,6 @@ echo "		<tr><td>$item->name</td>";
 		} else {
 			$statuss = 'Awaiting your action to Complete';
 		} 
-<<<<<<< HEAD
 
 		$itemuserid = $item->user_id;
 		$thisusersss = $data['this_user'];
@@ -250,8 +243,7 @@ echo "		<tr><td>$item->name</td>";
 		} else {
 			$actionss =  "<td><button class='btn btn-default disabled'  type='submit'>Finished</button></td></tr>";
 		}
-=======
->>>>>>> cd458927bc06fdec12ce076c4895bd4a25407fbc
+		
 		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
@@ -287,6 +279,7 @@ $('#chatInput').val("");
 function toggleChat(id){
 	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 class='chatHeading' style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;' onclick='collapseChat()'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; '/><span class='input-group-btn'><button class='btn btn-secondary' type='button' onclick='sendChatText()'>Send</button></span></div></div></div>";
 	setInterval(function() { getChatText(id); }, 2000);
+	lastTimeID = 0;
 }
 
 function getChatText(id) {

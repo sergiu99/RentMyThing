@@ -20,5 +20,18 @@ class Favorite extends Model{
         }
         return $returnVal;
     }
+
+    function getUserFavoritesId(){
+        $id = $_SESSION['userID'];
+        $select	= "SELECT item_id FROM favorite WHERE user_id = $id";
+        $stmt = $this->_connection->prepare($select);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
+        $returnVal = [];
+        while($rec = $stmt->fetch()){
+            $returnVal[] = $rec;
+        }
+        return $returnVal;
+    }
 }
 ?>

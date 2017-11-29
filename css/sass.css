@@ -27,7 +27,7 @@
   overflow-y: scroll;
 }
 
-#chatHeading:hover{
+.chatHeading:hover{
   cursor:pointer;
 }
 

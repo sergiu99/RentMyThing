@@ -7,8 +7,9 @@ class Listings extends Controller{
 		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo();
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		
-		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings"]);
+		$aFavorite = $this->model('Favorite');
+		$userFavorites = $aFavorite->getUserFavoritesId();
+		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings", 'favorites'=>$userFavorites]);
 	}
 
 	function search(){
