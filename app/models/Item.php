@@ -49,7 +49,7 @@ public function getDisplayInfo(){
 		$categoryQuote = $this->_connection->quote($category);
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
 		$locationWhere = "LOCATIONS";
-		/*if($location != null){
+		if($location != null){
 			$locationWhere = "AND user_id IN (SELECT id FROM user WHERE SUBSTRING(postal_code_address,0,3) IN (";
 			for($i = 0; i < sizeof($location) - 1; $i++){
 				$locationWhere .= $this->_connection->quote($location[$i]);
@@ -57,7 +57,7 @@ public function getDisplayInfo(){
 			}
 			$locationWhere .= $this->_connection->quote($location[sizeof($location) - 1]);
 			$locationWhere .= ")";
-		}*/
+		}
 
 		if($category != ""){
 			if($keyword != ""){

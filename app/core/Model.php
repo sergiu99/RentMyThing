@@ -61,6 +61,9 @@ class Model{
     // SELECT * FROM Client WHERE firstName = 'Jon' AND lastName = 'Doe'
     public function where($field, $op, $value){
         //TODO : only if this is a string-type value
+        if(strpos($value, '(')){
+            
+        }
         $value = $this->_connection->quote($value);
         if($this->_whereClause == '')
             $this->_whereClause .= "WHERE $field $op $value";
@@ -92,7 +95,6 @@ class Model{
 	//run select statements
     public function get(){
 		$select	= "SELECT * FROM $this->_className $this->_whereClause $this->_orderBy";
-
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);

@@ -25,7 +25,7 @@ class Listings extends Controller{
 		}
 		if(isset($_POST['location'])){
 			$locationString = $_POST['location'];
-			$locations[] = split('-', $locationString);
+			$locations = explode('-', $locationString);
 		}else{
 			$locations = null;
 		}

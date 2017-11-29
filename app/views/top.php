@@ -28,7 +28,7 @@
         
         <ul class="navbar-nav">
            <li class="dropdown">
- <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><i class="fa d-inline fa-lg fa-flash"></i> Notifications</a>    
+ <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><span id="notifCount" class="badge badge-light"></span></i> Notifications</a>    
 
           <ul id='view_ajax2' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
           
@@ -57,11 +57,10 @@ function getNotifications() {
 
         html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value="+message.redirect+"/><button class='btn' style='color:white; background-color: #007bff;' type='submit'>"+message.content+"</button></form>" + html;
      
-      }
+    }
        html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
-      }
-    //console.log(html);
-    
+    }
+    document.getElementById("notifCount").innerHTML = jsonLength;
     $('#view_ajax2').append(html);
   });
 }
@@ -70,8 +69,11 @@ getNotifications();
 
 	   </li>
 		<li class="nav-item">
-            <a class="nav-link" href="/Listings"><i class="fa d-inline fa-lg fa-star-o"></i> Listings</a>
+            <a class="nav-link" href="/Listings"><i class="fa d-inline fa-lg fa-home"></i> Listings</a>
           </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Favorites"><i class="fa d-inline fa-lg fa-star-o"></i> Favorites</a>
+      </li>
 		  <li class="nav-item">
             <a class="nav-link" href="/Rentals"><i class="fa d-inline fa-lg fa-calendar-o"></i> Rentals</a>
           </li>

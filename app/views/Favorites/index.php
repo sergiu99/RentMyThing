@@ -138,7 +138,7 @@
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
 
-<br><h2>Listings</h2><br>
+<br><h2>Your Favorites</h2><br>
 	<?php
 	if(count($data['items']) > 0){
 		echo "<table class='table table-striped'>
@@ -165,7 +165,7 @@
 		}
 		echo "</table>";
 	}else{
-		echo "<h3>No listings were found!</h3>";
+		echo "<h3>You have no favorites!</h3>";
 	}
 	?>
 </div>
