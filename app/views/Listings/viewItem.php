@@ -1,5 +1,8 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php');
 $item = $data['item'];
+if(strlen($item->name) > 130){
+	$item->name = substr($item->name, 0, 130);
+}
 $urlItemNameWords = explode(' ', $item->name);
 $urlName = $urlItemNameWords[0];
 for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
@@ -7,10 +10,46 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 }
  ?>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
 <div class="container">
 <br>
-<h2>Item Listing &nbsp;&nbsp;Share:&nbsp;&nbsp;<a class="" href="mailto:?subject=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&amp;body=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F<?php echo $item->id?>" title="Email Listing"><i class="fa d-inline fa-lg fa-envelope-o"></i></a></h2>
-	
+<h2 style="display:inline">Item Listing</h2> &nbsp;&nbsp;Share:&nbsp;&nbsp;
+	<h5 style="display:inline"><a class="" href="mailto:?subject=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&amp;body=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F<?php echo $item->id?>" title="Email Listing">
+		<i class="fa d-inline fa-lg fa-envelope-o"></i>
+	</a></h5>&nbsp;&nbsp;
+	<div class="fb-share-button" data-href="http://localhost/Listings/viewItem/<?php echo $item->id?>" data-layout="button" data-size="large" data-mobile-iframe="true">
+		<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F1&amp;src=sdkpreparse">Share</a>
+	</div>&nbsp;&nbsp;
+	<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&url=http://localhost/Listings/viewItem/<?php echo $item->id?>&hashtags=rentmything" data-size="large">
+		Tweet
+	</a>
+</br></br>
 <table class="table table-striped">
 	<tr>
 		<th>Name</th>
