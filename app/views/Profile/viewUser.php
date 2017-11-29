@@ -20,19 +20,21 @@
         $address .=  ', ' . $user->city_address . ', ' . $user->province_address;
     }
     echo "<strong>Address: </strong> $address</p>";
-    echo "<h3>Listings<h3>";
+    echo "<h3>Listings</h3>";
 
     if(count($data['listings']) > 0){
+		$favorites = $data['favorites'];
 		echo "<table class='table table-striped'>
-				<tr>
-					<th>Name</th>
-					<th>Image</th>
-					<th>Description</th>
-					<th>Price</th>
-					<th>Category</th>
-					<th>Rating</th>
-					<th>Action</th>
-                </tr>";
+		<tr>
+			<th>Name</th>
+			<th>Image</th>
+			<th>Description</th>
+			<th>Price/Day</th>
+			<th>Category</th>
+			<th>Rating</th>
+			<th>Favorite</th>
+			<th>View</th>
+		</tr>";
 		foreach($data['listings'] as $listing){
 			echo "<tr><td>$listing->name</td>";
 			echo "<td><img src='/$listing->image_path' width='100' height='100'></td>";
@@ -40,6 +42,11 @@
 			echo "<td>$ $listing->price</td>";
 			echo "<td>$listing->category</td>";
 			echo "<td>$listing->rating</td>";
+			if(in_array($listing->id, $favorites)){
+				echo "<td><input type='checkBox' id='favorite$listing->id' checked onclick='setFavorite($listing->id)'/></td>";
+			}else{
+				echo "<td><input type='checkBox' id='favorite$listing->id' onclick='setFavorite($listing->id)'/></td>";
+			}
 			echo "<td><a href='/Listings/viewItem/$listing->id'>View</a></td>";
 		}
 		echo "</table>";
@@ -50,9 +57,23 @@
 
 ?>
 
+<script>
+	function setFavorite(id){
+		var urlString = "";
+		if(document.getElementById("favorite" + id).checked == true){
+			urlString = "/Favorites/setFavorite?item=" + id;
+		}else{
+			urlString = "/Favorites/removeFavorite?item=" + id;
+		}
+		$.ajax({
+			type: "POST",
+			url: urlString
+		}).done(function (data){
+			console.log(data);
+		});
+	}
 
-
-
+</script>
 </div>
 </body>
 

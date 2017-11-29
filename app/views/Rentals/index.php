@@ -283,7 +283,6 @@ function toggleChat(id){
 }
 
 function getChatText(id) {
-	console.log("Getting: " + "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name);
 	$.ajax({
 		type: "GET",
 		url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name
@@ -293,7 +292,6 @@ function getChatText(id) {
 		messages = JSON.parse(messages);
 		var jsonLength = messages.results.length;
 		var html = "";
-		console.log(messages);
 		for (var i = 0; i < jsonLength; i++) {
 			var message = messages.results[i];
 			if(message.sender_id == <?php echo $data['this_user']?>){

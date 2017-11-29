@@ -180,7 +180,18 @@
 
 <script>
 	function setFavorite(id){
-
+		var urlString = "";
+		if(document.getElementById("favorite" + id).checked == true){
+			urlString = "/Favorites/setFavorite?item=" + id;
+		}else{
+			urlString = "/Favorites/removeFavorite?item=" + id;
+		}
+		$.ajax({
+			type: "POST",
+			url: urlString
+		}).done(function (data){
+			console.log(data);
+		});
 	}
 
 </script>

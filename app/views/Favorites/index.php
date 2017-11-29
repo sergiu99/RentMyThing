@@ -153,7 +153,7 @@
 					<th>Action</th>
 				</tr>";
 		foreach($data['items'] as $item){
-			echo "<tr><td>$item->name</td>";
+			echo "<tr id='row$item->id'><td>$item->name</td>";
 			echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 			echo "<td>$item->description</td>";
 			echo "<td>$ $item->price</td>";
@@ -161,7 +161,7 @@
 			$postalcode = strtoupper ($item->postal_code);
 			echo "<td>$postalcode</td>";	
 			echo "<td>$item->rating</td>";
-			echo "<td><a href='/Listings/viewItem/$item->id'>View</a></td>";
+			echo "<td><a href='/Listings/viewItem/$item->id'>View</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='/Favorites/removeFavoriteWithId/$item->id'>Remove</a></td>";
 		}
 		echo "</table>";
 	}else{

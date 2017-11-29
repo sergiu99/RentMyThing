@@ -7,9 +7,8 @@ class Listings extends Controller{
 		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo();
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$aFavorite = $this->model('Favorite');
-		$userFavorites = $aFavorite->getUserFavoritesId();
-		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings", 'favorites'=>$userFavorites]);
+		$favoritesIds = $this->getFavorites();
+		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 
 	function search(){
@@ -34,7 +33,8 @@ class Listings extends Controller{
 		$searchItems = $anItem->search($category, $keyword, $locations);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'type'=>"Listings"]);
+		$favoritesIds = $this->getFavorites();
+		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 	
 	function viewItem($id){
@@ -86,6 +86,16 @@ class Listings extends Controller{
 		} else {
 			header("location:/Listings");
 		}
+	}
+
+	function getFavorites(){
+		$aFavorite = $this->model('Favorite');
+		$userFavorites = $aFavorite->getUserFavoritesId();
+		$favoritesIds = [];
+		for($item = 0; $item < sizeOf($userFavorites); $item++){
+			$favoritesIds[$item] = $userFavorites[$item]->item_id;
+		}
+		return $favoritesIds;
 	}
 	
 

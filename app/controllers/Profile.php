@@ -86,13 +86,19 @@ class Profile extends Controller{
 		$theUser = $aUser->find($id);
 		$anItem = $this->model('Listing');
 		$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
-		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings]);
+		$aFavorite = $this->model('Favorite');
+		$userFavorites = $aFavorite->getUserFavoritesId();
+		$favoritesIds = [];
+		for($item = 0; $item < sizeOf($userFavorites); $item++){
+			$favoritesIds[$item] = $userFavorites[$item]->item_id;
+		}
+		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings, 'favorites'=>$favoritesIds]);
 	}
 
 function deleteAccount(){
 		if(isset($_POST['description']) && isset($_POST['urgency'])){
 
-			if($_POST['urgency'] == 'yes'){
+		if($_POST['urgency'] == 'yes'){
 		$updateUser = $this->model('User');
 		$updateUser = $updateUser->find($_SESSION['userID']);
 		$updateUser->id = $_SESSION['userID'];
