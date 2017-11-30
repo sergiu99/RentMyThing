@@ -31,7 +31,7 @@ echo "<h2>Leave a comment for the rental</h2>";
 </select>
 </div>
 	<div class="form-group">
-	<input type="submit" class="btn btn-default" name="action" value="Create comment />
+	<input type="submit" class="btn btn-default" name="action" value="Create comment "/>
 	</div>
 </form>
 

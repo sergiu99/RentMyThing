@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2017 at 03:39 AM
+-- Generation Time: Nov 30, 2017 at 06:59 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -82,6 +82,13 @@ CREATE TABLE `comment` (
   `rating` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `rental_id`, `poster_status`, `content`, `rating`) VALUES
+(1, 5, '6', 'This item was pretty good to rent.', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -117,8 +124,11 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `user_id`, `name`, `description`, `image_path`, `price`, `category`, `rating`, `status`) VALUES
-(1, 5, 'Harry Potter', 'its a book', 'images/book.png', 1, 13, NULL, 'enabled'),
-(2, 6, 'Jigly Book', 'iz a book', 'images/noimage.png', 40, 18, NULL, 'enabled');
+(1, 5, 'Harry Potter', 'Its a book', 'images/book.png', 1, 7, NULL, 'enabled'),
+(2, 6, 'Jigly Book', 'It has a slight smell of vanilla', 'images/noimage.png', 40, 18, NULL, 'enabled'),
+(3, 6, 'Wrench ', 'You know what your looking for', 'images/3.jpg', 15, 15, NULL, 'enabled'),
+(4, 6, 'Flamboyant Bike', 'You will look very cool', 'images/4.jpeg', 50, 11, NULL, 'enabled'),
+(5, 10, 'Cart', 'You can carry stuff in it ', 'images/5.jpg', 23, 15, NULL, 'enabled');
 
 -- --------------------------------------------------------
 
@@ -200,7 +210,10 @@ INSERT INTO `notification` (`id`, `user_id`, `content`, `created_on`, `redirect`
 (1, 6, 'Someone wants to rent your Jigly Book item.', '0000-00-00 00:00:00', 'dsda', 0),
 (2, 6, 'One of your rentals has been completed', '2017-11-28 02:23:58', '/Rentals', 0),
 (3, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:33:05', '/Rentals', 0),
-(4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 0);
+(4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 0),
+(5, 5, 'Someone wants to rent your Harry Potter item.', '2017-11-30 17:42:58', '/Rentals', 0),
+(6, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:06', '/Rentals', 0),
+(7, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:07', '/Rentals', 0);
 
 -- --------------------------------------------------------
 
@@ -223,12 +236,13 @@ CREATE TABLE `rental` (
 --
 
 INSERT INTO `rental` (`id`, `user_id`, `item_id`, `start_date`, `end_date`, `total`, `status`) VALUES
-(2, 6, 1, '2017-11-23', '2017-11-17', 7, 'pending'),
+(2, 6, 1, '2017-11-23', '2017-11-17', 7, 'cancelled'),
 (3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted'),
 (4, 7, 2, '2017-11-24', '2017-11-27', 160, 'pending'),
 (5, 6, 2, '2017-11-26', '2017-11-30', 200, 'completed'),
 (6, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending'),
-(7, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending');
+(7, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending'),
+(8, 6, 1, '2017-11-30', '2017-12-21', 22, 'cancelled');
 
 -- --------------------------------------------------------
 
@@ -250,10 +264,7 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`id`, `title`, `description`, `urgency`, `user_id`, `status`) VALUES
-(2, 'I need yo help', 'check yo privliges son', 'Low', 6, ''),
-(3, 'fEEwf', 'SFSFD', 'Medium', 6, ''),
-(4, 'Kirill has pipi on his face', 'Help me  now!', 'High', 6, ''),
-(5, 'dsasdas', 'dasdasd', 'High', 6, 'open');
+(2, 'I need yo help', 'check yo privliges son', 'Low', 6, '');
 
 -- --------------------------------------------------------
 
@@ -268,7 +279,7 @@ CREATE TABLE `user` (
   `password` varchar(72) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `phone_number` int(10) DEFAULT NULL,
+  `phone_number` varchar(10) DEFAULT NULL,
   `join_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `street_address` varchar(255) DEFAULT NULL,
   `city_address` varchar(20) DEFAULT NULL,
@@ -285,13 +296,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`, `account_status`) VALUES
-(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
-(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', 0, '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
-(5, 'user3@yahoo.com', 'dasd', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'dasd', 'asdsad', 234234, '2017-10-26 19:40:24', 'asdasd ', '', 'h4b1t2', '', 0, 0, 0, 'active'),
-(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'fiasdmo', 'asddalsdlsad', 2147483647, '2017-10-30 18:21:15', '123123 124213', 'montreal', 'h4b2w8', 'qyebec', 0, 0, 0, 'active'),
-(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', 2147483647, '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0, 'active'),
-(8, 'jiojdieoaijdo@hotmail.com', 'freddy kruegger', '$2y$10$1R631JdsO8s5ebXYF2jNWOvfqe3j92kT9p6PhvuElZ0lLi1Np8mZ.', 'Jerry', 'Brown', 2147483647, '2017-11-23 20:07:11', '4129943343 rehicashi', 'montreal', 'H4B2W9', 'quebec', 0, 0, 0, 'active'),
-(9, 'superman@yahoo.com', 'superman', '$2y$10$Fe.7c9ywliLriL32roexNuRWCglikXEE9pIo0JXYF/4CaAoIzWc7q', 'JERRY', 'krueg', 123213, '2017-11-23 20:07:38', '43', 'montreal', 'H4B2W9', 'quebec', 0, 0, 0, 'active');
+(1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', '0', '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
+(2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', '0', '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
+(5, 'user3@yahoo.com', 'curlyburry', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'Vasinlerh', 'Hueld', '5145169584', '2017-10-26 19:40:24', '21374 Sherbrooke ', 'Montreal', 'H4B1T8', 'Quebec', 0, 0, 0, 'active'),
+(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'Johny ', 'Bravo', '2147483647', '2017-10-30 18:21:15', '9393 Saint-Jacque', 'Montreal', 'H4B2W8', 'Quebec', 0, 0, 0, 'active'),
+(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', '2147483647', '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0, 'active'),
+(10, 'user6@yahoo.com', 'therulerofearth', '$2y$10$jir6tVprmUFHEsOvBWU/1OVbK3.HpcZOKQE5wZFcKW27439HuBrZG', 'Genghis', 'Khan', '5145932323', '2017-11-30 17:57:51', '2154 Mongolia Avenue', 'Montreal', 'H4B1J8', 'Quebec', 0, 0, 0, 'active');
 
 --
 -- Indexes for dumped tables
@@ -376,7 +386,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `favorite`
 --
@@ -386,7 +396,7 @@ ALTER TABLE `favorite`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `message`
 --
@@ -396,12 +406,12 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `ticket`
 --
@@ -411,7 +421,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
