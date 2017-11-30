@@ -19,7 +19,7 @@ public	function isValid(){
 public function getMyRentals(){
 
 		$userId =  $_SESSION['userID'];
-		$select	= "SELECT t1.id as id, t1.user_id as user_id, t1.start_date as start_date, t1.end_date as end_date, t1.total as total, t1.status as status, t2.name as name, t2.description as description, t2.image_path as image_path FROM rental t1 INNER JOIN item t2 ON t1.item_id = t2.id WHERE t1.user_id = $userId AND t1.status != 'completed' AND t1.status != 'declined' $this->_whereClause $this->_orderBy";
+		$select	= "SELECT t1.id as id, t1.user_id as user_id, t1.start_date as start_date, t1.end_date as end_date, t1.total as total, t1.status as status, t2.name as name, t2.description as description, t2.image_path as image_path FROM rental t1 INNER JOIN item t2 ON t1.item_id = t2.id WHERE t1.user_id = $userId AND t1.status != 'completed' AND t1.status != 'declined' AND t1.status != 'cancelled' $this->_whereClause $this->_orderBy";
 
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();

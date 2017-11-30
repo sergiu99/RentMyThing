@@ -94,7 +94,7 @@ class Model{
 
 	//run select statements
     public function get(){
-		$select	= "SELECT * FROM $this->_className $this->_whereClause $this->_orderBy";
+        $select	= "SELECT * FROM $this->_className $this->_whereClause $this->_orderBy";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);

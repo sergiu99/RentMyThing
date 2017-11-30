@@ -101,6 +101,14 @@ class Items extends Controller{
 	   return $anItem->setStatus($id, $status);
    }
 
+   function search(){
+	   $keyword = $_POST['keyword'];
+	   $keyword = "%" . $keyword . "%";
+	   $anItem = $this->model('Item');
+	   $searchItems1 = $anItem->where('t1.name', 'LIKE', $keyword)->getDisplayInfo();
+	   $this->view('Items/index',['items'=>$searchItems1]);
+   }
+
 	function uploadImage($theFile, $id){
 		$target_dir = "images/";	//the folder where files will be saved
 		$allowedTypes = array("jpg", "png", "jpeg", "gif", "bmp");// Allow certain file formats

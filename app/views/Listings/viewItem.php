@@ -48,7 +48,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	</div>&nbsp;&nbsp;
 	<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&url=http://localhost/Listings/viewItem/<?php echo $item->id?>&hashtags=rentmything" data-size="large">
 		Tweet
-	</a>
+	</a><a href="/Profile/viewUser/<?php echo $item->user_id?>" style="float:right">View owner's profile</a>
 </br></br>
 <table class="table table-striped">
 	<tr>

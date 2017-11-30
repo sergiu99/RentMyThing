@@ -40,5 +40,12 @@ class Login extends Controller{
 		LoginCore::logout();
 		header('location:/Login');
 	}
+
+	function checkUsername(){
+		$nameValue = $_GET['value'];
+		$aUser = $this->model('User');
+		$userWithName = $aUser->search($nameValue);
+		echo sizeOf($userWithName);
+	}
 }
 ?>

@@ -1,8 +1,6 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
-<h1>Your Profile</h1>
-<br>
-
+</br><h1>Your Profile</h1>
 <form method="POST" action="/Profile/save">
   <div class="form-group">
     <label for="display_name">Display Name:</label>
@@ -54,13 +52,13 @@
   <div class="form-group">
     <label for="city_address">City:</label>
     <?php
-      echo "<input type='text' class='form-control' id='city_address' name='city_address' value='$user->city_address'>";
+      echo "<input type='text' class='form-control' id='city_address' name='city_address' value='$user->city_address' required>";
     ?>
   </div>
   <div class="form-group">
     <label for="province_address">Province:</label>
     <?php
-      echo "<input type='text' class='form-control' id='province_address' name='province_address' value='$user->province_address'>";
+      echo "<input type='text' class='form-control' id='province_address' name='province_address' value='$user->province_address' required>";
     ?>
   </div>
   <div class="form-group">

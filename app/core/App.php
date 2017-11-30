@@ -6,7 +6,7 @@ class App
 	protected $method = 'index';
 	protected $params = [];
 	protected $loginURL = '/Login';
-	protected $publicURL = ['Login','Login/signup'];
+	protected $publicURL = ['Login','Login/signup','Login/checkUsername'];
 
 	//TODO: integrate login rerouting in this location
 	public function __construct(){

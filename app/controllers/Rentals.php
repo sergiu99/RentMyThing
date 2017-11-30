@@ -80,7 +80,7 @@ var_dump($_POST);
 
 
         if($statuss == 'pending'){
-        $aItem->status = 'completed';
+        $aItem->status = 'cancelled';
         $contentt = 'One of your rentals has been terminated before starting';
         $newNotification->content = $contentt;
 

@@ -2,10 +2,10 @@
 <div class="container">
 <br>
 <h1>Items</h1>
-<form method="get" action="/Items/search" class="form-inline">
+<form method="POST" action="/Items/search" class="form-inline">
 <div class="form-group">
 <label for="q">Search by name of item   </label>
-<input style="margin-left: 10px;" type="text" class="form-control" name="q" id="q" />
+<input style="margin-left: 10px;" type="text" class="form-control" name="keyword" id="keyword" />
 </div>
 <div class="form-group">
 <input style="margin-left: 10px;" type="submit" class="btn btn-default" name="action" value='search' />
@@ -18,7 +18,9 @@
 
 
 <table class="table table-striped">
-	<tr>
+	<?php
+	if(count($data['items']) > 0){
+		echo "<tr>
 		<th>Name</th>
 		<th>Image</th>
 		<th>Description</th>
@@ -29,27 +31,28 @@
 		<th>Action</th>
 		<th></th>
 		<th></th>
-	</tr>
-	
-	<?php
-	foreach($data['items'] as $item){
-		echo "<tr><td>$item->name</td>";
-		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
-		echo "<td>$item->description</td>";
-		echo "<td>$ $item->price</td>";
-		echo "<td>$item->category</td>";
-		echo "<td>$item->rating</td>";
-		if($item->status == "enabled"){
-			echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)' checked/></td>";
-		}else{
-			echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)'/></td>";
+		</tr>";
+		foreach($data['items'] as $item){
+			echo "<tr><td>$item->name</td>";
+			echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
+			echo "<td>$item->description</td>";
+			echo "<td>$ $item->price</td>";
+			echo "<td>$item->category</td>";
+			echo "<td>$item->rating</td>";
+			if($item->status == "enabled"){
+				echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)' checked/></td>";
+			}else{
+				echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)'/></td>";
+			}
+			echo "<td><a href='/Items/viewItem/$item->id'>View</a></td>";
+			echo "<td><a href='/Items/editItem/$item->id'>Edit</a></td>";
+			echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
 		}
-		echo "<td><a href='/Items/viewItem/$item->id'>View</a></td>";
-		echo "<td><a href='/Items/editItem/$item->id'>Edit</a></td>";
-		echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
+		echo "</table>";
+	}else{
+		echo "<h3>No items were found!</h3>";
 	}
 	?>
-</table>
 
 
 

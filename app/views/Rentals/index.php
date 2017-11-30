@@ -48,12 +48,13 @@
 	<?php
 	foreach($data['myRentals'] as $item){
 	$statuss = $item->status;
-	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
+		$completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
 			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
 		} else if($item->status == 'pending'){
 			$statuss = 'Pending';
+			$completeAction = "<td><button class='btn btn-default'  type='submit'>Cancel Request</button></td></tr>";
 		}
 		else if($item->status == 'completed')
 		{
@@ -62,7 +63,7 @@
 		{
 			$statuss = 'Accepted';
 		} else {
-			$statuss = 'Awaiting your action to Complete';
+			$statuss = 'Awaiting your confirmation to Complete';
 		} 
 
 echo "		<tr><td>$item->name</td>";
@@ -232,9 +233,11 @@ echo "		<tr><td>$item->name</td>";
 		}else if($item->status == 'accepted')
 		{
 			$statuss = 'Accepted';
-		} else {
+		} else if($item->status == 'cancelled') {
+			$statuss = 'Cancelled';
+		} else{
 			$statuss = 'Awaiting your action to Complete';
-		} 
+		}
 
 		$itemuserid = $item->user_id;
 		$thisusersss = $data['this_user'];

@@ -3,17 +3,24 @@
 <br>
 <?php 
     $user = $data['user'];
-    echo "<h3>$user->display_name's profile</h3><br>";
-    echo "<h5>Contact Information</h5>";
-    if($user->phone_number == ""){
-        echo "<p><strong>Phone Number: </strong> Not Available&nbsp;&nbsp;&nbsp;&nbsp;";
+    echo "<h3>$user->display_name's profile</h3>";
+	echo "<h5>Contact Information</h5>";
+	if($user->show_email == 0){
+		echo "<p><strong>Email: </strong> Not Available&nbsp;&nbsp;&nbsp;&nbsp;";
+	}else{
+		echo "<p><strong>Phone Number: </strong> $user->email&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+    if($user->phone_number == "" || $user->show_phone == 0){
+        echo "<strong>Phone Number: </strong> Not Available&nbsp;&nbsp;&nbsp;&nbsp;";
     }else{
-        echo "<p><strong>Phone Number: </strong> $user->phone_number&nbsp;&nbsp;&nbsp;&nbsp;";
+        echo "<strong>Phone Number: </strong> $user->phone_number&nbsp;&nbsp;&nbsp;&nbsp;";
     }
     $address = "";
-    if($user->street_address != ""){
-        $address = $user->street_address;
-    }
+    if($user->street_address == "" || $user->show_address == 0){
+        $address = "Not Available";
+    }else{
+		$address = $user->street_address;
+	}
     if($address == ""){
         $address ==  $user->city_address . ', ' . $user->province_address;
     }else{

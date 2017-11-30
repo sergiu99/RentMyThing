@@ -32,7 +32,7 @@ class User extends Model
 
 	function search($keyword){
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
-		$select = "SELECT u.id, u.display_name, u.join_date, u.phone_number, u.street_address, u.city_address, u.postal_code_address, u.province_address, (SELECT COUNT(i.id) FROM item i WHERE i.user_id = u.ID) as count FROM user u WHERE u.display_name LIKE $keywordQuote";
+		$select = "SELECT u.id, u.display_name, u.join_date, u.phone_number, u.street_address, u.city_address, u.postal_code_address, u.province_address, u.show_email, u.show_phone, u.show_address, (SELECT COUNT(i.id) FROM item i WHERE i.user_id = u.ID) as count FROM user u WHERE u.display_name LIKE $keywordQuote";
 		$stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
