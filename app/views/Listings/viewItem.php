@@ -72,28 +72,41 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	
 	?>
 </table>
+
+<div class="row">
+	<div class="col-6">
 	<label for="totalInput">Map</label>
 	<div id="mapDiv" onLoad="initMap()">
 		
 	</div>
-
+</div>
+<div class="col-md-6">
 <form method="post" action="/Listings/rentItem" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
+	<label for="item_id"><h6>Make A Rental Request:</h6></label>
 <input type='hidden' class='form-control' name='item_id'  id='item_id'  value ="<?php echo $item->id;?>"/>
 		<div class ="row">
 			
-<div class="col-md-3">
+
 	<label for="start_date">Start Date</label>
-	<input type='date' class='form-control' required='true' name='start_date' onchange="calculate()" required='true' id='start_date'  />
-</div>
-<div class="col-md-3">
+	<input type='date' class='form-control' required='true' name='start_date' onchange="calculate()" required='true' id='start_date'  /></br>
+
 	<label for="end_date">End Date</label>
-	<input type='date' class='form-control end_date' onchange="calculate()" required='true' name='end_date' id='end_date' />
-</div>
-<div class="col-md-3">
+	<input type='date' class='form-control end_date' onchange="calculate()" required='true' name='end_date' id='end_date' /></br>
+
 	<label for="totalInput">Total</label>
 	<input type='text' class='form-control' required='true' name='totalInput' id='totalInput' disabled=""/>
+
+	<br><br>
+	
+			<input type="submit" id='rentbutn'  class="btn btn-default" name="action" value="Rent Item" style="margin-top:25px"/>
+			</form>
+	
 </div>
+
+	</div>
+</div>
+<div class="form-group">
 <script type="text/javascript">
 	function initMap(){
 		var map = new google.maps.Map(document.getElementById('mapDiv'), {
@@ -117,17 +130,6 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
 
-<div class="col-md-12">
-	<br>
-	
-			<input type="submit" id='rentbutn'  class="btn btn-default" name="action" value="Rent Item" />
-			</form>
-	
-</div>
-
-	</div>
-</div>
-<div class="form-group">
 <script type="text/javascript">
 			var today = new Date();
 			var startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -157,6 +159,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 			}}
 		</script>
 <a href="/Listings/"><button  class="btn btn-default" >Go back</button></a>
+</div>
 </div>
 </div>
 </body>
