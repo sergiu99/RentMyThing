@@ -82,9 +82,10 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	</div>
 </div>
 <div class="col-md-6">
+<h6>Make A Rental Request:</h6>
+<p id="dateRangeMessage"></p>
 <form method="post" action="/Listings/rentItem" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
-	<label for="item_id"><h6>Make A Rental Request:</h6></label>
 <input type='hidden' class='form-control' name='item_id'  id='item_id'  value ="<?php echo $item->id;?>"/>
 		<div class ="row">
 
@@ -161,6 +162,14 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 			var inDays = Math.floor((endDate - starttDate) / (1000*60*60*24));
 			var total = (inDays+2) * 1;
 			
+			if(total <= 0){
+				document.getElementById("rentbutn").disabled = true;
+				document.getElementById("dateRangeMessage").innerHTML = "Invalid Date Range";
+			}else{
+				document.getElementById("rentbutn").disabled = false;
+				document.getElementById("dateRangeMessage").innerHTML = "";
+			}
+
    			//console.log(inDays);
 			document.getElementById("totalInput").value = "$"+total;
 			  $('.rentbutn').prop('disabled', false);
@@ -168,21 +177,19 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 
 			function checkDates(){
 				console.log("changes");
+				document.getElementById("end_date").min = document.getElementById("start_date").value;
 				$.ajax({
 					type: "GET",
-					url: "/Rental/checkDates?start=" + document.getElementById("start_date").value + "&end=" + document.getElementById("end_date").value + "&item=" + document.getElementById("item_id").value,
-					dataType: "json"
+					url: "/Listings/checkDates?start=" + document.getElementById("start_date").value + "&end=" + document.getElementById("end_date").value + "&item=" + document.getElementById("item_id").value
 				}).done(function (data){
 					console.log(data);
 					var result = JSON.parse(data);
-					if(data == 0){
-						document.getElementById("display_name").class = "form-control form-control-success";
-						document.getElementById("name_feedback").innerHTML = "";
-						document.getElementById("submit_button").disabled = false;
+					if(result.length > 0){
+						document.getElementById("dateRangeMessage").innerHTML = "Item not available for this date range";
+						document.getElementById("rentbutn").disabled = true;
 					}else{
-						document.getElementById("display_name").class = "form-control form-control-warning";
-						document.getElementById("name_feedback").innerHTML = "Sorry, that username's taken. Try another?";
-						ocument.getElementById("submit_button").disabled = true;
+						document.getElementById("dateRangeMessage").innerHTML = "";
+						document.getElementById("rentbutn").disabled = false;
 					}
 				});
 			}

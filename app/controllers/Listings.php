@@ -98,6 +98,16 @@ class Listings extends Controller{
 		return $favoritesIds;
 	}
 	
+	function checkDates(){
+        $startDate = $_GET['start'];
+        $endDate = $_GET['end'];
+        $itemId = $_GET['item'];
+        $date1 = date_create($startDate);
+		$date2 = date_create($endDate);
+		$aRental = $this->model('Rental');
+		$existingRentals = $aRental->checkDates($itemId , $startDate, $endDate);
+		echo json_encode($existingRentals);
+	}
 
 
 /*public function getDisplayInfo(){
