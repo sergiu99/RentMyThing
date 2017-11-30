@@ -8,7 +8,7 @@
 	if($user->show_email == 0){
 		echo "<p><strong>Email: </strong> Not Available&nbsp;&nbsp;&nbsp;&nbsp;";
 	}else{
-		echo "<p><strong>Phone Number: </strong> $user->email&nbsp;&nbsp;&nbsp;&nbsp;";
+		echo "<p><strong>Email: </strong> $user->email&nbsp;&nbsp;&nbsp;&nbsp;";
 	}
     if($user->phone_number == "" || $user->show_phone == 0){
         echo "<strong>Phone Number: </strong> Not Available&nbsp;&nbsp;&nbsp;&nbsp;";
