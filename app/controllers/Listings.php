@@ -40,8 +40,10 @@ class Listings extends Controller{
 	function viewItem($id){
 		$thisItem = $this->model('Listing');
 		$thisItem = $thisItem->getItem($id)[0];
+		$comments = $this->model('Comment');
+		$comments = $comments->where('item_id','=',$id)->getRentalFromComment();
 		if($thisItem->name !=''){
-			$this->view('Listings/viewItem',['item'=>$thisItem]);
+			$this->view('Listings/viewItem',['item'=>$thisItem, 'comments'=>$comments]);
 		} else { header("location:/Listings");}
 	}
 	

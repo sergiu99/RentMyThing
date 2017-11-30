@@ -40,6 +40,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 
 <div class="container">
 <br>
+<div class="">
 <h2 style="display:inline">Item Listing</h2> &nbsp;&nbsp;Share:&nbsp;&nbsp;
 	<h5 style="display:inline"><a class="" href="mailto:?subject=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&amp;body=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F<?php echo $item->id?>" title="Email Listing">
 		<i class="fa d-inline fa-lg fa-envelope-o"></i>
@@ -47,9 +48,10 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	<div class="fb-share-button" data-href="http://localhost/Listings/viewItem/<?php echo $item->id?>" data-layout="button" data-size="large" data-mobile-iframe="true">
 		<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FListings%2FviewItem%2F1&amp;src=sdkpreparse">Share</a>
 	</div>&nbsp;&nbsp;
-	<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&url=http://localhost/Listings/viewItem/<?php echo $item->id?>&hashtags=rentmything" data-size="large">
+	<a style="margin-top: 50:px;" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20item%20on%20RentMyThing%3A%20<?php echo $urlName;?>&url=http://localhost/Listings/viewItem/<?php echo $item->id?>&hashtags=rentmything" data-size="large">
 		Tweet
-	</a><a href="/Profile/viewUser/<?php echo $item->user_id?>" style="float:right">View owner's profile</a>
+	</a>
+	</div><a href="/Profile/viewUser/<?php echo $item->user_id?>" style="float:right">View owner's profile</a>
 </br></br>
 <table class="table table-striped">
 	<tr>
@@ -190,6 +192,23 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 <a href="/Listings/"><button  class="btn btn-default" >Go back</button></a>
 </div>
 </div>
+<br><h2>Comments</h2><br>
+	<?php
+	if(count($data['comments']) > 0){
+		echo "<table class='table table-striped'>
+				<tr>
+					<th>Content</th>
+					<th>Rating</th>
+				</tr>";
+		foreach($data['comments'] as $item){
+			echo "<tr><td>$item->content</td>";
+			echo "<td>$item->rating out of 5</td>";
+		}
+		echo "</table>";
+	}else{
+		echo "<h3>No comments were left for this item!</h3>";
+	}
+	?>
 </div>
 </body>
 </html>
