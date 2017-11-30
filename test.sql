@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2017 at 06:59 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Nov 30, 2017 at 09:06 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -207,7 +205,6 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `content`, `created_on`, `redirect`, `viewed`) VALUES
-(1, 6, 'Someone wants to rent your Jigly Book item.', '0000-00-00 00:00:00', 'dsda', 0),
 (2, 6, 'One of your rentals has been completed', '2017-11-28 02:23:58', '/Rentals', 0),
 (3, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:33:05', '/Rentals', 0),
 (4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 0),
@@ -465,7 +462,6 @@ ALTER TABLE `notification`
 ALTER TABLE `rental`
   ADD CONSTRAINT `rental_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
   ADD CONSTRAINT `rental_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
