@@ -82,6 +82,10 @@ echo "		<tr><td>$item->name</td>";
 		echo "</form></td></tr>";
 		
 	}
+	$chatId = $data['chat'];
+	if($chatId != ""){
+		echo "<div id='loadChat' onload='toggleChat($chatId)'></div>";
+	}
 	?>
 </table>
   </div>

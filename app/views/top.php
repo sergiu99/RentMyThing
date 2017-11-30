@@ -56,11 +56,10 @@ function getNotifications() {
        
     for (var i = 0; i < jsonLength; i++) {
       var message = data[i];
-
-        html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value="+message.redirect+"/><button class='btn' style='color:white; background-color: #007bff;' type='submit'>"+message.content+"</button></form>" + html;
-     
+      console.log(message.content.substring(0,11));
+      html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value="+message.redirect+"/><button class='btn' style='color:white; background-color: #007bff;' type='submit'>"+message.content+"</button></form>" + html;
     }
-       html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
+      html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
     }
     document.getElementById("notifCount").innerHTML = jsonLength;
     $('#view_ajax2').append(html);

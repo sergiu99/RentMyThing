@@ -6,16 +6,18 @@ class Rentals extends Controller{
 		$aItem = $this->model('Rental');
 		$userId =  $_SESSION['userID'];
 		$myItems = $aItem->getMyRentals();
-
+        if(isset($_GET['chat'])){
+            $chat = $_GET['chat'];
+        }else{
+            $chat = "";
+        }
         $completedItems = $aItem->getMyCompletedRentals();
 		$proposals = $this->model('Rental');
         $proposals = $proposals->getMyItemProposals();
         $currentlyRenting = $this->model('Rental');
         $currentlyRenting = $currentlyRenting->getMyRentingItems();
 
-		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting,'completedItems'=>$completedItems, 'this_user'=>$_SESSION['userID']]);
-
-
+		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting,'completedItems'=>$completedItems, 'this_user'=>$_SESSION['userID'], 'chat'=>$chat]);
     }
     
     function createComment(){
@@ -125,6 +127,5 @@ var_dump($_POST);
            header("location:/Listings");
         }
     }
-
 }
 ?>

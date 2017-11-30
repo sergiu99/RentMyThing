@@ -15,11 +15,20 @@ class Chat extends Controller
         $newMessage->sender_id = $_SESSION['userID'];
         $newMessage->content = $content;
         $newId = $newMessage->insert();
-
-        //Create notification
+        $aRental = $this->model('Rental');
+        $thisRental = $aRental->find($rentalId);
+        $anItem = $this->model('Item');
         $notification = $this->model('Notification');
-        
-
+        $theItem =$anItem->find($thisRental->item_id);
+        if($newMessage->sender_id == $theItem->user_id){
+            $notification->user_id = $theItem->user_id;
+        }else{
+            $notification->user_id = $thisRental->user_id;
+        }
+        //Create notification
+        $notification->content = "New message for the item rental $theItem->name #$rentalId";
+        $notification->redirect = "/Rentals";
+        $notification->insert();
         return $newId;
     }
 
