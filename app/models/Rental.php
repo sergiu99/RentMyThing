@@ -76,5 +76,22 @@ public function getMyItemProposals(){
         return $returnVal;
     }
 
+    function checkDates(){
+        $startDate = $_GET['start'];
+        $endDate = $_GET['end'];
+        $itemId = $_GET['item'];
+        $date1 = date_create($startDate);
+		$date2 = date_create($endDate);
+		$select	= "SELECT start_date, end_date FROM rental WHERE item_id = $itemId AND status = 'accepted' AND ($date1 BETWEEN start_date AND end_date OR $date2 BETWEEN start_date AND end_dat) $this->_whereClause $this->_orderBy";
+        $stmt = $this->_connection->prepare($select);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
+        $returnVal = [];
+        while($rec = $stmt->fetch()){
+            $returnVal[] = $rec;
+        }
+        echo "hello";
+    }
+
 }
 ?>

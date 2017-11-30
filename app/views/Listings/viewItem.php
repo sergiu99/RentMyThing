@@ -8,6 +8,7 @@ $urlName = $urlItemNameWords[0];
 for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	$urlName .= "%20" . $urlItemNameWords[$i];
 }
+
  ?>
 
 <div id="fb-root"></div>
@@ -86,13 +87,12 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 	<label for="item_id"><h6>Make A Rental Request:</h6></label>
 <input type='hidden' class='form-control' name='item_id'  id='item_id'  value ="<?php echo $item->id;?>"/>
 		<div class ="row">
-			
 
 	<label for="start_date">Start Date</label>
-	<input type='date' class='form-control' required='true' name='start_date' onchange="calculate()" required='true' id='start_date'  /></br>
+	<input type='date' class='form-control' required='true' name='start_date' onchange="calculate()" required='true' id='start_date' onblur="checkDates()"/></br>
 
 	<label for="end_date">End Date</label>
-	<input type='date' class='form-control end_date' onchange="calculate()" required='true' name='end_date' id='end_date' /></br>
+	<input type='date' class='form-control end_date' onchange="calculate()" required='true' name='end_date' id='end_date' onblur="checkDates()"/></br>
 
 	<label for="totalInput">Total</label>
 	<input type='text' class='form-control' required='true' name='totalInput' id='totalInput' disabled=""/>
@@ -132,9 +132,17 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 
 <script type="text/javascript">
 			var today = new Date();
+			var tomorrow = new Date();
 			var startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			tomorrow.setDate(today.getDate() + 1);
+			var day = "" + tomorrow.getDate();
+			var pad = "00"
+			var dayPad = pad.substring(0, pad.length - day.length) + day
+			var nextDayDate = tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+dayPad;
 			document.getElementById("start_date").value = startDate;
-			//document.getElementById("end_date").value = "2017-11-20";
+			document.getElementById("start_date").min = startDate;
+			document.getElementById("end_date").value = nextDayDate;
+			document.getElementById("end_date").min = nextDayDate;
 
 			function calculate(){
 			var selectedText = document.getElementById('end_date').value;
@@ -157,6 +165,27 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 			document.getElementById("totalInput").value = "$"+total;
 			  $('.rentbutn').prop('disabled', false);
 			}}
+
+			function checkDates(){
+				console.log("changes");
+				$.ajax({
+					type: "GET",
+					url: "/Rental/checkDates?start=" + document.getElementById("start_date").value + "&end=" + document.getElementById("end_date").value + "&item=" + document.getElementById("item_id").value,
+					dataType: "json"
+				}).done(function (data){
+					console.log(data);
+					var result = JSON.parse(data);
+					if(data == 0){
+						document.getElementById("display_name").class = "form-control form-control-success";
+						document.getElementById("name_feedback").innerHTML = "";
+						document.getElementById("submit_button").disabled = false;
+					}else{
+						document.getElementById("display_name").class = "form-control form-control-warning";
+						document.getElementById("name_feedback").innerHTML = "Sorry, that username's taken. Try another?";
+						ocument.getElementById("submit_button").disabled = true;
+					}
+				});
+			}
 		</script>
 <a href="/Listings/"><button  class="btn btn-default" >Go back</button></a>
 </div>
