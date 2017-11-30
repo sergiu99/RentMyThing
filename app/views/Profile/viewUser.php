@@ -72,7 +72,6 @@
 			console.log(data);
 		});
 	}
-
 </script>
 </div>
 </body>
