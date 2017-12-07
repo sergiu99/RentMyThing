@@ -23,18 +23,25 @@ class Listings extends Controller{
 		}else{
 			$keyword = "";
 		}
-		if(isset($_POST['location'])){
-			$locationString = $_POST['location'];
-			$locations = explode('-', $locationString);
+		if(isset($_POST['locations'])){
+			if($_POST['locations'] == ""){
+				$locationString = null;
+				$locations = null;
+			}else{
+				$locations = $_POST['locations'];
+				$locations = explode('-', $locations);
+				$locationString = $_POST['locationString'];
+			}
 		}else{
 			$locations = null;
+			$locationString = null;
 		}
 		$anItem = $this->model('Listing');
 		$searchItems = $anItem->search($category, $keyword, $locations);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
 		$favoritesIds = $this->getFavorites();
-		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'type'=>"Listings", 'favorites'=>$favoritesIds]);
+		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'location'=>$locationString, 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 	
 	function viewItem($id){

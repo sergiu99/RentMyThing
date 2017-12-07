@@ -80,7 +80,6 @@ class Listing extends Model{
 			$where .= $this->_connection->quote($location[sizeof($location) - 1]);
 			$where .= "))";
 		}
-		
 		$this->_whereClause .= $where;
 		return $this->getDisplayInfo();
 	}

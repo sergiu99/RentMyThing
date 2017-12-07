@@ -1,53 +1,5 @@
 <br>
-	<?php
-			echo "<form method='post' action='/Listings/search' class='form-inline' id='searchAction' onload='initMap'>
-					<div class='form-group' id='searchForm'>
-						<label for='type'>Search for &nbsp;</label>";
-			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
-					<option value='listings'>Listings</option>
-					<option value='users'>Users</option>
-				</select>&nbsp;&nbsp;with keyword&nbsp;";
 
-			$keyword = $data['keyword'];
-			if($keyword != ""){ 
-				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='$keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
-			}else{
-				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";
-			}
-
-			echo "<select class='form-control' id='category' name='category'>";
-			$category = $data['category'];
-			if($category != ""){
-				echo "<option disabled>Category $category</option>";
-				foreach($data['categories'] as $aCategory){
-					if($aCategory->name == $category){
-						echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
-					}else{
-						echo "<option value='$aCategory->name'>$aCategory->name</option>";
-					}
-				}
-			}else{
-				echo "<option disabled selected>Category</option>";
-				foreach($data['categories'] as $aCategory){
-					echo "<option value='$aCategory->name'>$aCategory->name</option>";
-				}
-			}
-			echo "</select>";
-			echo "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle()'/>choose location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button>";
-			echo "<input name='location' id='location' value='' hidden/>";
-	?>
-</div>
-<div class="form-group">
-<input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
-</div>
-</form></br>
-
-<div id="searchMapDiv" class="collapse">
-	<h6>Click on the map to select a location</h6>
-	<div id="mapDiv">
-	
-	</div>
-</div>
 
 <script type="text/javascript">
 	var marker;
@@ -56,13 +8,13 @@
 	var geocoder;
 	
 	function initMap(){
+		console.log("loading map");
 		map = new google.maps.Map(document.getElementById('mapDiv'), {
-    		zoom: 5,
-    		center: {lat: 45.731, lng: -73.997}
+    		zoom: 11,
+    		center: {lat: 45.480999, lng: -73.652415}
   		});
 
 		map.addListener('click', function(event){
-			console.log("map click");
 			placeMarker(event.latLng);
 		});
 		geocoder = new google.maps.Geocoder;
@@ -101,21 +53,20 @@
 	}
 
 	function getNearbyPostalCodes(postalCodeValue){
+		document.getElementById("locationString").value = postalCodeValue;
 		var splitPostalCode = postalCodeValue.split(" ");
 		postalCodeValue = splitPostalCode[0] + splitPostalCode[1];
-		console.log(postalCodeValue);
 		$.ajax({
 			type: "GET",
 			url: "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + postalCodeValue + "&country=CA&radius=4&username=rentmything",
      		dataType: "json"
 		}).done(function (data){
-			console.log(data);
 			var results = "";
 			for(var i = 0; i < data.postalCodes.length - 1; i ++){
 				results += data.postalCodes[i].postalCode + "-";
 			}
 			results += data.postalCodes[data.postalCodes.length - 1].postalCode;
-			document.getElementById("location").value = results;
+			document.getElementById("locations").value = results;
 		});
 	}
 
@@ -130,10 +81,71 @@
 		}
 		toggleHtml = buttonText + spanHtml;
 		document.getElementById("locationButton").innerHTML = toggleHtml;
+		initMap();
 	}
 </script>
 
+
+<form method='post' action='/Listings/search' class='form-inline' id='searchAction'>
+	<div class='form-group' id='searchForm'>
+		<label for='type'>Search for &nbsp;</label>
+		<select class='form-control' id='type' name='type' onchange='selectChange()'>
+			<option value='listings'>Listings</option>
+			<option value='users'>Users</option>
+		</select>&nbsp;&nbsp;with keyword&nbsp;
+	<?php
+			if(isset($data['keyword']) && $data['keyword'] != ""){
+				$keyword = $data['keyword'];
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' value='$keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";				
+			}else{
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";				
+			}
+
+			echo "<select class='form-control' id='category' name='category'>";
+			if(isset($data['category']) && $data['category'] != ""){
+				$category = $data['category'];
+				echo "<option disabled>Category $category</option>";
+				foreach($data['categories'] as $aCategory){
+					if($aCategory->name == $category){
+						echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
+					}else{
+						echo "<option value='$aCategory->name'>$aCategory->name</option>";
+					}
+				}
+			}else{
+				echo "<option disabled selected>Category</option>";
+				foreach($data['categories'] as $aCategory){
+					echo "<option value='$aCategory->name'>$aCategory->name</option>";
+				}
+			}
+			
+			echo "<input name='locations' id='locations' value='' hidden/><input name='locationString' id='locationString' value='' hidden/>";
+			echo "</select>";
+			if(isset($data['location']) && $data['location'] != ""){
+				$location = $data['location'];
+				echo "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle();'/>$location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button><script>getNearbyPostalCodes(\"$location\"); console.log('UPDATED')</script>";								
+			}else{
+				echo "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle()'/>choose location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button>";				
+			}
+	?>
+</div>
+<div class="form-group">
+<input style="margin-left: 10px;" type="submit" class="btn btn-default" name="submit" value='Search'/>
+</div>
+</form></br>
+
+<div id="searchMapDiv" class="collapse">
+	<h6>Click on the map to select a location</h6>
+	<div id="mapDiv">
+	
+	</div>
+</div>
+
 <script type="text/javascript">
+	$('#searchMapDiv').on('shown.bs.collapse', function() {
+  		initMap();
+	});
+
 	var categories = "<?php 
 						$categories = "";
 						foreach($data['categories'] as $aCategory){
@@ -151,7 +163,7 @@
 			var selectCategoryList = "<select class='form-control' id='category' name='category'><option disabled selected>Category</option>" + categories + "</select>";
 			document.getElementById("searchForm").innerHTML+= selectCategoryList;
             document.getElementById("searchForm").innerHTML+= "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle()'/>choose location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button>";
-			document.getElementById("searchForm").innerHTML+= "<input name='location' id='location' value='' hidden/>";
+			document.getElementById("searchForm").innerHTML+= "<input name='locations' id='locations' value='' hidden/><input name='locationString' id='locationString' value='' hidden/>";
 		}else{
 			document.getElementById("searchForm").innerHTML='';
 			document.getElementById("searchAction").action="/Profile/search";
@@ -162,4 +174,4 @@
 	}
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc">//&callback=initMap</script>
