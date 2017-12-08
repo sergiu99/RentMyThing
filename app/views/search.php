@@ -2,13 +2,12 @@
 
 
 <script type="text/javascript">
-	var marker;
+	var marker = null;
 	var map;
 	var markerPC;
 	var geocoder;
 	
 	function initMap(){
-		console.log("loading map");
 		map = new google.maps.Map(document.getElementById('mapDiv'), {
     		zoom: 11,
     		center: {lat: 45.480999, lng: -73.652415}
@@ -17,7 +16,13 @@
 		map.addListener('click', function(event){
 			placeMarker(event.latLng);
 		});
-		geocoder = new google.maps.Geocoder;
+		geocoder = new google.maps.Geocoder;	
+		if(marker != null){
+			marker = new google.maps.Marker({
+        		position: marker.getPosition(), 
+        		map: map
+    		});
+		}
 	}
 
 	function placeMarker(latlng) {
@@ -81,7 +86,28 @@
 		}
 		toggleHtml = buttonText + spanHtml;
 		document.getElementById("locationButton").innerHTML = toggleHtml;
-		initMap();
+		if(!initialToggle){
+			initMap();
+			initialToggle = true;
+		}
+	}
+
+	function clearSelection(){
+		if(marker != null){
+			marker.setMap(null);
+			marker = null;
+			var toggleHtml = document.getElementById("locationButton").innerHTML;
+			var spanHtml = toggleHtml.substring(toggleHtml.indexOf("&nbsp;"));
+			if(spanHtml == "&nbsp;<i class=\"fa d-inline fa-lg fa-chevron-down\"></i>"){
+				spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-up'></i>";
+			}else{
+				spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i>";
+			}
+			toggleHtml = "choose location" + spanHtml;
+			document.getElementById("locationButton").innerHTML = toggleHtml;
+			document.getElementById("locations").value = "";
+			document.getElementById("locationString").value = "";
+		}
 	}
 </script>
 
@@ -135,7 +161,7 @@
 </form></br>
 
 <div id="searchMapDiv" class="collapse">
-	<h6>Click on the map to select a location</h6>
+	<h6>Click on the map to select a location&nbsp;&nbsp;&nbsp;<input type="button" class="btn btn-primary" onclick="clearSelection()" value="Clear Selection"/></h6>
 	<div id="mapDiv">
 	
 	</div>
@@ -143,7 +169,9 @@
 
 <script type="text/javascript">
 	$('#searchMapDiv').on('shown.bs.collapse', function() {
-  		initMap();
+		if(!initialToggle){
+			initMap();
+		}
 	});
 
 	var categories = "<?php 
@@ -155,7 +183,10 @@
 					?>";
 	function selectChange(){
 		if(document.getElementById("type").value == "listings"){
-			console.log(document.getElementById("searchAction").action);
+			if(marker != null){
+				marker.setMap(null);
+				marker = null;
+			}
 			document.getElementById("searchAction").action="/Listings/search";
 			document.getElementById("searchForm").innerHTML="<label for='type'>Search for &nbsp;</label>";
 			document.getElementById("searchForm").innerHTML+="<select class='form-control' id='type' name='type' onchange='selectChange()'><option value='listings'>Listings</option><option value='users'>Users</option></select>&nbsp;&nbsp;with keyword&nbsp;";
@@ -165,6 +196,7 @@
             document.getElementById("searchForm").innerHTML+= "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle()'/>choose location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button>";
 			document.getElementById("searchForm").innerHTML+= "<input name='locations' id='locations' value='' hidden/><input name='locationString' id='locationString' value='' hidden/>";
 		}else{
+			document.getElementById("searchMapDiv").className = "collapse";
 			document.getElementById("searchForm").innerHTML='';
 			document.getElementById("searchAction").action="/Profile/search";
 			document.getElementById("searchForm").innerHTML="<label for='type'>Search for &nbsp;</label>";
