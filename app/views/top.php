@@ -32,7 +32,7 @@
            <li class="dropdown">
  <a data-toggle="dropdown" href="#" class="btn navbar-btn ml-2 text-white btn-secondary dropdown-toggle"><span id="notifCount" class="badge badge-light"></span></i> Notifications</a>    
 
-          <ul id='view_ajax2' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef;" class="dropdown-menu ">
+          <ul id='view_ajax2' style="padding-left: 5px; padding-right: 5px; background-color: #e9ecef; overflow-x:hidden; overflow-y: scroll;" class="dropdown-menu ">
           
           </ul>
 
@@ -49,7 +49,6 @@ function getNotifications() {
     console.log(data);
     var jsonLength = data.length;
     var html = "";
-    //onsole.log(jsonLength+"  IS THE SIZE");
     if(jsonLength == 0){
       html = "<div class='text-center'><b>No notifications</b></div>";
     } else {
@@ -57,7 +56,7 @@ function getNotifications() {
     for (var i = 0; i < jsonLength; i++) {
       var message = data[i];
       console.log(message.content.substring(0,11));
-      html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value="+message.redirect+"/><button class='btn' style='color:white; background-color: #007bff;' type='submit'>"+message.content+"</button></form>" + html;
+      html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value='"+message.redirect+"'/><button class='btn notification' type='submit'>"+message.content+"</button></form>" + html;
     }
       html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
     }

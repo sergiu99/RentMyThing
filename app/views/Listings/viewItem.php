@@ -113,7 +113,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 <script type="text/javascript">
 	function initMap(){
 		var map = new google.maps.Map(document.getElementById('mapDiv'), {
-    		zoom: 8,
+    		zoom: 14,
     		center: {lat: 40.731, lng: -73.997}
   		});;
 		var geocoder = new google.maps.Geocoder;
@@ -134,48 +134,46 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
 
 <script type="text/javascript">
-			var today = new Date();
-			var tomorrow = new Date();
-			var startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			tomorrow.setDate(today.getDate() + 1);
-			var day = "" + tomorrow.getDate();
+			var price = <?php echo $item->price?>;
 			var pad = "00"
-			var dayPad = pad.substring(0, pad.length - day.length) + day
-			var nextDayDate = tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+dayPad;
+			var today = new Date();
+			var day = "" + today.getDate();
+			var dayPad = pad.substring(0, pad.length - day.length) + day;
+			var startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+dayPad;
+
 			document.getElementById("start_date").value = startDate;
 			document.getElementById("start_date").min = startDate;
-			document.getElementById("end_date").value = nextDayDate;
-			document.getElementById("end_date").min = nextDayDate;
+			document.getElementById("end_date").value = startDate;
+			document.getElementById("end_date").min = startDate;
+			document.getElementById("totalInput").value = "$"+price;
 
 			function calculate(){
-			var selectedText = document.getElementById('end_date').value;
-   			var selectedDate = new Date(selectedText);
-   			console.log(selectedDate);
+				var selectedText = document.getElementById('end_date').value;
+   				var selectedDate = new Date(selectedText);
+   				console.log(selectedDate);
 				if ( selectedText == "" || selectedText === null){
 					 $('.rentbutn').prop('disabled', true);
-				}
-					else{
-
-			var endDateInput = document.getElementById("end_date").value;
-			var endDate = new Date(endDateInput);
-			var selectedStart = document.getElementById("start_date").value;
-			var starttDate = new Date(selectedStart);
-
-			var inDays = Math.floor((endDate - starttDate) / (1000*60*60*24));
-			var total = (inDays+2) * 1;
+				}else{
+					var endDateInput = document.getElementById("end_date").value;
+					var endDate = new Date(endDateInput);
+					var selectedStart = document.getElementById("start_date").value;
+					var startDate = new Date(selectedStart);
+					var inDays = Math.floor((endDate - startDate) / (1000*60*60*24));
+					var total = (inDays+1) * price;
 			
-			if(total <= 0){
-				document.getElementById("rentbutn").disabled = true;
-				document.getElementById("dateRangeMessage").innerHTML = "Invalid Date Range";
-			}else{
-				document.getElementById("rentbutn").disabled = false;
-				document.getElementById("dateRangeMessage").innerHTML = "";
-			}
+					if(total <= 0){
+						document.getElementById("rentbutn").disabled = true;
+						document.getElementById("dateRangeMessage").innerHTML = "Invalid Date Range";
+					}else{
+						document.getElementById("rentbutn").disabled = false;
+						document.getElementById("dateRangeMessage").innerHTML = "";
+					}
 
-   			//console.log(inDays);
-			document.getElementById("totalInput").value = "$"+total;
-			  $('.rentbutn').prop('disabled', false);
-			}}
+   					//console.log(inDays);
+					document.getElementById("totalInput").value = "$"+total;
+			  		$('.rentbutn').prop('disabled', false);
+				}
+			}
 
 			function checkDates(){
 				console.log("changes");

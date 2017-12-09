@@ -13,24 +13,24 @@ class Listings extends Controller{
 
 	function search(){
 		$locations = [];
-		if(isset($_POST['category'])){
-			$category = $_POST['category'];
+		if(isset($_GET['category'])){
+			$category = $_GET['category'];
 		}else{
 			$category = "";
 		}
-		if(isset($_POST['keyword'])){
-			$keyword = $_POST['keyword'];
+		if(isset($_GET['keyword'])){
+			$keyword = $_GET['keyword'];
 		}else{
 			$keyword = "";
 		}
-		if(isset($_POST['locations'])){
-			if($_POST['locations'] == ""){
+		if(isset($_GET['locations'])){
+			if($_GET['locations'] == ""){
 				$locationString = null;
 				$locations = null;
 			}else{
-				$locations = $_POST['locations'];
+				$locations = $_GET['locations'];
 				$locations = explode('-', $locations);
-				$locationString = $_POST['locationString'];
+				$locationString = $_GET['locationString'];
 			}
 		}else{
 			$locations = null;
@@ -56,42 +56,42 @@ class Listings extends Controller{
 	
 
 	function rentItem(){
-	if(isset($_POST['action'])){
-		$newRental = $this->model('Rental');
+		if(isset($_POST['action'])){
+			$newRental = $this->model('Rental');
 		
-		$userId =  $_SESSION['userID'];
-		$newRental->user_id = $userId;
-		$newRental->item_id = $_POST['item_id'];
-		$newRental->status = "pending";
-		$startDate = $_POST['start_date'];
-		$endDate = $_POST['end_date'];
-		$newRental->start_date = $startDate;
-		$newRental->end_date = $endDate;
+			$userId =  $_SESSION['userID'];
+			$newRental->user_id = $userId;
+			$newRental->item_id = $_POST['item_id'];
+			$newRental->status = "pending";
+			$startDate = $_POST['start_date'];
+			$endDate = $_POST['end_date'];
+			$newRental->start_date = $startDate;
+			$newRental->end_date = $endDate;
 
-		$aItem = $this->model('Item');
-	    $aItem = $aItem->find($_POST['item_id']);
+			$aItem = $this->model('Item');
+	   		$aItem = $aItem->find($_POST['item_id']);
 
-	    $pricePerDay = $aItem->price;
-		$date1 = date_create($startDate);
-		$date2 = date_create($endDate);
-		$diff = date_diff($date1,$date2);
-		$datediff = $diff->format("%a");
-		$total = ($datediff + 1) * $pricePerDay;
+	    	$pricePerDay = $aItem->price;
+			$date1 = date_create($startDate);
+			$date2 = date_create($endDate);
+			$diff = date_diff($date1,$date2);
+			$datediff = $diff->format("%a");
+			$total = ($datediff + 1) * $pricePerDay;
 		
-		$newNotification = $this->model('Notification');
-		$newNotification->user_id = $aItem->user_id;
-		$contentt = 'Someone wants to rent your '. $aItem->name .' item.';
-		$newNotification->content = $contentt;
-		$newNotification->redirect = "/Rentals";
+			$newNotification = $this->model('Notification');
+			$newNotification->user_id = $aItem->user_id;
+			$contentt = 'Someone wants to rent your '. $aItem->name .' item.';
+			$newNotification->content = $contentt;
+			$newNotification->redirect = "/Rentals";
  
-		$newRental->total = $total;
+			$newRental->total = $total;
 
-		if ($endDate > $startDate){
-		$newRental = $newRental->insert();
-		$newNotification = $newNotification->insert();
-		}
+			if ($endDate >= $startDate){
+				$newRental = $newRental->insert();
+				$newNotification = $newNotification->insert();
+			}
 		
-		header("location:/Rentals");
+			header("location:/Rentals");
 		} else {
 			header("location:/Listings");
 		}

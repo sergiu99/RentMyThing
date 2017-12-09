@@ -52,7 +52,21 @@
 	</div>
 	<div class="form-group">
 	<label for="province_address">Province</label>
-	<input type="text" class="form-control" name="province_address" id="province_address" required/>
+	<select class="form-control" name="province_address" required="true" id="province_address">
+  		<option value="AB">AB</option>
+  		<option value="BC">BC</option>
+ 		<option value="MB">MB</option>
+  		<option value="NB">NB</option>
+		<option value="NL">NL</option>
+		<option value="NT">NT</option>
+  		<option value="NS">NS</option>
+ 		<option value="NU">NU</option>
+  		<option value="ON">ON</option>
+		<option value="PE">PE</option>
+		<option value="QC">QC</option>
+  		<option value="SK">SK</option>
+  		<option value="YT">YT</option>
+	</select>
 	</div>
 	<div class="form-group">
 	<input type="submit" class="btn btn-default" name="action" value="Register" id="submit_button"/>

@@ -48,81 +48,76 @@ class Rentals extends Controller{
 
 
     function Action(){
-var_dump($_POST);
+    var_dump($_POST);
 
     if(isset($_POST['actionType'])){
-
-// AUTHENTIFICATION NEEDS TO BE DONE HERE
         $id = $_POST['rentalId'];
         $userId =  $_SESSION['userID'];
 
         if($_POST['actionType'] == 'delete'){
-        $aItem = $this->model('Rental');
-        $aItem = $aItem->find($id);
-        $aItem->status = 'declined';
-        $aItem->update();   
+            $aItem = $this->model('Rental');
+            $aItem = $aItem->find($id);
+            $aItem->status = 'declined';
+            $aItem->update();   
 
-        $newNotification = $this->model('Notification');
-        $newNotification->user_id = $aItem->user_id;
-        $newNotification->redirect = "/Rentals";
-        $contentt = 'Someone has declined your rental request.';
-        $newNotification->content = $contentt;
-        $newNotification = $newNotification->insert();
+            $newNotification = $this->model('Notification');
+            $newNotification->user_id = $aItem->user_id;
+            $newNotification->redirect = "/Rentals";
+            $contentt = 'Someone has declined your rental request.';
+            $newNotification->content = $contentt;
+            $newNotification = $newNotification->insert();
         }
 
 
         if($_POST['actionType'] == 'complete'){
-        $aItem = $this->model('Rental');
-        $aItem = $aItem->find($id);
-        $statuss = $aItem->status;
-        $newNotification = $this->model('Notification');
-        $newNotification->user_id = $aItem->user_id;
-        $newNotification->redirect = "/Rentals";
+            $aItem = $this->model('Rental');
+            $aItem = $aItem->find($id);
+            $statuss = $aItem->status;
+            $newNotification = $this->model('Notification');
+            $newNotification->user_id = $aItem->user_id;
+            $newNotification->redirect = "/Rentals";
 
+            if($statuss == 'pending'){
+                $aItem->status = 'cancelled';
+                $contentt = 'One of your rentals has been terminated before starting';
+                $newNotification->content = $contentt;
 
+            } else if($statuss == 'accepted'){
+                $userId =  $_SESSION['userID'];
+                $aItem->status = 'reqcompleted' . $userId;
+                $contentt = 'One of your rentals needs your approval to be completed';
+                $newNotification->content = $contentt;
 
-        if($statuss == 'pending'){
-        $aItem->status = 'cancelled';
-        $contentt = 'One of your rentals has been terminated before starting';
-        $newNotification->content = $contentt;
-
-        } else if($statuss == 'accepted'){
-             $userId =  $_SESSION['userID'];
-         $aItem->status = 'reqcompleted' . $userId;
-        $contentt = 'One of your rentals needs your approval to be completed';
-        $newNotification->content = $contentt;
-
-        } else {
-        $aItem->status = 'completed';
-        $contentt = 'One of your rentals has been completed';
-        $newNotification->content = $contentt;
-        }
+            } else {
+                $aItem->status = 'completed';
+                $contentt = 'One of your rentals has been completed';
+                $newNotification->content = $contentt;
+            }
         
-        if($statuss != 'pending'){
-           // Send request to rental requester for comment
-        }
+            if($statuss != 'pending'){
+                // Send request to rental requester for comment
+            }
 
-        $aItem->update();
-
+            $aItem->update();
         
-        $newNotification = $newNotification->insert();
+            $newNotification = $newNotification->insert();
         }
 
         if($_POST['actionType'] == 'accept'){
-        $aItem = $this->model('Rental');
-        $aItem = $aItem->find($id);
-        $aItem->status = 'accepted';
-        $aItem->update();   
+            $aItem = $this->model('Rental');
+            $aItem = $aItem->find($id);
+            $aItem->status = 'accepted';
+            $aItem->update();   
 
-        $newNotification = $this->model('Notification');
-        $newNotification->user_id = $aItem->user_id;
-        $contentt = 'Someone has accepted your rental request.';
-        $newNotification->content = $contentt;
-        $newNotification->redirect = "/Rentals";
-        $newNotification = $newNotification->insert();
+            $newNotification = $this->model('Notification');
+            $newNotification->user_id = $aItem->user_id;
+            $contentt = 'Someone has accepted your rental request.';
+            $newNotification->content = $contentt;
+            $newNotification->redirect = "/Rentals";
+            $newNotification = $newNotification->insert();
         }
 
-       header("location:/Rentals");
+        header("location:/Rentals");
         } else {
            header("location:/Listings");
         }

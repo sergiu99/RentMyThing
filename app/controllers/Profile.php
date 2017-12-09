@@ -73,12 +73,12 @@ class Profile extends Controller{
 	}
 
 	function search(){
-		$keyword = $_POST['keyword'];
+		$keyword = $_GET['keyword'];
 		$aUser = $this->model('User');
 		$searchUsers = $aUser->search($keyword);
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$this->view('Profile/search',['users'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword]);
+		$this->view('Profile/search',['users'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword, 'type'=>"Users"]);
 	}
 
 	function viewUser($id){

@@ -1,4 +1,13 @@
 @import 'bootstrap-4.0.0-beta.1';
+.notification {
+  width: 300px;
+  max-height: 400px;
+  color:white; 
+  background-color: #007bff;
+  white-space: normal;
+  text-align: left;
+}
+
 #contactdiv {
        bottom: 0;
        right: 0;

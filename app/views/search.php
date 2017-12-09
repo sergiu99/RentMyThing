@@ -1,11 +1,10 @@
 <br>
-
-
 <script type="text/javascript">
 	var marker = null;
 	var map;
 	var markerPC;
 	var geocoder;
+	var initialToggle = false;
 	
 	function initMap(){
 		map = new google.maps.Map(document.getElementById('mapDiv'), {
@@ -96,30 +95,30 @@
 		if(marker != null){
 			marker.setMap(null);
 			marker = null;
-			var toggleHtml = document.getElementById("locationButton").innerHTML;
-			var spanHtml = toggleHtml.substring(toggleHtml.indexOf("&nbsp;"));
-			if(spanHtml == "&nbsp;<i class=\"fa d-inline fa-lg fa-chevron-down\"></i>"){
-				spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-up'></i>";
-			}else{
-				spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i>";
-			}
-			toggleHtml = "choose location" + spanHtml;
-			document.getElementById("locationButton").innerHTML = toggleHtml;
-			document.getElementById("locations").value = "";
-			document.getElementById("locationString").value = "";
 		}
+		var toggleHtml = document.getElementById("locationButton").innerHTML;
+		var spanHtml = toggleHtml.substring(toggleHtml.indexOf("&nbsp;"));
+		if(spanHtml == "&nbsp;<i class=\"fa d-inline fa-lg fa-chevron-down\"></i>"){
+			spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-up'></i>";
+		}else{
+			spanHtml = "&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i>";
+		}
+		toggleHtml = "choose location" + spanHtml;
+		document.getElementById("locationButton").innerHTML = toggleHtml;
+		document.getElementById("locations").value = "";
+		document.getElementById("locationString").value = "";
 	}
 </script>
 
-
-<form method='post' action='/Listings/search' class='form-inline' id='searchAction'>
-	<div class='form-group' id='searchForm'>
-		<label for='type'>Search for &nbsp;</label>
-		<select class='form-control' id='type' name='type' onchange='selectChange()'>
-			<option value='listings'>Listings</option>
-			<option value='users'>Users</option>
-		</select>&nbsp;&nbsp;with keyword&nbsp;
 	<?php
+		if($data['type'] == "Listings"){
+			echo "<form method='get' action='/Listings/search' class='form-inline' id='searchAction'>
+					<div class='form-group' id='searchForm'>
+						<label for='type'>Search for &nbsp;</label>";
+			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
+					<option value='listings'>Listings</option>
+					<option value='users'>Users</option>
+				</select>&nbsp;&nbsp;with keyword&nbsp;";
 			if(isset($data['keyword']) && $data['keyword'] != ""){
 				$keyword = $data['keyword'];
 				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' value='$keyword'/>&nbsp;&nbsp;in&nbsp;&nbsp;";				
@@ -130,7 +129,8 @@
 			echo "<select class='form-control' id='category' name='category'>";
 			if(isset($data['category']) && $data['category'] != ""){
 				$category = $data['category'];
-				echo "<option disabled>Category $category</option>";
+				echo "<option disabled>Category</option>";
+				echo "<option>All</option>";
 				foreach($data['categories'] as $aCategory){
 					if($aCategory->name == $category){
 						echo "<option value='$aCategory->name' selected>$aCategory->name</option>";
@@ -140,6 +140,7 @@
 				}
 			}else{
 				echo "<option disabled selected>Category</option>";
+				echo "<option value=''>All</option>";
 				foreach($data['categories'] as $aCategory){
 					echo "<option value='$aCategory->name'>$aCategory->name</option>";
 				}
@@ -153,6 +154,21 @@
 			}else{
 				echo "&nbsp;&nbsp;near&nbsp;&nbsp;<button type='button' id='locationButton' class='form-control btn-primary' data-toggle='collapse' data-target='#searchMapDiv' onclick='clickMapToggle()'/>choose location&nbsp;<i class='fa d-inline fa-lg fa-chevron-down'></i></button>";				
 			}
+		}else{
+			echo "<form method='get' action='/Profile/search' class='form-inline' id='searchAction'>
+					<div class='form-group' id='searchForm'>
+						<label for='type'>Search for &nbsp;</label>";
+			echo "<select class='form-control' id='type' name='type' onchange='selectChange()'>
+					<option value='listings'>Listings</option>
+					<option value='users' selected>Users</option>
+				</select>&nbsp;&nbsp;with keyword&nbsp;";
+			if(isset($data['keyword']) && $data['keyword'] != ""){
+				$keyword = $data['keyword'];
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' value='$keyword'/>";				
+			}else{
+				echo "<input style='margin-left: 10px;' type='text' class='form-control' name='keyword' id='keyword' placeholder='Keyword'/>";				
+			}
+		}
 	?>
 </div>
 <div class="form-group">

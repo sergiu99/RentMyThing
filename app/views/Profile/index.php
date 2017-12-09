@@ -57,8 +57,24 @@
   </div>
   <div class="form-group">
     <label for="province_address">Province:</label>
+    <select class="form-control" name="province_address" required="true" id="province_address" class="select_province">
+  		<option value="AB">AB</option>
+  		<option value="BC">BC</option>
+ 		  <option value="MB">MB</option>
+  		<option value="NB">NB</option>
+		  <option value="NL">NL</option>
+		  <option value="NT">NT</option>
+  		<option value="NS">NS</option>
+ 		  <option value="NU">NU</option>
+  		<option value="ON">ON</option>
+		  <option value="PE">PE</option>
+		  <option value="QC">QC</option>
+  		<option value="SK">SK</option>
+  		<option value="YT">YT</option>
+	  </select>
     <?php
-      echo "<input type='text' class='form-control' id='province_address' name='province_address' value='$user->province_address' required>";
+      $selectedProvince = $user->province_address;
+      echo "<script>$('#province_address').val('$selectedProvince');</script>";
     ?>
   </div>
   <div class="form-group">

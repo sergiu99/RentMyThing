@@ -66,7 +66,7 @@
 			$statuss = 'Awaiting your confirmation to Complete';
 		} 
 
-echo "		<tr><td>$item->name</td>";
+		echo "<tr><td>$item->name</td>";
 		echo "<td><img src='/$item->image_path' width='100' height='100'></td>";
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->total</td>";
@@ -350,6 +350,12 @@ function closeChat(){
 	<div id="toggleChat">
 	
 	</div>
-    <div id="ajaxForm"></div>
+	<div id="ajaxForm"></div>
+	<?php 
+		if(isset($data['chat']) && $data['chat'] != "") { 
+			$chat = $data['chat']; 
+			echo "<script>toggleChat($chat)</script>"; 
+		} 
+	?>
 </body>
 </html>
