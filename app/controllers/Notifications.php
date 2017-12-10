@@ -1,10 +1,10 @@
 <?php 
 class Notifications extends Controller
 {
-    function getNotifs(){
+    function getNotifs($lastId){
         $aItem = $this->model('Notification');
         $userId =  $_SESSION['userID'];
-        $myItems = $aItem->where('user_id','=',$userId)->where('viewed','=','0')->get();
+        $myItems = $aItem->where('id', '>', $lastId)->where('user_id','=',$userId)->where('viewed','=','0')->get();
         echo json_encode($myItems);
     }
 
@@ -17,6 +17,11 @@ class Notifications extends Controller
 		$aItem->viewed = '1';
 		$aItem->update();
 		header("location:" . $redirect);
+    }
+
+    function clearNotifs(){
+        $aNotification = $this->model('Notification');
+		$aNotification->clearNotifications();
     }
 }
 ?>

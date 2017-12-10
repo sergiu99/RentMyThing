@@ -38,33 +38,50 @@
 
 
 <script type="text/javascript">
-
-
+var lastId = 0;
 function getNotifications() {
   $.getJSON({
     type: "GET",
-    url: "/Notifications/getNotifs"
+    url: "/Notifications/getNotifs/" + lastId
   }, function( data )
   {
-    console.log(data);
     var jsonLength = data.length;
     var html = "";
     if(jsonLength == 0){
-      html = "<div class='text-center'><b>No notifications</b></div>";
+      if(lastId == 0){
+        document.getElementById("view_ajax2").innerHTML = "<div class='text-center'><b>No notifications</b></div>";
+        document.getElementById("notifCount").innerHTML = 0;
+      }
     } else {
-       
-    for (var i = 0; i < jsonLength; i++) {
-      var message = data[i];
-      console.log(message.content.substring(0,11));
-      html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value='"+message.redirect+"'/><button class='btn notification' type='submit'>"+message.content+"</button></form>" + html;
+        document.getElementById("view_ajax2").innerHTML = "";
+        if(lastId == 0){
+          document.getElementById("notifCount").innerHTML = jsonLength;
+        }
+        for (var i = 0; i < jsonLength; i++) {
+          var message = data[i];
+          html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value='"+message.redirect+"'/><button class='btn notification' type='submit'>"+message.content+"</button></form>" + html;
+        }
+        var lastNotif = data[data.length - 1];
+        lastId = lastNotif.id;
+        html = "<div style='' class='text-center'><b><i>Newest First</i></b><p onclick='clearNotifications()' class='openChat' style='display:inline; float:right !important; margin-right: 10px;'>Clear</p></div>" + html;
+      $('#view_ajax2').append(html);
     }
-      html = "<div style='' class='text-center'><b><i>Newest First</i></b></div>" + html;
-    }
-    document.getElementById("notifCount").innerHTML = jsonLength;
-    $('#view_ajax2').append(html);
   });
 }
 getNotifications();
+
+  function clearNotifications(){
+    $.ajax({
+		  type: "GET",
+		  url: "/Notifications/clearNotifs"
+    }).done(function (data){
+      lastId = 0;
+      document.getElementById("view_ajax2").innerHTML = "<div class='text-center'><b>No notifications</b></div>";
+      document.getElementById("notifCount").innerHTML = 0;
+	  });
+  };
+
+  var notifInterval = setInterval(function() { getNotifications(); }, 10000);
 </script>
 
 	   </li>
