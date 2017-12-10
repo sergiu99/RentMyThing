@@ -48,7 +48,11 @@
 			echo "<td>$listing->description</td>";
 			echo "<td>$ $listing->price</td>";
 			echo "<td>$listing->category</td>";
-			echo "<td>$listing->rating</td>";
+			if($listing->rating == null){
+				echo "<td>N/A</td>";
+			}else{
+				echo "<td>$listing->rating/5</td>";
+			}
 			if(in_array($listing->id, $favorites)){
 				echo "<td><input type='checkBox' id='favorite$listing->id' checked onclick='setFavorite($listing->id)'/></td>";
 			}else{

@@ -112,7 +112,7 @@
 	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Decline</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
-			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit' disabled>Complete</button></td></tr>";
 		} else if($item->status == 'pending'){
 			$statuss = 'Pending';
 		}
@@ -172,7 +172,7 @@
 	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
-			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit' disabled>Complete</button></td></tr>";
 		} else if($item->status == 'pending'){
 			$statuss = 'Pending';
 		}
@@ -221,13 +221,14 @@
 	</tr>
 	
 	<?php
+	$commented = $data['commented'];
 	foreach($data['completedItems'] as $item){
 		$statuss = $item->status;
 		
 	    $completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
-			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit' disabled>Complete</button></td></tr>";
 		} else if($item->status == 'pending'){
 			$statuss = 'Pending';
 		}
@@ -245,10 +246,10 @@
 
 		$itemuserid = $item->user_id;
 		$thisusersss = $data['this_user'];
-		if( $itemuserid == $thisusersss ) {
+		if( $itemuserid == $thisusersss && !in_array($item->id, $commented)) {
 			$actionss =  "<td><button class='btn btn-default'  type='submit'>Leave Comment </button></td></tr>";
 		} else {
-			$actionss =  "<td><button class='btn btn-default disabled'  type='submit'>Finished</button></td></tr>";
+			$actionss =  "<td><button class='btn btn-default disabled'  type='submit' disabled>Finished</button></td></tr>";
 		}
 		
 		echo "<tr><td>$item->name</td>";
@@ -284,7 +285,7 @@ var mesages;
 $('#chatInput').val("");
 
 function toggleChat(id){
-	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 class='chatHeading' style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;' onclick='collapseChat()'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; '/><span class='input-group-btn'><button class='btn btn-secondary' type='button' onclick='sendChatText()'>Send</button></span></div></div></div>";
+	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 class='chatHeading' style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;' onclick='collapseChat()'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; ' onkeypress = 'chatInputEnter(event)'/><span class='input-group-btn'><button class='btn btn-secondary' type='button' onclick='sendChatText()'>Send</button></span></div></div></div>";
 	setInterval(function() { getChatText(id); }, 2000);
 	lastTimeID = 0;
 }
@@ -314,6 +315,13 @@ function getChatText(id) {
 		var objDiv = document.getElementById("chat_history");
 		objDiv.scrollTop = objDiv.scrollHeight;
 	});
+}
+
+function chatInputEnter(e){
+	if(e.which == 13){
+		console.log("ENTER");
+		sendChatText();
+	}
 }
 
 function sendChatText(){

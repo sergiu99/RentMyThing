@@ -13,5 +13,13 @@ class Notification extends Model{
 	function isValid(){
 		return ($this->firstName!='' && $this->country != '');
 	}
+
+    function viewChatNotifs($rental_id, $user_id){
+		$redirect = $this->_connection->quote("/Rentals?chat=" . $rental_id);
+		$update = "DELETE FROM notification
+					WHERE user_id = $user_id AND redirect = $redirect";
+		$stmt = $this->_connection->prepare($update);
+        $stmt->execute();
+    }
 }
 ?>

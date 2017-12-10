@@ -8,6 +8,11 @@
   text-align: left;
 }
 
+#view_ajax2 {
+  max-height: 500px;
+  padding-bottom: 5px;
+}
+
 #contactdiv {
        bottom: 0;
        right: 0;

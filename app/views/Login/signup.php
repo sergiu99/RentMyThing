@@ -23,11 +23,12 @@
 	</div>
 	<div class="form-group">
 	<label for="email">Email</label>
-	<input type="text" class="form-control" name="email" id="email" required/>
+	<input type="text" class="form-control" name="email" id="email"  onchange="checkEmail()" required/>
+	<div id="email_feedback" class="form-control-feedback"></div>
 	</div>
 	<div class="form-group">
 	<label for="display_name">Display Name</label>
-	<input type="text" class="form-control" name="display_name" id="display_name" onchange='checkUsername()'/>
+	<input type="text" class="form-control" name="display_name" id="display_name" onchange="checkUsername()"/>
 	<div id="name_feedback" class="form-control-feedback"></div>
 	</div>
 	<div class="form-group">
@@ -90,6 +91,24 @@
 			}else{
 				document.getElementById("display_name").class = "form-control form-control-warning";
 				document.getElementById("name_feedback").innerHTML = "Sorry, that username's taken. Try another?";
+				document.getElementById("submit_button").disabled = true;
+			}
+		});
+	}
+
+	function checkEmail(){
+		$.ajax({
+			type: "GET",
+			url: "/Login/checkEmail?email=" + encodeURIComponent(document.getElementById("email").value)
+		}).done(function (data){
+			console.log(data);
+			if(data == 0){
+				document.getElementById("display_name").class = "form-control form-control-success";
+				document.getElementById("email_feedback").innerHTML = "";
+				document.getElementById("submit_button").disabled = false;
+			}else{
+				document.getElementById("display_name").class = "form-control form-control-warning";
+				document.getElementById("email_feedback").innerHTML = "Sorry, this email is already associated with an account.";
 				document.getElementById("submit_button").disabled = true;
 			}
 		});

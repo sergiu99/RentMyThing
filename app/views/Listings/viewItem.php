@@ -70,7 +70,11 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 		echo "<td>$item->description</td>";
 		echo "<td>$ $item->price</td>";
 		echo "<td>$item->category</td>";
-		echo "<td>$item->rating</td>";
+		if($item->rating == null){
+			echo "<td>N/A</td>";
+		}else{
+			echo "<td>$item->rating/5</td>";
+		}
 		echo "<td>$item->status</td>";
 	
 	?>

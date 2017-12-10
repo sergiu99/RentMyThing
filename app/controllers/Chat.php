@@ -26,6 +26,8 @@ class Chat extends Controller
         }else{
             $notification->user_id = $theItem->user_id;
         }
+        //Disable previously unviewed notifications for the same chat
+        $notification->viewChatNotifs($rentalId, $notification->user_id);
         //Create notification
         $notification->content = "New message for the item rental $theItem->name";
         $notification->redirect = "/Rentals?chat=$rentalId";

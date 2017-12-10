@@ -38,7 +38,11 @@
 			echo "<td>$item->description</td>";
 			echo "<td>$ $item->price</td>";
 			echo "<td>$item->category</td>";
-			echo "<td>$item->rating</td>";
+			if($item->rating == null){
+				echo "<td>N/A</td>";
+			}else{
+				echo "<td>$item->rating/5</td>";
+			}
 			if($item->status == "enabled"){
 				echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)' checked/></td>";
 			}else{

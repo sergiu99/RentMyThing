@@ -17,8 +17,6 @@ class Notifications extends Controller
 		$aItem->viewed = '1';
 		$aItem->update();
 		header("location:" . $redirect);
-
     }
-
 }
 ?>

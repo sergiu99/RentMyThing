@@ -44,8 +44,15 @@ class Login extends Controller{
 	function checkUsername(){
 		$nameValue = $_GET['value'];
 		$aUser = $this->model('User');
-		$userWithName = $aUser->search($nameValue);
+		$userWithName = $aUser->where('display_name', '=', $nameValue)->get();
 		echo sizeOf($userWithName);
+	}
+
+	function checkEmail() {
+		$emailValue = $_GET['email'];
+		$aUser = $this->model('User');
+		$userWithEmail = $aUser->where('email', '=', $emailValue)->get();
+		echo sizeOf($userWithEmail);
 	}
 }
 ?>

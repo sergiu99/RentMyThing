@@ -26,8 +26,13 @@
 			echo "<td>$ $item->price</td>";
 			echo "<td>$item->category</td>";
 			$postalcode = strtoupper ($item->postal_code);
-			echo "<td>$postalcode</td>";	
-			echo "<td>$item->rating</td>";
+			echo "<td>$postalcode</td>";
+			if($item->rating == null){
+				echo "<td>N/A</td>";
+			}else{
+				echo "<td>$item->rating/5</td>";
+			}
+			
 			if(in_array($item->id, $favorites)){
 				echo "<td><input type='checkBox' id='favorite$item->id' checked onclick='setFavorite($item->id)'/></td>";
 			}else{

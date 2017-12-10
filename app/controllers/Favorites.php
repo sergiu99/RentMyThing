@@ -34,7 +34,7 @@ class Favorites extends Controller{
         $theFavorite = $this->model('Favorite');
         $theFavorite = $theFavorite->where('user_id','=',$userId)->where('item_id','=',$id)->get()[0];
         $theFavorite->delete();
-        $this->index();
+        header("location:/Favorites/index");
     }
 }
 ?>
