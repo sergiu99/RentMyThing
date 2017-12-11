@@ -1,13 +1,14 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
 </br><h1>Your Profile</h1>
-<form method="POST" action="/Profile/save">
+<form method="POST" action="/Profile/save" id="profileForm">
   <div class="form-group">
     <label for="display_name">Display Name:</label>
     <?php
       $user = $data['user'];
-      echo "<input type='text' class='form-control' id='display_name' name='display_name' value='$user->display_name' required>";
+      echo "<input type='text' class='form-control' id='display_name' name='display_name' value='$user->display_name'>";
     ?>
+    <div id="name_feedback" class="form-control-feedback"></div>
   </div>
   <div class="form-group">
     <label for="first_name">First Name:</label>
@@ -35,6 +36,7 @@
     <?php
       echo "<input type='email' class='form-control' id='email' name='email' value='$user->email' required>";
     ?>
+    <div id="email_feedback" class="form-control-feedback"></div>
   </div>
   <div class="form-group">
     <label for="phone_number">Phone Number:</label>
@@ -88,9 +90,9 @@
     <label>
       <?php
         if($user->show_phone == 0){
-          echo "<input type='checkbox' name ='show_phone'>";
+          echo "<input type='checkbox' name ='show_phone' id='show_phone'>";
         }else{
-          echo "<input type='checkbox' name ='show_phone' checked>";
+          echo "<input type='checkbox' name ='show_phone' id='show_phone' checked>";
         }
       ?>Show Phone Number</label>
   </div>
@@ -98,9 +100,9 @@
     <label>
       <?php
         if($user->show_email == 0){
-          echo "<input type='checkbox' name ='show_email'>";
+          echo "<input type='checkbox' name ='show_email' id='show_email'>";
         }else{
-          echo "<input type='checkbox' name ='show_email' checked>";
+          echo "<input type='checkbox' name ='show_email' id='show_email' checked>";
         }
       ?> Show Email Address</label>
   </div>
@@ -108,9 +110,9 @@
     <label>
     <?php
         if($user->show_address == 0){
-          echo "<input type='checkbox' name ='show_address'>";
+          echo "<input type='checkbox' name ='show_address' id='show_address'>";
         }else{
-          echo "<input type='checkbox' name ='show_address' checked>";
+          echo "<input type='checkbox' name ='show_address' id='show_address' checked>";
         }
     ?> Show Street Address</label>
   </div>
@@ -127,8 +129,61 @@
     <label for="confirm_password">Confirm New Password:</label>
     <input type="password" class="form-control" id="confirm_password" name="confirm_password">
   </div>
-  <button type="submit" class="btn btn-default">Save Changes</button>
+  <button type="submit" class="btn btn-default" id="submit_button">Save Changes</button>
 </form>
 <a href="/Profile/deleteAccount" class="btn btn-danger pull-right" style="">Delete Account</a>
+
+<script>
+  $('#profileForm').submit(function() {
+    resetErrors();
+    var data = {};
+    $.each($('form input, form select'), function(i, v) {
+      if (v.type !== 'submit') {
+        if(v.id == "show_phone" || v.id == "show_email" || v.id == "show_address"){
+          data[v.name] = v.checked;
+        }else{
+          data[v.name] = v.value;
+        }
+      }
+    });
+    console.log(data);
+    $.ajax({
+          type: 'POST',
+          url: "/Profile/validateProfileChanges?callback=?",
+          data: data,
+          success: function(resp) {
+              resp = JSON.parse(resp);
+              console.log(resp);
+              if (resp === true) {
+                  	//successful validation
+                    window.location = "/Profile"
+              } else {
+                  $.each(resp, function(i, v) {
+	                    console.log(i + " => " + v); // view in console for error messages
+                      var msg = '<label class="error" for="'+i+'">'+v+'</label>';
+                      $('input[name="' + i + '"], select[name="' + i + '"]').addClass('inputTxtError').after(msg);
+                  });
+                  var keys = Object.keys(resp);
+                  $('input[name="'+keys[0]+'"]').focus();
+              }
+              return false;
+          },
+          error: function(xhr, status, error) {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+            console.log("text status: " + status);
+            console.log("error: " + error);
+          }
+      });
+      return false;
+  });
+
+  function resetErrors() {
+      $('form input, form select').removeClass('inputTxtError');
+      $('label.error').remove();
+  }
+</script>
+
 </body>
 </html>

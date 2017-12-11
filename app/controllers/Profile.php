@@ -1,5 +1,4 @@
 <?php
-
 class Profile extends Controller{
 	function index(){
 		$aUser = $this->model('User');
@@ -8,7 +7,61 @@ class Profile extends Controller{
 		$this->view('Profile/index',['user'=>$thisUser]);
 	}
 
-	function save(){
+	function validateProfileChanges(){
+		if(isset($_POST)){
+			$_SESSION['errors'] = [];
+			$aUser = $this->model('User');
+			$thisUser = $aUser->find($_SESSION['userID']);
+		  	if (empty($_POST['email'])) {
+			  	$_SESSION['errors']['email'] = "Email is missing";
+			}
+
+			if (empty($_POST['city_address'])) {
+				$_SESSION['errors']['city_address'] = "City is missing";
+			}
+	   
+			if($_POST['display_name'] != $thisUser->display_name){
+				$userWithName = $aUser->where('display_name', '=', $_POST['display_name'])->get();
+				if(sizeOf($userWithName) > 0){
+					$_SESSION['errors']['display_name'] = "This display name is already associated to an account";
+				}
+			}
+
+			if($_POST['email'] != $thisUser->email){
+				$userWithEmail = $aUser->where('email', '=', $_POST['email'])->get();
+				if(sizeOf($userWithEmail) > 0){
+					$_SESSION['errors']['email'] = "This email is already associated to an account";
+				}
+			}
+			//check phone # format
+			if(preg_match('^[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$^', $_POST['phone_number']) != 1){
+				$_SESSION['errors']['phone_number'] = "Phone number must be in the format 999-999-9999";
+			}
+			//check postal code format
+			if(preg_match('^[A-Z]{1}[0-9]{1}[A-Z]{1}( |)[0-9]{1}[A-Z]{1}[0-9]{1}$^', $_POST['postal_code_address']) != 1){
+				$_SESSION['errors']['postal_code_address'] = "Postal code must be in the format A1A 1A1 or A1A1A1";
+			}
+			//validate passwords
+
+			if(count($_SESSION['errors']) > 0){
+				//This is for ajax requests:
+				if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+					echo json_encode($_SESSION['errors']);
+					exit;
+				}
+			  	//This is when Javascript is turned off:
+				echo '<ul>';
+				foreach($_SESSION['errors'] as $key => $value){
+					echo '<li>' . $value . '</li>';
+				}
+				echo '</ul>'; exit;
+			}else{
+				$this->save(false);
+			}
+	  	}
+	}
+
+	function save($index){
 		$updateUser = $this->model('User');
 		$updateUser = $updateUser->find($_SESSION['userID']);
 		$updateUser->id = $_SESSION['userID'];
@@ -21,25 +74,23 @@ class Profile extends Controller{
 		$updateUser->account_status = 'active';
 		$updateUser->city_address = $_POST['city_address'];
 		$updateUser->province_address = $_POST['province_address'];
-		$updateUser->postal_code_address = $_POST['postal_code_address'];
-		$updateUser->city_address = $_POST['city_address'];
-		$updateUser->province_address = $_POST['province_address'];
-		$updateUser->postal_code_address = $_POST['postal_code_address'];
+		$postalCodeExplode = explode(" ", $_POST['postal_code_address']);
+		$updateUser->postal_code_address = implode($postalCodeExplode);
 		$updateUser->join_date = $_POST['join_date'];
 
-		if(isset($_POST['show_phone'])){
+		if($_POST['show_phone'] == "true"){
 			$updateUser->show_phone = 1;
 		}else{
 			$updateUser->show_phone = 0;
 		}
 
-		if(isset($_POST['show_email'])){
+		if($_POST['show_email'] == "true"){
 			$updateUser->show_email = 1;
 		}else{
 			$updateUser->show_email = 0;
 		}
 
-		if(isset($_POST['show_address'])){
+		if($_POST['show_address'] == "true"){
 			$updateUser->show_address = 1;
 		}else{
 			$updateUser->show_address = 0;
@@ -68,8 +119,11 @@ class Profile extends Controller{
 		}
 
 		$updateUser->update();
-
-		$this->index();
+		if($index){
+			$this->index();
+		}else{
+			echo json_encode(true);
+		}
 	}
 
 	function search(){

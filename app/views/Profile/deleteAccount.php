@@ -24,7 +24,7 @@
 
 
 
-Disclaimer: No information will be deleted. Your access to it will be disabled as it may be kept for legal purposes.<br>Please contact us for further questions.
+Disclaimer: No information will be deleted. Your access to it will be disabled as it may be kept for legal purposes.<br>Please consult our privacy policy or contact us for more information.
 <br>
 
 </div>

@@ -79,39 +79,43 @@
 
 <script>
 	function checkUsername(){
-		$.ajax({
-			type: "GET",
-			url: "/Login/checkUsername?value=" + encodeURIComponent(document.getElementById("display_name").value)
-		}).done(function (data){
-			console.log(data);
-			if(data == 0){
-				document.getElementById("display_name").class = "form-control form-control-success";
-				document.getElementById("name_feedback").innerHTML = "";
-				document.getElementById("submit_button").disabled = false;
-			}else{
-				document.getElementById("display_name").class = "form-control form-control-warning";
-				document.getElementById("name_feedback").innerHTML = "Sorry, that username's taken. Try another?";
-				document.getElementById("submit_button").disabled = true;
-			}
-		});
+		if(document.getElementById("display_name").value != ""){
+			$.ajax({
+				type: "GET",
+				url: "/Login/checkUsername?value=" + encodeURIComponent(document.getElementById("display_name").value)
+			}).done(function (data){
+				console.log(data);
+				if(data == 0){
+					document.getElementById("display_name").class = "form-control form-control-success";
+					document.getElementById("name_feedback").innerHTML = "";
+					document.getElementById("submit_button").disabled = false;
+				}else{
+					document.getElementById("display_name").class = "form-control form-control-warning";
+					document.getElementById("name_feedback").innerHTML = "Sorry, that username's taken. Try another?";
+					document.getElementById("submit_button").disabled = true;
+				}
+			});
+		}
 	}
 
 	function checkEmail(){
-		$.ajax({
-			type: "GET",
-			url: "/Login/checkEmail?email=" + encodeURIComponent(document.getElementById("email").value)
-		}).done(function (data){
-			console.log(data);
-			if(data == 0){
-				document.getElementById("display_name").class = "form-control form-control-success";
-				document.getElementById("email_feedback").innerHTML = "";
-				document.getElementById("submit_button").disabled = false;
-			}else{
-				document.getElementById("display_name").class = "form-control form-control-warning";
-				document.getElementById("email_feedback").innerHTML = "Sorry, this email is already associated with an account.";
-				document.getElementById("submit_button").disabled = true;
-			}
-		});
+		if(document.getElementById("display_name").value != ""){
+			$.ajax({
+				type: "GET",
+				url: "/Login/checkEmail?email=" + encodeURIComponent(document.getElementById("email").value)
+			}).done(function (data){
+				console.log(data);
+				if(data == 0){
+					document.getElementById("display_name").class = "form-control form-control-success";
+					document.getElementById("email_feedback").innerHTML = "";
+					document.getElementById("submit_button").disabled = false;
+				}else{
+					document.getElementById("display_name").class = "form-control form-control-warning";
+					document.getElementById("email_feedback").innerHTML = "Sorry, this email is already associated with an account.";
+					document.getElementById("submit_button").disabled = true;
+				}
+			});
+		}
 	}
 </script>
 

@@ -12,8 +12,11 @@ class Login extends Controller{
 			$this->view('Login/index');
 	}
 
+	function validate(){
 
-	public function signup(){
+	}
+
+	function signup(){
 		$user = $this->model('User');
 		if(isset($_POST['action'])){
 			$user->first_name = $_POST['first_name'];
@@ -24,7 +27,8 @@ class Login extends Controller{
 			$user->phone_number = $_POST['phone_number'];
 			$user->street_address = $_POST['street_address'];
 			$user->city_address = $_POST['city_address'];
-			$user->postal_code_address = $_POST['postal_code_address'];
+			$postalCodeExplode = explode(" ", $_POST['postal_code_address']);
+			$user->postal_code_address = implode($postalCodeExplode);
 			$user->province_address = $_POST['province_address'];
 			$user->account_status = 'active';
 			$user->insert();
@@ -36,21 +40,38 @@ class Login extends Controller{
 	}
 
 	
-	public function logout(){
+	function logout(){
 		LoginCore::logout();
 		header('location:/Login');
 	}
 
-	function checkUsername(){
-		$nameValue = $_GET['value'];
+	function checkUsername($nameValue){
 		$aUser = $this->model('User');
-		$userWithName = $aUser->where('display_name', '=', $nameValue)->get();
+		if(isset($_SESSION['userId'])){
+			$thisUser = $aUser->find($_SESSION['userId']);
+			if($nameValue != $thisUser->display_name){
+				$userWithName = $aUser->where('display_name', '=', $nameValue)->get();
+			}else{
+				$userWithName = 0;
+			}
+		}else{
+			$userWithName = $aUser->where('display_name', '=', $nameValue)->get();			
+		}
 		echo sizeOf($userWithName);
 	}
 
-	function checkEmail() {
-		$emailValue = $_GET['email'];
+	function checkEmail($emailValue) {
 		$aUser = $this->model('User');
+		if(isset($_SESSION['userId'])){
+			$thisUser = $aUser->find($_SESSION['userId']);
+			if($emailValue != $thisUser->email){
+				$userWithEmail = $aUser->where('display_name', '=', $emailValue)->get();
+			}else{
+				$userWithEmail = 0;
+			}
+		}else{
+			$userWithEmail = $aUser->where('display_name', '=', $emailValue)->get();			
+		}
 		$userWithEmail = $aUser->where('email', '=', $emailValue)->get();
 		echo sizeOf($userWithEmail);
 	}

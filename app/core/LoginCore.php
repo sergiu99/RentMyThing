@@ -9,6 +9,7 @@ class LoginCore{
 				session_start();
 				$_SESSION['username'] = $username;
 				$_SESSION['userID'] = $users[0]->ID;
+				$_SESSION['errors'] = [];
 			}
 		}
 	}
