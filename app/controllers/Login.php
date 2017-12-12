@@ -12,8 +12,64 @@ class Login extends Controller{
 			$this->view('Login/index');
 	}
 
-	function validate(){
+	function validateSignup(){
+		if(isset($_POST)){
+			$_SESSION['errors'] = [];
+			$aUser = $this->model('User');
+		  	if (empty($_POST['email'])) {
+			  	$_SESSION['errors']['email'] = "Email is missing";
+			}
 
+			if (empty($_POST['city_address'])) {
+				$_SESSION['errors']['city_address'] = "City is missing";
+			}
+
+			if (empty($_POST['postal_code_address'])) {
+				$_SESSION['errors']['postal_code_address'] = "Postal Code is missing";
+			}
+
+			if (empty($_POST['province_address'])) {
+				$_SESSION['errors']['province_address'] = "Province is missing";
+			}
+	   
+			if($_POST['display_name'] != ""){
+				$userWithName = $aUser->where('display_name', '=', $_POST['display_name'])->get();
+				if(sizeOf($userWithName) > 0){
+					$_SESSION['errors']['display_name'] = "This display name is already associated to an account";
+				}
+			}
+
+			if($_POST['email'] != ""){
+				$userWithEmail = $aUser->where('email', '=', $_POST['email'])->get();
+				if(sizeOf($userWithEmail) > 0){
+					$_SESSION['errors']['email'] = "This email is already associated to an account";
+				}
+			}
+			//check phone # format
+			if(!empty($_POST['phone_number']) && preg_match('^[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$^', $_POST['phone_number']) != 1){
+				$_SESSION['errors']['phone_number'] = "Phone number must be in the format 999-999-9999";
+			}
+			//check postal code format
+			if(preg_match('^[A-Z]{1}[0-9]{1}[A-Z]{1}( |)[0-9]{1}[A-Z]{1}[0-9]{1}$^', $_POST['postal_code_address']) != 1){
+				$_SESSION['errors']['postal_code_address'] = "Postal code must be in the format A1A 1A1 or A1A1A1";
+			}
+
+			if(count($_SESSION['errors']) > 0){
+				//This is for ajax requests:
+				if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+					echo json_encode($_SESSION['errors']);
+					exit;
+				}
+			  	//This is when Javascript is turned off:
+				echo '<ul>';
+				foreach($_SESSION['errors'] as $key => $value){
+					echo '<li>' . $value . '</li>';
+				}
+				echo '</ul>'; exit;
+			}else{
+				$this->signup();
+			}
+	  	}
 	}
 
 	function signup(){
@@ -32,11 +88,11 @@ class Login extends Controller{
 			$user->province_address = $_POST['province_address'];
 			$user->account_status = 'active';
 			$user->insert();
-
 			
-			header('location:/Login');
-		}else
+			echo json_encode(true);
+		}else{
 			$this->view('Login/signup');
+		}
 	}
 
 	

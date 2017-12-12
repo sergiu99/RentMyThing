@@ -34,14 +34,30 @@ class Profile extends Controller{
 				}
 			}
 			//check phone # format
-			if(preg_match('^[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$^', $_POST['phone_number']) != 1){
+			if(!empty($_POST['phone_number']) && preg_match('^[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$^', $_POST['phone_number']) != 1){
 				$_SESSION['errors']['phone_number'] = "Phone number must be in the format 999-999-9999";
 			}
 			//check postal code format
 			if(preg_match('^[A-Z]{1}[0-9]{1}[A-Z]{1}( |)[0-9]{1}[A-Z]{1}[0-9]{1}$^', $_POST['postal_code_address']) != 1){
 				$_SESSION['errors']['postal_code_address'] = "Postal code must be in the format A1A 1A1 or A1A1A1";
 			}
+
 			//validate passwords
+			if($_POST['old_password'] != ""){
+				$password_hash = $thisUser->password;
+				if(password_verify($_POST['old_password'], $password_hash)){
+					if($_POST['new_password'] != ""){
+						if($_POST['new_password'] != $_POST['confirm_password']){
+							$_SESSION['errors']['confirm_password'] = "Password confirmation does not match";
+						}
+					}else{
+						$_SESSION['errors']['new_password'] = "Enter a new password or empty the Old Password input field";
+					}
+				}else{
+					$_SESSION['errors']['old_password'] = "Invalid password";
+				}
+			}
+
 
 			if(count($_SESSION['errors']) > 0){
 				//This is for ajax requests:
@@ -96,26 +112,8 @@ class Profile extends Controller{
 			$updateUser->show_address = 0;
 		}
 
-		//TODO match passwords, update password
-		if($_POST['old_password'] != ""){
-			$password_hash = $updateUser->password;
-			if(password_verify($_POST['old_password'], $password_hash)){
-				//echo ("correct pass");
-				if($_POST['new_password'] != ""){
-					if($_POST['new_password'] == $_POST['confirm_password']){
-					//	echo "matching pass";
-						$updateUser->password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-					}else{
-						//echo "pass do not match";
-					}
-				}else{
-					//echo "empty new pass";
-				}
-			}else{
-				//echo "incorrect pass";
-			}
-		}else{
-			//echo "empty pass";
+		if($_POST['old_password'] != ""){ 
+			$updateUser->password = password_hash($_POST['new_password'],PASSWORD_DEFAULT);
 		}
 
 		$updateUser->update();
