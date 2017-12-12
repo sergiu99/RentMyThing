@@ -49,9 +49,6 @@ class Items extends Controller{
 		$newItem = $this->model('Item');
 		
 		$userId =  $_SESSION['userID'];
-
-         // ** TO WORK ON IT
-		//if($userId == $_POST['user_id']){
 		$newItem = $newItem->find($id);
 
 		$newItem->user_id = $userId;
@@ -64,7 +61,6 @@ class Items extends Controller{
 			$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
 		}
 		$newItem->update();
-	//}
 		header("location:/Items");
 		} else {
 			$aItem = $this->model('Item');
@@ -75,16 +71,6 @@ class Items extends Controller{
 			
 			$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
 		}
-	}
-
-
-	function viewItem($id){
-		$aItem = $this->model('Item');
-		$aItem = $aItem->find($id);
-		if($aItem->name !=''){
-		$this->view('Items/viewItem',['item'=>$aItem]);
-		} else { header("location:/Items");}
-
 	}
 	
 	function delete($id){

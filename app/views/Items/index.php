@@ -30,7 +30,6 @@
 		<th>Enable</th>
 		<th>Action</th>
 		<th></th>
-		<th></th>
 		</tr>";
 		foreach($data['items'] as $item){
 			echo "<tr><td>$item->name</td>";
@@ -48,7 +47,6 @@
 			}else{
 				echo "<td><input type='checkbox' id='checkbox$item->id' onclick='enableCheck($item->id)'/></td>";
 			}
-			echo "<td><a href='/Items/viewItem/$item->id'>View</a></td>";
 			echo "<td><a href='/Items/editItem/$item->id'>Edit</a></td>";
 			echo "<td><a href='/Items/delete/$item->id'>Delete</a></td></tr>";
 		}

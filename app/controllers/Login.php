@@ -3,7 +3,6 @@ class Login extends Controller{
 	public function index(){
 		$user = $this->model('User');
 		if(isset($_POST['action']) && $_POST['action'] == 'Login'){
-
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 			LoginCore::login($email, $password);
@@ -99,37 +98,6 @@ class Login extends Controller{
 	function logout(){
 		LoginCore::logout();
 		header('location:/Login');
-	}
-
-	function checkUsername($nameValue){
-		$aUser = $this->model('User');
-		if(isset($_SESSION['userId'])){
-			$thisUser = $aUser->find($_SESSION['userId']);
-			if($nameValue != $thisUser->display_name){
-				$userWithName = $aUser->where('display_name', '=', $nameValue)->get();
-			}else{
-				$userWithName = 0;
-			}
-		}else{
-			$userWithName = $aUser->where('display_name', '=', $nameValue)->get();			
-		}
-		echo sizeOf($userWithName);
-	}
-
-	function checkEmail($emailValue) {
-		$aUser = $this->model('User');
-		if(isset($_SESSION['userId'])){
-			$thisUser = $aUser->find($_SESSION['userId']);
-			if($emailValue != $thisUser->email){
-				$userWithEmail = $aUser->where('display_name', '=', $emailValue)->get();
-			}else{
-				$userWithEmail = 0;
-			}
-		}else{
-			$userWithEmail = $aUser->where('display_name', '=', $emailValue)->get();			
-		}
-		$userWithEmail = $aUser->where('email', '=', $emailValue)->get();
-		echo sizeOf($userWithEmail);
 	}
 }
 ?>
