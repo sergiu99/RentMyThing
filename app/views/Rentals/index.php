@@ -281,7 +281,7 @@
 
 <script type="text/javascript">
 var lastTimeID = 0;
-var mesages;
+var chatStatus = "initial";
 $('#chatInput').val("");
 
 function toggleChat(id){
@@ -312,14 +312,18 @@ function getChatText(id) {
 			lastTimeID = message.id;
 		}
 		$('#view_ajax').append(html);
-		var objDiv = document.getElementById("chat_history");
-		objDiv.scrollTop = objDiv.scrollHeight;
+		console.log(chatStatus);
+		if(chatStatus == "initial"){
+			var objDiv = document.getElementById("chat_history");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			chatStatus = "refreshed";
+		}
 	});
 }
 
 function chatInputEnter(e){
 	if(e.which == 13){
-		console.log("ENTER");
+		chatStatus == "initial";
 		sendChatText();
 	}
 }
@@ -335,6 +339,7 @@ function sendChatText(){
 			console.log(data);
 		});
 		$('#chatInput').val("");
+		chatStatus = "initial";
 	}
 }
 
