@@ -61,7 +61,6 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 		<th>Price</th>
 		<th>Category</th>
 		<th>Rating</th>
-		<th>Status</th>
 	</tr>
 	
 	<?php
@@ -75,7 +74,6 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 		}else{
 			echo "<td>$item->rating/5</td>";
 		}
-		echo "<td>$item->status</td>";
 	
 	?>
 </table>

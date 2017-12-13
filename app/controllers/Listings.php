@@ -51,21 +51,23 @@ class Listings extends Controller{
 		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'location'=>$locationString, 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 	
+	//Get and view an item's details
 	function viewItem($id){
 		$thisItem = $this->model('Listing');
 		$thisItem = $thisItem->getItem($id)[0];
 		$comments = $this->model('Comment');
-		$comments = $comments->where('item_id','=',$id)->getRentalFromComment();
+		$comments = $comments->where('item_id','=',$id)->getRentalFromComment(); //Get comments made on an item
 		if($thisItem->name !=''){
 			$this->view('Listings/viewItem',['item'=>$thisItem, 'comments'=>$comments]);
 		} else { header("location:/Listings");}
 	}
 	
-
+	//Create and insert a new rental proposal
 	function rentItem(){
 		if(isset($_POST['action'])){
 			$newRental = $this->model('Rental');
 		
+			//Set the rental information
 			$userId =  $_SESSION['userID'];
 			$newRental->user_id = $userId;
 			$newRental->item_id = $_POST['item_id'];
@@ -75,9 +77,11 @@ class Listings extends Controller{
 			$newRental->start_date = $startDate;
 			$newRental->end_date = $endDate;
 
+			//Get the rental item
 			$aItem = $this->model('Item');
 	   		$aItem = $aItem->find($_POST['item_id']);
 
+			//Calculate and set a rental total
 	    	$pricePerDay = $aItem->price;
 			$date1 = date_create($startDate);
 			$date2 = date_create($endDate);
@@ -85,14 +89,16 @@ class Listings extends Controller{
 			$datediff = $diff->format("%a");
 			$total = ($datediff + 1) * $pricePerDay;
 		
+			//Create a notification for the item owner
 			$newNotification = $this->model('Notification');
 			$newNotification->user_id = $aItem->user_id;
-			$contentt = 'Someone wants to rent your '. $aItem->name .' item.';
-			$newNotification->content = $contentt;
+			$content = 'Someone wants to rent your '. $aItem->name .' item.';
+			$newNotification->content = $content;
 			$newNotification->redirect = "/Rentals";
  
 			$newRental->total = $total;
 
+			//Verify that the rental parameters are valid
 			if ($endDate >= $startDate){
 				$newRental = $newRental->insert();
 				$newNotification = $newNotification->insert();
@@ -104,6 +110,7 @@ class Listings extends Controller{
 		}
 	}
 
+	//Get a user's favorites in an array
 	function getFavorites(){
 		$aFavorite = $this->model('Favorite');
 		$userFavorites = $aFavorite->getUserFavoritesId();
@@ -114,6 +121,7 @@ class Listings extends Controller{
 		return $favoritesIds;
 	}
 	
+	//Check that a rental's start and end dates are valid
 	function checkDates(){
         $startDate = $_GET['start'];
         $endDate = $_GET['end'];
@@ -122,22 +130,7 @@ class Listings extends Controller{
 		$date2 = date_create($endDate);
 		$aRental = $this->model('Rental');
 		$existingRentals = $aRental->checkDates($itemId , $startDate, $endDate);
-		echo json_encode($existingRentals);
+		echo json_encode($existingRentals); //return the number of existing rentals for the item in the specified date range
 	}
-
-
-/*public function getDisplayInfo(){
-		$select	= "SELECT t1.id, t1.user_id, t1.name, t1.description, t1.image_path, t1.price, t2.name as category, t1.rating, t1.status FROM item t1 INNER JOIN category t2 ON t1.category = t2.id $this->_whereClause $this->_orderBy";
-
-        $stmt = $this->_connection->prepare($select);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
-        $returnVal = [];
-        while($rec = $stmt->fetch()){
-            $returnVal[] = $rec;
-        }
-        return $returnVal;
-    }*/
-
 }
 ?>
