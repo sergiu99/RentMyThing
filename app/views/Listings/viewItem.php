@@ -195,6 +195,8 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 					}
 				});
 			}
+
+			checkDates();
 		</script>
 <a href="/Listings/"><button  class="btn btn-default" >Go back</button></a>
 </div>

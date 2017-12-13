@@ -7,11 +7,11 @@
 <form method="post" action="/Profile/contactUs" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
 	<label for="name">Title</label>
-	<input type="text" class="form-control" required="true" name="title" id="title" />
+	<input type="text" class="form-control" required="true" name="title" id="title" required/>
 	</div>
 	<div class="form-group">
 	<label for="description">Description</label>
-	<textarea rows="4" type="text" class="form-control" required="true" name="description" id="description"></textarea>
+	<textarea rows="4" type="text" class="form-control" required="true" name="description" id="description" required></textarea>
 	</div>
 	<div class="form-group  row col-sm-3">
 <label for="urgency">Urgency</label> <br>

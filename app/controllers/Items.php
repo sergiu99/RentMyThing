@@ -44,34 +44,41 @@ class Items extends Controller{
 	//Update an item 
 	//$id The id of the item to be updated
 	function editItem($id){
-		if(isset($_POST['action'])){
-			$newItem = $this->model('Item');
-		
-			//Get the existing item record
-			$userId =  $_SESSION['userID'];
-			$newItem = $newItem->find($id);
-
-			//Set the updated item information
-			$newItem->user_id = $userId;
-			$newItem->status = 'enabled';
-			$newItem->name = $_POST['name'];
-			$newItem->description = $_POST['description'];
-			$newItem->price = $_POST['price'];
-			$newItem->category = $_POST['category'];
-			//Update the item image if a file has been provided
-			if($_FILES['fileToUpload']['size'] != 0){
-				$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
+		$newItem = $this->model('Item');
+		$newItem = $newItem->find($id);
+		//Check that the item exists and that the user owns it
+		if($newItem != false && $newItem->user_id == $_SESSION['userID']){
+			if(isset($_POST['action'])){
+				$newItem = $this->model('Item');
+			
+				//Get the existing item record
+				$userId =  $_SESSION['userID'];
+				$newItem = $newItem->find($id);
+	
+				//Set the updated item information
+				$newItem->user_id = $userId;
+				$newItem->status = 'enabled';
+				$newItem->name = $_POST['name'];
+				$newItem->description = $_POST['description'];
+				$newItem->price = $_POST['price'];
+				$newItem->category = $_POST['category'];
+				//Update the item image if a file has been provided
+				if($_FILES['fileToUpload']['size'] != 0){
+					$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
+				}
+				$newItem->update();
+				header("location:/Items");
+			} else {
+				$aItem = $this->model('Item');
+				$aItem = $aItem->find($id);
+				
+				$category = $this->model('Category');
+				$category = $category->get();
+				
+				$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
 			}
-			$newItem->update();
+		}else{
 			header("location:/Items");
-		} else {
-			$aItem = $this->model('Item');
-		    $aItem = $aItem->find($id);
-			
-			$category = $this->model('Category');
-		    $category = $category->get();
-			
-			$this->view('Items/editItem',['item'=>$aItem, 'category'=>$category ]);
 		}
 	}
 	
@@ -80,8 +87,12 @@ class Items extends Controller{
 	function delete($id){
 		$aItem = $this->model('Item');
 		$aItem = $aItem->find($id);
-		$aItem->status = "deleted";
-		$aItem->update();
+		//Check that the user owns the item
+		if($aItem->user_id == $_SESSION['userID']){
+			$aItem->status = "deleted";
+			unlink($aItem->image_path); //delete the item image
+			$aItem->update();
+		}
 		header("location:/Items");
 	}
 
@@ -91,10 +102,10 @@ class Items extends Controller{
 	   $status = $_GET['status'];
 	   $anItem = $this->model('Item');
 	   return $anItem->setStatus($id, $status);
-   }
+   	}
 
-   //Search for an item by matching the name to a keyword
-   function search(){
+   	//Search for an item by matching the name to a keyword
+   	function search(){
 	   if(isset($_POST['keyword'])){
 			$keyword = $_POST['keyword'];
 	   }else{
@@ -105,7 +116,7 @@ class Items extends Controller{
 	   $anItem = $this->model('Item');
 	   $searchItems1 = $anItem->where('user_id', '=', $_SESSION['userID'])->where('status', '<>', 'deleted')->where('t1.name', 'LIKE', $keyword)->getDisplayInfo(); //Get the item details
 	   $this->view('Items/index',['items'=>$searchItems1]);
-   }
+   	}
 
    //Upload an image to the database
 	function uploadImage($theFile, $id){

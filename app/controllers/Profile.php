@@ -1,5 +1,6 @@
 <?php
 class Profile extends Controller{
+	//View the logged in user's profile
 	function index(){
 		$aUser = $this->model('User');
 		$thisUser = $aUser->find($_SESSION['userID']);
@@ -7,9 +8,10 @@ class Profile extends Controller{
 		$this->view('Profile/index',['user'=>$thisUser]);
 	}
 
+	//Validate the profile edit inputs
 	function validateProfileChanges(){
 		if(isset($_POST)){
-			$_SESSION['errors'] = [];
+			$_SESSION['errors'] = []; //Reset the form errors
 			$aUser = $this->model('User');
 			$thisUser = $aUser->find($_SESSION['userID']);
 		  	if (empty($_POST['email'])) {
@@ -20,13 +22,15 @@ class Profile extends Controller{
 				$_SESSION['errors']['city_address'] = "City is missing";
 			}
 	   
-			if($_POST['display_name'] != $thisUser->display_name){
+			//Check thate the new display name is unique
+			if($_POST['display_name'] != $thisUser->display_name && $_POST['display_name'] != ""){
 				$userWithName = $aUser->where('display_name', '=', $_POST['display_name'])->get();
 				if(sizeOf($userWithName) > 0){
 					$_SESSION['errors']['display_name'] = "This display name is already associated to an account";
 				}
 			}
 
+			//Check that the new email is unique
 			if($_POST['email'] != $thisUser->email){
 				$userWithEmail = $aUser->where('email', '=', $_POST['email'])->get();
 				if(sizeOf($userWithEmail) > 0){
@@ -42,11 +46,14 @@ class Profile extends Controller{
 				$_SESSION['errors']['postal_code_address'] = "Postal code must be in the format A1A 1A1 or A1A1A1";
 			}
 
-			//validate passwords
+			//Validate the new password
 			if($_POST['old_password'] != ""){
+				//Get the current password
 				$password_hash = $thisUser->password;
+				//Check that the current password is valid
 				if(password_verify($_POST['old_password'], $password_hash)){
 					if($_POST['new_password'] != ""){
+						//Check that the new passwords match
 						if($_POST['new_password'] != $_POST['confirm_password']){
 							$_SESSION['errors']['confirm_password'] = "Password confirmation does not match";
 						}
@@ -72,12 +79,13 @@ class Profile extends Controller{
 				}
 				echo '</ul>'; exit;
 			}else{
-				$this->save(false);
+				$this->save(); //Save the changes
 			}
 	  	}
 	}
 
-	function save($index){
+	//Save profile information and settings changes
+	function save(){
 		$updateUser = $this->model('User');
 		$updateUser = $updateUser->find($_SESSION['userID']);
 		$updateUser->id = $_SESSION['userID'];
@@ -94,6 +102,7 @@ class Profile extends Controller{
 		$updateUser->postal_code_address = implode($postalCodeExplode);
 		$updateUser->join_date = $_POST['join_date'];
 
+		//Set privacy preferences
 		if($_POST['show_phone'] == "true"){
 			$updateUser->show_phone = 1;
 		}else{
@@ -113,17 +122,14 @@ class Profile extends Controller{
 		}
 
 		if($_POST['old_password'] != ""){ 
-			$updateUser->password = password_hash($_POST['new_password'],PASSWORD_DEFAULT);
+			$updateUser->password = password_hash($_POST['new_password'],PASSWORD_DEFAULT); //Update the password
 		}
 
 		$updateUser->update();
-		if($index){
-			$this->index();
-		}else{
-			echo json_encode(true);
-		}
+		echo json_encode(true); //Confirm that the profile was edited
 	}
 
+	//Search for a user by keyword
 	function search(){
 		$keyword = $_GET['keyword'];
 		$aUser = $this->model('User');
@@ -133,55 +139,59 @@ class Profile extends Controller{
 		$this->view('Profile/search',['users'=>$searchUsers, 'categories'=>$categories, 'keyword'=>$keyword, 'type'=>"Users"]);
 	}
 
+	//View a user profile
 	function viewUser($id){
 		$aUser = $this->model('User');
 		$theUser = $aUser->find($id);
-		$anItem = $this->model('Listing');
-		$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
-		$aFavorite = $this->model('Favorite');
-		$userFavorites = $aFavorite->getUserFavoritesId();
-		$favoritesIds = [];
-		for($item = 0; $item < sizeOf($userFavorites); $item++){
-			$favoritesIds[$item] = $userFavorites[$item]->item_id;
+		//Check that the user account is active
+		if($theUser != false && $theUser->account_status == "active"){
+			$anItem = $this->model('Listing');
+			$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
+			$aFavorite = $this->model('Favorite');
+			$userFavorites = $aFavorite->getUserFavoritesId(); //Get the logged in user's favorites
+			$favoritesIds = [];
+			for($item = 0; $item < sizeOf($userFavorites); $item++){
+				$favoritesIds[$item] = $userFavorites[$item]->item_id;
+			}
+			$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings, 'favorites'=>$favoritesIds]);
+		}else{
+			header("location:/Listings");
 		}
-		$this->view('Profile/viewUser',['user'=>$theUser, 'listings'=>$userListings, 'favorites'=>$favoritesIds]);
 	}
 
-function deleteAccount(){
-		if(isset($_POST['description']) && isset($_POST['urgency'])){
-
-		if($_POST['urgency'] == 'yes'){
-		$updateUser = $this->model('User');
-		$updateUser = $updateUser->find($_SESSION['userID']);
-		$updateUser->id = $_SESSION['userID'];
-		$updateUser->account_status = 'disabled';
-		$updateUser->update();
-		$updateUser->clearUserData();
-		header("location:/Login/logout");
-		}
-		else {
-			header("location:/Profile");
-		}
-		
+	//Disable the logged in user's account
+	function deleteAccount(){
+		if(isset($_POST['description']) && isset($_POST['confirmation'])){
+			if($_POST['confirmation'] == 'yes'){
+				$updateUser = $this->model('User');
+				$updateUser = $updateUser->find($_SESSION['userID']);
+				$updateUser->id = $_SESSION['userID'];
+				$updateUser->account_status = 'disabled';
+				$updateUser->update(); //Update the user status
+				$updateUser->clearUserData(); //Delete some user data
+				header("location:/Login/logout");
+			} else {
+				header("location:/Profile");
+			}	
 		} else { 
-				$this->view('Profile/deleteAccount');
+			$this->view('Profile/deleteAccount');
 		}
 	}
 
+	//Create and insert a support ticket
 	function contactUs(){
 		if(isset($_POST['title']) && isset($_POST['description']) && isset($_POST['urgency'])){
-
-		$userId =  $_SESSION['userID'];
-		$newItem = $this->model('Ticket');
-		$newItem->user_id = $userId;
-		$newItem->title = $_POST['title'];
-		$newItem->description = $_POST['description'];
-		$newItem->urgency = $_POST['urgency'];
-		$newItem->status = "open";
-		$newId = $newItem->insert();
-		header("location:/Listings");
+			$userId =  $_SESSION['userID'];
+			$newItem = $this->model('Ticket');
+			$newItem->user_id = $userId;
+			$newItem->title = $_POST['title'];
+			$newItem->description = $_POST['description'];
+			$newItem->urgency = $_POST['urgency'];
+			$newItem->status = "open";
+			$newId = $newItem->insert();
+			header("location:/Listings");
 		} else { 
-				$this->view('Profile/help');
+			$this->view('Profile/help');
 		}
 	}
 }

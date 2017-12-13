@@ -55,10 +55,15 @@ class Listings extends Controller{
 	function viewItem($id){
 		$thisItem = $this->model('Listing');
 		$thisItem = $thisItem->getItem($id)[0];
-		$comments = $this->model('Comment');
-		$comments = $comments->where('item_id','=',$id)->getRentalFromComment(); //Get comments made on an item
-		if($thisItem->name !=''){
-			$this->view('Listings/viewItem',['item'=>$thisItem, 'comments'=>$comments]);
+		if($thisItem->name !='' && $thisItem->status = "enabled"){
+			if($thisItem->user_id == $_SESSION['userID']){
+				//If the user owns the item
+				header("location:/Items/editItem/$thisItem->id");
+			}else{
+				$comments = $this->model('Comment');
+				$comments = $comments->where('item_id','=',$id)->getRentalFromComment(); //Get comments made on an item
+				$this->view('Listings/viewItem',['item'=>$thisItem, 'comments'=>$comments]);
+			}
 		} else { header("location:/Listings");}
 	}
 	

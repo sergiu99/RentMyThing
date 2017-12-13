@@ -1,5 +1,6 @@
 <?php
 class Login extends Controller{
+	
 	public function index(){
 		$user = $this->model('User');
 		if(isset($_POST['action']) && $_POST['action'] == 'Login'){
@@ -11,9 +12,10 @@ class Login extends Controller{
 			$this->view('Login/index');
 	}
 
+	//Validate the registration inputs
 	function validateSignup(){
 		if(isset($_POST)){
-			$_SESSION['errors'] = [];
+			$_SESSION['errors'] = []; //Reset the form errors
 			$aUser = $this->model('User');
 		  	if (empty($_POST['email'])) {
 			  	$_SESSION['errors']['email'] = "Email is missing";
@@ -31,6 +33,7 @@ class Login extends Controller{
 				$_SESSION['errors']['province_address'] = "Province is missing";
 			}
 	   
+			//Check that the display name is unique
 			if($_POST['display_name'] != ""){
 				$userWithName = $aUser->where('display_name', '=', $_POST['display_name'])->get();
 				if(sizeOf($userWithName) > 0){
@@ -38,16 +41,20 @@ class Login extends Controller{
 				}
 			}
 
+			//Check that the email address is unique
+			$aUser = $this->model('User');
 			if($_POST['email'] != ""){
 				$userWithEmail = $aUser->where('email', '=', $_POST['email'])->get();
 				if(sizeOf($userWithEmail) > 0){
 					$_SESSION['errors']['email'] = "This email is already associated to an account";
 				}
 			}
-			//check phone # format
+
+			//check phone number format
 			if(!empty($_POST['phone_number']) && preg_match('^[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$^', $_POST['phone_number']) != 1){
 				$_SESSION['errors']['phone_number'] = "Phone number must be in the format 999-999-9999";
 			}
+
 			//check postal code format
 			if(preg_match('^[A-Z]{1}[0-9]{1}[A-Z]{1}( |)[0-9]{1}[A-Z]{1}[0-9]{1}$^', $_POST['postal_code_address']) != 1){
 				$_SESSION['errors']['postal_code_address'] = "Postal code must be in the format A1A 1A1 or A1A1A1";
@@ -66,11 +73,12 @@ class Login extends Controller{
 				}
 				echo '</ul>'; exit;
 			}else{
-				$this->signup();
+				$this->signup(); //Proceed to creating a new user
 			}
 	  	}
 	}
 
+	//Create and insert a new user
 	function signup(){
 		$user = $this->model('User');
 		if(isset($_POST['action'])){
@@ -78,7 +86,7 @@ class Login extends Controller{
 			$user->last_name = $_POST['last_name'];
 			$user->email = $_POST['email'];
 			$user->display_name = $_POST['display_name'];
-			$user->password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+			$user->password = password_hash($_POST['password'],PASSWORD_DEFAULT); //Generate a password hash
 			$user->phone_number = $_POST['phone_number'];
 			$user->street_address = $_POST['street_address'];
 			$user->city_address = $_POST['city_address'];
@@ -88,13 +96,12 @@ class Login extends Controller{
 			$user->account_status = 'active';
 			$user->insert();
 			
-			echo json_encode(true);
+			echo json_encode(true); //Confirm registration success
 		}else{
 			$this->view('Login/signup');
 		}
 	}
 
-	
 	function logout(){
 		LoginCore::logout();
 		header('location:/Login');

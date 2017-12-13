@@ -51,7 +51,7 @@
 		$completeAction = "<td><button class='btn btn-default'  type='submit'>Complete</button></td></tr>";
 		if($item->status == 'reqcompleted' . $data['this_user']) {
 			$statuss = 'You have requested this Rental to complete.';
-			$completeAction = "<td><button class='btn btn-default disabled'  type='submit'>Complete</button></td></tr>";
+			$completeAction = "<td><button class='btn btn-default disabled'  type='submit' disabled>Complete</button></td></tr>";
 		} else if($item->status == 'pending'){
 			$statuss = 'Pending';
 			$completeAction = "<td><button class='btn btn-default'  type='submit'>Cancel Request</button></td></tr>";

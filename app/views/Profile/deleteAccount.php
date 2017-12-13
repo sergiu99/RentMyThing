@@ -11,8 +11,8 @@
 	<textarea rows="4" type="text" class="form-control" required="true" name="description" id="description"></textarea>
 	</div>
 	<div class="form-group  row col-sm-3">
-<label for="urgency">Are you sure you want to delete your account?</label> <br>
-<select class="form-control" name="urgency" required="true" id="urgency">
+<label for="confirmation">Are you sure you want to delete your account?</label> <br>
+<select class="form-control" name="confirmation" required="true" id="confirmation">
   <option value="no">No</option>
   <option value="yes">Yes</option>
 </select>
