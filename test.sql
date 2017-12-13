@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2017 at 03:48 PM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: Nov 30, 2017 at 09:06 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -87,18 +85,7 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `rental_id`, `poster_status`, `content`, `rating`) VALUES
-(1, 5, '6', 'This item was pretty good to rent.', 4),
-(2, 14, '6', 'Great Stuff!', 5),
-(4, 16, '6', 'Not bad...', 3),
-(5, 9, '6', 'akdhfksdf', 2),
-(6, 18, '6', 'TEST COMMENT', 1),
-(7, 19, '6', 'jfhgfjhmgilj', 1),
-(8, 20, '6', 'Trash', 1),
-(9, 21, '6', 'Meh', 2),
-(10, 22, '6', 'Great!', 5),
-(11, 23, '6', 'Great Again!', 5),
-(12, 24, '6', 'Great Again Again', 5),
-(13, 25, '6', 'Great Again hope it works ...', 5);
+(1, 5, '6', 'This item was pretty good to rent.', 4);
 
 -- --------------------------------------------------------
 
@@ -139,8 +126,7 @@ INSERT INTO `item` (`id`, `user_id`, `name`, `description`, `image_path`, `price
 (2, 6, 'Jigly Book', 'It has a slight smell of vanilla', 'images/noimage.png', 40, 18, NULL, 'enabled'),
 (3, 6, 'Wrench ', 'You know what your looking for', 'images/3.jpg', 15, 15, NULL, 'enabled'),
 (4, 6, 'Flamboyant Bike', 'You will look very cool', 'images/4.jpeg', 50, 11, NULL, 'enabled'),
-(5, 10, 'Cart', 'You can carry stuff in it ', 'images/5.jpg', 23, 15, NULL, 'enabled'),
-(6, 7, 'TEST', 'Its a test', 'images/6.jpg', 5000, 1, 3, 'enabled');
+(5, 10, 'Cart', 'You can carry stuff in it ', 'images/5.jpg', 23, 15, NULL, 'enabled');
 
 -- --------------------------------------------------------
 
@@ -197,79 +183,7 @@ INSERT INTO `message` (`id`, `rental_id`, `sender_id`, `created_on`, `content`) 
 (34, 3, 6, '2017-11-28 02:37:31', 'asd'),
 (35, 3, 6, '2017-11-28 02:37:33', 'dasdasd'),
 (36, 6, 6, '2017-11-28 02:37:37', 'sadasd'),
-(37, 3, 6, '2017-11-28 02:37:43', 'd'),
-(38, 12, 6, '2017-12-08 22:49:22', 'khsdkjf skdjhfkjsdf ksjfhjksdhf kdfhsjdhfskdf sdhfsjdkfsdf'),
-(39, 14, 6, '2017-12-09 02:33:25', 'Hey thanks for the rental!'),
-(40, 14, 7, '2017-12-09 02:48:08', 'yeah np'),
-(41, 14, 7, '2017-12-09 02:48:32', 'aksjfhsdkf k jskdjf kj hksjdf'),
-(42, 14, 7, '2017-12-09 02:48:38', 'sdfsdgdfh  h dfdg gd'),
-(43, 14, 7, '2017-12-09 02:54:28', 'teststets teas s'),
-(44, 14, 7, '2017-12-09 02:54:35', 'hhfrjjfdddds'),
-(45, 14, 6, '2017-12-09 02:55:04', 'dfghfg'),
-(46, 14, 6, '2017-12-09 02:55:07', 'dsfsdfsd'),
-(47, 14, 6, '2017-12-09 03:01:16', 'Hello'),
-(48, 14, 7, '2017-12-09 03:02:02', 'message from owner'),
-(49, 14, 6, '2017-12-09 03:03:35', 'Should be working now'),
-(50, 22, 6, '2017-12-10 01:00:20', 'Chat'),
-(51, 22, 6, '2017-12-10 01:00:25', 'Chat'),
-(52, 22, 6, '2017-12-10 01:00:30', 'Chat'),
-(53, 22, 7, '2017-12-10 01:24:19', 'Chat'),
-(54, 22, 7, '2017-12-10 01:24:23', 'Chat'),
-(55, 22, 7, '2017-12-10 01:24:26', 'Chat'),
-(56, 22, 7, '2017-12-10 01:33:50', 'chat'),
-(57, 22, 7, '2017-12-10 01:35:28', 'd'),
-(58, 22, 7, '2017-12-10 01:35:28', 'f'),
-(59, 22, 7, '2017-12-10 01:35:28', 'f'),
-(60, 22, 7, '2017-12-10 01:35:30', 'g'),
-(61, 22, 7, '2017-12-10 01:35:31', 'f'),
-(62, 22, 7, '2017-12-10 01:39:10', 'asdasd'),
-(63, 22, 7, '2017-12-10 01:39:13', 'fghfghfgh'),
-(64, 22, 7, '2017-12-10 01:39:18', 'gjhjghj'),
-(65, 22, 6, '2017-12-10 01:42:44', 'fxgdfgdfg'),
-(66, 22, 6, '2017-12-10 01:42:46', 'fhjghjhjgj'),
-(67, 22, 6, '2017-12-10 01:42:48', 'dhfghfgh'),
-(68, 22, 7, '2017-12-10 01:45:36', 'sfgdfg'),
-(69, 22, 7, '2017-12-10 01:45:37', 'fgjfhdt'),
-(70, 22, 7, '2017-12-10 01:45:39', 'gdfgdfg'),
-(71, 22, 7, '2017-12-10 01:45:42', 'TEST'),
-(72, 22, 7, '2017-12-10 01:45:45', 'TEST2'),
-(73, 22, 7, '2017-12-10 03:09:37', 'Hey testing notifications!'),
-(74, 22, 7, '2017-12-10 03:10:11', 'test2'),
-(75, 22, 7, '2017-12-10 03:10:16', 'test4'),
-(76, 22, 7, '2017-12-10 03:10:20', 'test5'),
-(77, 22, 6, '2017-12-10 03:48:57', 'sdfgfgh'),
-(78, 22, 6, '2017-12-10 03:48:59', 'fghfghf'),
-(79, 22, 6, '2017-12-10 03:49:01', 'fghfghf'),
-(80, 22, 6, '2017-12-10 03:57:49', 'fgjfgjj'),
-(81, 22, 6, '2017-12-10 03:57:51', 'fjfhjfgh'),
-(82, 22, 6, '2017-12-10 03:57:52', 'fghftfhg'),
-(83, 22, 6, '2017-12-10 03:57:54', 'dgfdgdfg'),
-(84, 22, 6, '2017-12-10 03:58:57', 'ghfgh'),
-(85, 22, 7, '2017-12-10 03:59:16', 'fdgdfgghj'),
-(86, 22, 7, '2017-12-10 03:59:28', 'hkhjkfgk'),
-(87, 28, 7, '2017-12-12 03:39:45', 'Hey Sup!'),
-(88, 28, 6, '2017-12-12 03:40:11', 'When can I pick up the bike?'),
-(89, 28, 7, '2017-12-12 03:40:52', 'skdjfskjfd'),
-(90, 28, 7, '2017-12-12 03:40:53', 'slkdjflsdf'),
-(91, 28, 7, '2017-12-12 03:40:54', 'sdnfksjdhf'),
-(92, 28, 7, '2017-12-12 03:40:55', 'sjdfkshdf'),
-(93, 28, 7, '2017-12-12 03:40:56', 'skjdfkshd'),
-(94, 28, 7, '2017-12-12 03:40:58', 'sdkjfhksdh'),
-(95, 28, 7, '2017-12-12 03:40:59', 'ksdjfsfdh'),
-(96, 28, 7, '2017-12-12 03:41:00', 'skjdfhsk'),
-(97, 28, 7, '2017-12-12 03:41:02', 'kjsdhf'),
-(98, 28, 6, '2017-12-12 03:41:10', 'dssdfsdf'),
-(99, 28, 7, '2017-12-12 03:45:26', 'vhnghj'),
-(100, 28, 7, '2017-12-12 03:46:54', 'fghfgh'),
-(101, 28, 7, '2017-12-12 03:47:08', 'sdsdfs'),
-(102, 28, 7, '2017-12-12 03:47:14', 'fghghfh'),
-(103, 28, 7, '2017-12-12 03:47:42', 'sdfsdf'),
-(104, 28, 7, '2017-12-12 03:48:05', 'sdfsdf'),
-(105, 28, 6, '2017-12-12 03:48:28', 'dfgdgdf'),
-(106, 28, 7, '2017-12-12 03:51:19', 'sdfsdfs'),
-(107, 28, 7, '2017-12-12 03:52:23', 'dfgdf'),
-(108, 28, 7, '2017-12-12 03:53:01', 'sdfsdf'),
-(109, 28, 7, '2017-12-12 03:53:53', 'njhgj');
+(37, 3, 6, '2017-11-28 02:37:43', 'd');
 
 -- --------------------------------------------------------
 
@@ -291,97 +205,12 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `content`, `created_on`, `redirect`, `viewed`) VALUES
-(2, 6, 'One of your rentals has been completed', '2017-11-28 02:23:58', '/Rentals', 1),
-(3, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:33:05', '/Rentals', 1),
-(4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 1),
+(2, 6, 'One of your rentals has been completed', '2017-11-28 02:23:58', '/Rentals', 0),
+(3, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:33:05', '/Rentals', 0),
+(4, 6, 'Someone wants to rent your Jigly Book item.', '2017-11-28 02:34:16', '/Rentals', 0),
 (5, 5, 'Someone wants to rent your Harry Potter item.', '2017-11-30 17:42:58', '/Rentals', 0),
-(6, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:06', '/Rentals', 1),
-(7, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:07', '/Rentals', 1),
-(8, 7, 'Someone has declined your rental request.', '2017-12-08 14:27:18', '/Rentals', 1),
-(9, 6, 'Someone has declined your rental request.', '2017-12-08 14:27:20', '/Rentals', 1),
-(10, 6, 'Someone has declined your rental request.', '2017-12-08 14:27:24', '/Rentals', 1),
-(11, 6, 'One of your rentals needs your approval to be completed', '2017-12-08 14:27:30', '/Rentals', 1),
-(12, 6, 'One of your rentals has been completed', '2017-12-08 14:27:36', '/Rentals', 1),
-(13, 6, 'Someone wants to rent your Wrench  item.', '2017-12-08 14:28:40', '/Rentals', 1),
-(14, 6, 'Someone has accepted your rental request.', '2017-12-08 14:28:50', '/Rentals', 1),
-(15, 6, 'One of your rentals needs your approval to be completed', '2017-12-08 14:28:53', '/Rentals', 1),
-(16, 6, 'One of your rentals has been completed', '2017-12-08 14:28:57', '/Rentals', 1),
-(17, 5, 'Someone wants to rent your Harry Potter item.', '2017-12-08 14:45:31', '/Rentals', 0),
-(18, 5, 'Someone wants to rent your Harry Potter item.', '2017-12-08 16:59:59', '/Rentals', 0),
-(19, 6, 'One of your rentals has been terminated before starting', '2017-12-08 17:00:03', '/Rentals', 1),
-(20, 5, 'Someone wants to rent your Harry Potter item.', '2017-12-08 17:00:17', '/Rentals', 0),
-(21, 6, 'One of your rentals has been terminated before starting', '2017-12-08 17:00:22', '/Rentals', 1),
-(22, 6, 'New message for the item rental Harry Potter #12', '2017-12-08 22:49:22', '/Rentals', 1),
-(23, 6, 'One of your rentals has been terminated before starting', '2017-12-09 02:14:08', '/Rentals', 1),
-(24, 5, 'Someone wants to rent your Harry Potter item.', '2017-12-09 02:30:58', '/Rentals', 0),
-(25, 7, 'One of your rentals has been terminated before starting', '2017-12-09 02:31:28', '/Rentals', 1),
-(26, 7, 'Someone wants to rent your TEST item.', '2017-12-09 02:32:48', '/Rentals', 1),
-(27, 6, 'Someone has accepted your rental request.', '2017-12-09 02:33:06', '/Rentals', 1),
-(28, 6, 'New message for the item rental TEST #14', '2017-12-09 02:33:25', '/Rentals', 1),
-(29, 7, 'New message for the item rental TEST #14', '2017-12-09 02:48:08', '/Rentals?chat=14', 1),
-(30, 7, 'New message for the item rental TEST #14', '2017-12-09 02:48:32', '/Rentals?chat=14', 1),
-(31, 7, 'New message for the item rental TEST #14', '2017-12-09 02:48:38', '/Rentals?chat=14', 1),
-(32, 7, 'New message for the item rental TEST', '2017-12-09 02:54:28', '/Rentals?chat=14', 1),
-(33, 7, 'New message for the item rental TEST', '2017-12-09 02:54:35', '/Rentals?chat=14', 1),
-(34, 6, 'New message for the item rental TEST', '2017-12-09 02:55:04', '/Rentals?chat=14', 1),
-(35, 6, 'New message for the item rental TEST', '2017-12-09 02:55:07', '/Rentals?chat=14', 1),
-(36, 6, 'New message for the item rental TEST', '2017-12-09 03:01:16', '/Rentals?chat=14', 1),
-(37, 7, 'New message for the item rental TEST', '2017-12-09 03:02:02', '/Rentals?chat=14', 1),
-(38, 7, 'New message for the item rental TEST', '2017-12-09 03:03:35', '/Rentals?chat=14', 1),
-(39, 6, 'One of your rentals needs your approval to be completed', '2017-12-09 14:54:21', '/Rentals', 1),
-(40, 7, 'Someone wants to rent your TEST item.', '2017-12-09 15:10:40', '/Rentals', 1),
-(41, 7, 'One of your rentals has been terminated before starting', '2017-12-09 15:11:03', '/Rentals', 1),
-(42, 6, 'One of your rentals has been completed', '2017-12-09 15:11:39', '/Rentals', 1),
-(43, 7, 'Someone wants to rent your TEST item.', '2017-12-09 15:12:00', '/Rentals', 1),
-(44, 6, 'Someone has accepted your rental request.', '2017-12-09 15:12:13', '/Rentals', 1),
-(45, 6, 'One of your rentals needs your approval to be completed', '2017-12-09 15:13:19', '/Rentals', 1),
-(46, 6, 'One of your rentals has been completed', '2017-12-09 15:13:30', '/Rentals', 1),
-(47, 7, 'Someone wants to rent your TEST item.', '2017-12-09 15:15:55', '/Rentals', 1),
-(48, 11, 'Someone has accepted your rental request.', '2017-12-09 15:16:07', '/Rentals', 1),
-(49, 7, 'Someone wants to rent your TEST item.', '2017-12-09 15:17:02', '/Rentals', 1),
-(50, 6, 'Someone has accepted your rental request.', '2017-12-09 15:17:09', '/Rentals', 1),
-(51, 11, 'One of your rentals needs your approval to be completed', '2017-12-09 17:57:12', '/Rentals', 1),
-(52, 11, 'One of your rentals has been completed', '2017-12-09 17:57:28', '/Rentals', 1),
-(53, 6, 'One of your rentals needs your approval to be completed', '2017-12-09 17:58:08', '/Rentals', 1),
-(54, 6, 'One of your rentals has been completed', '2017-12-09 17:58:21', '/Rentals', 1),
-(55, 7, 'Someone wants to rent your TEST item.', '2017-12-09 22:34:44', '/Rentals', 1),
-(56, 6, 'Someone has accepted your rental request.', '2017-12-09 22:34:56', '/Rentals', 1),
-(57, 6, 'One of your rentals needs your approval to be completed', '2017-12-09 22:35:10', '/Rentals', 1),
-(58, 6, 'One of your rentals has been completed', '2017-12-09 22:35:36', '/Rentals', 1),
-(59, 7, 'Someone wants to rent your TEST item.', '2017-12-09 22:36:23', '/Rentals', 1),
-(60, 6, 'Someone has accepted your rental request.', '2017-12-09 22:36:53', '/Rentals', 1),
-(61, 6, 'One of your rentals needs your approval to be completed', '2017-12-09 22:37:06', '/Rentals', 1),
-(62, 7, 'Someone wants to rent your TEST item.', '2017-12-09 22:47:02', '/Rentals', 1),
-(63, 6, 'Someone has accepted your rental request.', '2017-12-09 22:47:11', '/Rentals', 1),
-(64, 7, 'One of your rentals needs your approval to be completed', '2017-12-09 22:47:26', '/Rentals', 1),
-(65, 6, 'One of your rentals has been completed', '2017-12-09 22:47:38', '/Rentals', 1),
-(66, 6, 'One of your rentals has been completed', '2017-12-09 22:47:41', '/Rentals', 1),
-(67, 7, 'Someone wants to rent your TEST item.', '2017-12-10 00:51:55', '/Rentals', 1),
-(68, 6, 'Someone has accepted your rental request.', '2017-12-10 00:52:02', '/Rentals', 1),
-(100, 7, 'New message for the item rental TEST', '2017-12-10 03:58:57', '/Rentals?chat=22', 1),
-(102, 6, 'New message for the item rental TEST', '2017-12-10 03:59:28', '/Rentals?chat=22', 1),
-(103, 7, 'One of your rentals needs your approval to be completed', '2017-12-10 04:01:14', '/Rentals', 1),
-(104, 6, 'One of your rentals has been completed', '2017-12-10 04:01:27', '/Rentals', 1),
-(105, 7, 'Someone wants to rent your TEST item.', '2017-12-10 04:02:21', '/Rentals', 1),
-(106, 6, 'Someone has accepted your rental request.', '2017-12-10 04:02:34', '/Rentals', 1),
-(107, 7, 'One of your rentals needs your approval to be completed', '2017-12-10 04:02:48', '/Rentals', 1),
-(108, 6, 'One of your rentals has been completed', '2017-12-10 04:03:00', '/Rentals', 1),
-(109, 7, 'Someone wants to rent your TEST item.', '2017-12-10 04:04:24', '/Rentals', 1),
-(110, 6, 'Someone has accepted your rental request.', '2017-12-10 04:04:31', '/Rentals', 1),
-(111, 6, 'One of your rentals needs your approval to be completed', '2017-12-10 04:04:40', '/Rentals', 1),
-(112, 7, 'One of your rentals has been completed', '2017-12-10 04:04:51', '/Rentals', 1),
-(113, 7, 'Someone wants to rent your TEST item.', '2017-12-10 04:05:34', '/Rentals', 1),
-(114, 6, 'Someone has accepted your rental request.', '2017-12-10 04:05:43', '/Rentals', 1),
-(115, 7, 'One of your rentals needs your approval to be completed', '2017-12-10 04:05:52', '/Rentals', 1),
-(116, 6, 'One of your rentals has been completed', '2017-12-10 04:05:59', '/Rentals', 1),
-(117, 7, 'Someone wants to rent your TEST item.', '2017-12-10 04:09:31', '/Rentals', 1),
-(118, 7, 'Someone wants to rent your TEST item.', '2017-12-12 03:32:54', '/Rentals', 1),
-(119, 7, 'One of your rentals has been terminated before starting', '2017-12-12 03:33:34', '/Rentals', 1),
-(120, 6, 'Someone has declined your rental request.', '2017-12-12 03:35:33', '/Rentals', 1),
-(121, 6, 'Someone wants to rent your Flamboyant Bike item.', '2017-12-12 03:39:23', '/Rentals', 1),
-(122, 7, 'Someone has accepted your rental request.', '2017-12-12 03:39:31', '/Rentals', 1),
-(141, 7, 'New message for the item rental Flamboyant Bike', '2017-12-12 03:48:28', '/Rentals?chat=28', 1),
-(145, 6, 'New message for the item rental Flamboyant Bike', '2017-12-12 03:53:53', '/Rentals?chat=28', 1);
+(6, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:06', '/Rentals', 0),
+(7, 6, 'One of your rentals has been terminated before starting', '2017-11-30 17:43:07', '/Rentals', 0);
 
 -- --------------------------------------------------------
 
@@ -405,32 +234,12 @@ CREATE TABLE `rental` (
 
 INSERT INTO `rental` (`id`, `user_id`, `item_id`, `start_date`, `end_date`, `total`, `status`) VALUES
 (2, 6, 1, '2017-11-23', '2017-11-17', 7, 'cancelled'),
-(3, 6, 2, '2017-11-23', '2017-11-29', 280, 'completed'),
-(4, 7, 2, '2017-11-24', '2017-11-27', 160, 'declined'),
+(3, 6, 2, '2017-11-23', '2017-11-29', 280, 'accepted'),
+(4, 7, 2, '2017-11-24', '2017-11-27', 160, 'pending'),
 (5, 6, 2, '2017-11-26', '2017-11-30', 200, 'completed'),
-(6, 6, 2, '2017-11-27', '2017-11-29', 120, 'declined'),
-(7, 6, 2, '2017-11-27', '2017-11-29', 120, 'declined'),
-(8, 6, 1, '2017-11-30', '2017-12-21', 22, 'cancelled'),
-(9, 6, 3, '2017-12-08', '2017-12-09', 30, 'completed'),
-(10, 6, 1, '2017-12-08', '2017-12-08', 1, 'cancelled'),
-(11, 6, 1, '2017-12-08', '2017-12-09', 2, 'cancelled'),
-(12, 6, 1, '2017-12-08', '2017-12-09', 2, 'cancelled'),
-(13, 7, 1, '2017-12-08', '2017-12-09', 2, 'cancelled'),
-(14, 6, 6, '2017-12-08', '2017-12-08', 500, 'completed'),
-(15, 7, 6, '2017-12-17', '2017-12-23', 3500, 'cancelled'),
-(16, 6, 6, '2017-12-17', '2017-12-23', 3500, 'completed'),
-(17, 11, 6, '2017-12-15', '2017-12-15', 500, 'completed'),
-(18, 6, 6, '2017-12-10', '2017-12-14', 2500, 'completed'),
-(19, 6, 6, '2017-12-09', '2017-12-11', 1500, 'completed'),
-(20, 6, 6, '2017-12-09', '2017-12-19', 5500, 'completed'),
-(21, 6, 6, '2017-12-09', '2017-12-12', 2000, 'completed'),
-(22, 6, 6, '2017-12-27', '2017-12-29', 15000, 'completed'),
-(23, 6, 6, '2017-12-09', '2017-12-21', 65000, 'completed'),
-(24, 6, 6, '2017-12-09', '2017-12-09', 5000, 'completed'),
-(25, 6, 6, '2017-12-09', '2017-12-09', 5000, 'completed'),
-(26, 6, 6, '2017-12-09', '2017-12-09', 5000, 'declined'),
-(27, 7, 6, '2017-12-11', '2017-12-11', 5000, 'cancelled'),
-(28, 7, 4, '2017-12-11', '2017-12-11', 50, 'accepted');
+(6, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending'),
+(7, 6, 2, '2017-11-27', '2017-11-29', 120, 'pending'),
+(8, 6, 1, '2017-11-30', '2017-12-21', 22, 'cancelled');
 
 -- --------------------------------------------------------
 
@@ -486,12 +295,10 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`ID`, `email`, `display_name`, `password`, `first_name`, `last_name`, `phone_number`, `join_date`, `street_address`, `city_address`, `postal_code_address`, `province_address`, `show_phone`, `show_email`, `show_address`, `account_status`) VALUES
 (1, 'user1@email.com', 'Jon', '$2y$10$9LOAGlVIjL4eqms18B3XW.3u187XwVTmI/xQDVbsKGQ7v6mhGKJ82', '', '', '0', '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
 (2, 'user2@email.com', 'Jake', '$2y$10$xXdcyTvrW/xR7zPf7C/C7.lN5bwMWU6.cH3aMVKKzPcWFXVJSQ9U6', 'Jake', 'Mo', '0', '2017-10-26 18:58:20', ' ', '', '', '', 0, 0, 0, 'active'),
-(5, 'user3@yahoo.com', 'curlyburry', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'Vasinlerh', 'Hueld', '5145169584', '2017-10-26 19:40:24', '21374 Sherbrooke ', 'Montreal', 'H4B1T8', 'QC', 0, 0, 0, 'active'),
-(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'Johny ', 'Bravo', '2147483647', '2017-10-30 18:21:15', '9393 Saint-Jacque', 'Montreal', 'H4B2W8', 'AB', 0, 0, 0, 'active'),
-(7, 'clement@email.com', 'Clement Potteck', '$2y$10$hO1z5t/DMh1tzFbfq3PVMOe.9aj9y3/lNgM6P7cv6JUukRUxud8KG', 'Clement', 'Potteck', '514-444-4444', '2017-12-10 16:27:17', '5555 Street', 'Montreal', 'H4A1M8', 'QC', 0, 0, 1, 'active'),
-(10, 'user6@yahoo.com', 'therulerofearth', '$2y$10$jir6tVprmUFHEsOvBWU/1OVbK3.HpcZOKQE5wZFcKW27439HuBrZG', 'Genghis', 'Khan', '5145932323', '2017-11-30 17:57:51', '2154 Mongolia Avenue', 'Montreal', 'H4B1J8', 'QC', 0, 0, 0, 'active'),
-(11, 'dgfgd@email.com', 'dghhgh', '$2y$10$qXQQl3LEJw/rZXePz/a6huzS2MDM8jPJhp6yP7LjaZgCxSU0T6WSG', 'fdgdh', 'dfhdfg', '5144444444', '2017-12-09 03:15:27', 'sfkjsdh', 'Montreal', 'H4A 1M', 'QC', 0, 0, 0, 'active'),
-(13, 'cpotteck@gmail.com', '', '$2y$10$5M4nJPjyWO5Y1nxNpMQD3OLtvFiVYGe1yOzzGtqUlzbuH865cHKQ.', 'Clement', 'Potteck', '514-444-4444', '2017-12-12 03:29:54', '', 'Montreal', 'H4A1M8', 'QC', 0, 0, 0, 'active');
+(5, 'user3@yahoo.com', 'curlyburry', '$2y$10$oYiUZ8cGSOgOfqCNnfJ8IupiXQfuYQf1f8Za295b3PSId5nfvwyT.', 'Vasinlerh', 'Hueld', '5145169584', '2017-10-26 19:40:24', '21374 Sherbrooke ', 'Montreal', 'H4B1T8', 'Quebec', 0, 0, 0, 'active'),
+(6, 'user5@yahoo.com', 'Johny bravo', '$2y$10$5pjOkt4g3tlpn20nIvCmTuLoc0sdNxgRujRU77GuAMZrtOw3/LQrW', 'Johny ', 'Bravo', '2147483647', '2017-10-30 18:21:15', '9393 Saint-Jacque', 'Montreal', 'H4B2W8', 'Quebec', 0, 0, 0, 'active'),
+(7, 'clement@email.com', 'Clement Potteck', '$2y$10$ejPIwySjs5xykhd1DszybeK0ylTf78m.2UMxIDXlkNq5lqrsodniW', 'Clement', 'Potteck', '2147483647', '2017-11-22 16:52:41', '5555 Street', 'Montreal', 'H5H4H2', 'QC', 0, 0, 0, 'active'),
+(10, 'user6@yahoo.com', 'therulerofearth', '$2y$10$jir6tVprmUFHEsOvBWU/1OVbK3.HpcZOKQE5wZFcKW27439HuBrZG', 'Genghis', 'Khan', '5145932323', '2017-11-30 17:57:51', '2154 Mongolia Avenue', 'Montreal', 'H4B1J8', 'Quebec', 0, 0, 0, 'active');
 
 --
 -- Indexes for dumped tables
@@ -572,55 +379,46 @@ ALTER TABLE `user`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
@@ -664,7 +462,6 @@ ALTER TABLE `notification`
 ALTER TABLE `rental`
   ADD CONSTRAINT `rental_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
   ADD CONSTRAINT `rental_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

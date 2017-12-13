@@ -40,12 +40,12 @@ class Comment extends Model{
 	public function updateRating($rentalId){
 		$update = "UPDATE item 
 					SET rating = (SELECT AVG(comment.rating)
-					FROM comment 
-					WHERE comment.rental_id IN (SELECT rental.id 
-												FROM rental 
-												WHERE rental.item_id = (SELECT rental.item_id 
-																		FROM rental 
-																		WHERE rental.id = $rentalId)))
+									FROM comment 
+									WHERE comment.rental_id IN (SELECT rental.id 
+																FROM rental 
+																WHERE rental.item_id = (SELECT rental.item_id 
+																						FROM rental 
+																						WHERE rental.id = $rentalId)))
 					WHERE item.id = (SELECT rental.item_id 
 									FROM rental 
 									WHERE rental.id = $rentalId)";

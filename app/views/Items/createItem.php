@@ -19,7 +19,7 @@
 	</div>
 	<div class="form-group">
 	<label for="price">Price Per Day</label>
-	<input type="number" class="form-control" required="true" name="price" id="price" />
+	<input type="number" class="form-control" required="true" name="price" id="price" min="0"/>
 	</div>
 	<div class="form-group">
 	<label for="category">Category</label>

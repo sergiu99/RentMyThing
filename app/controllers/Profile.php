@@ -156,6 +156,7 @@ function deleteAccount(){
 		$updateUser->id = $_SESSION['userID'];
 		$updateUser->account_status = 'disabled';
 		$updateUser->update();
+		$updateUser->clearUserData();
 		header("location:/Login/logout");
 		}
 		else {

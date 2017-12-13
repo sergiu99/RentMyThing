@@ -2,45 +2,52 @@
 
 class Listings extends Controller{
 	
+	//Display all publicly available listings
 	function index(){
-		$aItem = $this->model('Listing');
-		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo();
+		$aItem = $this->model('Item');
+		$myItems = $aItem->where('status','=','enabled')->getDisplayInfo(); //get the listing details
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
 		$favoritesIds = $this->getFavorites();
+		//Set the search parameters to empty
 		$this->view('Listings/index',['items'=>$myItems, 'categories'=>$categories, 'category'=>"", 'keyword'=>"", 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 
+	//Search for a 
 	function search(){
-		$locations = [];
-		if(isset($_GET['category'])){
+		//Set the category parameter
+		if(isset($_GET['category']) && $_GET['category'] != "All"){
 			$category = $_GET['category'];
 		}else{
 			$category = "";
 		}
+		//Set the keyword parameter
 		if(isset($_GET['keyword'])){
 			$keyword = $_GET['keyword'];
 		}else{
 			$keyword = "";
 		}
+
+		//Set the location parameter
 		if(isset($_GET['locations'])){
 			if($_GET['locations'] == ""){
 				$locationString = null;
 				$locations = null;
 			}else{
 				$locations = $_GET['locations'];
-				$locations = explode('-', $locations);
+				$locations = explode('-', $locations); //Retrieve the individual postal codes and populate the array
 				$locationString = $_GET['locationString'];
 			}
 		}else{
 			$locations = null;
 			$locationString = null;
 		}
-		$anItem = $this->model('Listing');
-		$searchItems = $anItem->search($category, $keyword, $locations);
+
+		$anItem = $this->model('Item');
+		$searchItems = $anItem->search($category, $keyword, $locations); //Get the matching items
 		$aCategory = $this->model('Category');
 		$categories = $aCategory->get();
-		$favoritesIds = $this->getFavorites();
+		$favoritesIds = $this->getFavorites(); //Get the user favorites
 		$this->view('Listings/index',['items'=>$searchItems, 'categories'=>$categories, 'category'=>$category, 'keyword'=>$keyword, 'location'=>$locationString, 'type'=>"Listings", 'favorites'=>$favoritesIds]);
 	}
 	

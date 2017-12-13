@@ -2,66 +2,68 @@
 
 class Items extends Controller{
 
+	//Get all of a user's items
 	function index(){
 		$aItem = $this->model('Item');
 		$userId =  $_SESSION['userID'];
-		$myItems = $aItem->where('user_id','=',$userId)->getDisplayInfo();
+		$myItems = $aItem->where('user_id','=',$userId)->where('status', '<>', 'deleted')->getDisplayInfo(); //get item details
 		$this->view('Items/index',['items'=>$myItems]);
 	}
 
+	//Create and insert a new item
 	function newItem(){
 		if(isset($_POST['action'])){
-		$newItem = $this->model('Item');
+			$newItem = $this->model('Item');
 		
-		$userId =  $_SESSION['userID'];
+			$userId =  $_SESSION['userID'];
 		
-		$newItem->user_id = $userId;
-		$newItem->status = 'enabled';
-		$newItem->name = $_POST['name'];
-		$newItem->description = $_POST['description'];
-		$newItem->price = $_POST['price'];
-		$newItem->category = $_POST['category'];
-		$newId = $newItem->insert();
+			$newItem->user_id = $userId;
+			$newItem->status = 'enabled';
+			$newItem->name = $_POST['name'];
+			$newItem->description = $_POST['description'];
+			$newItem->price = $_POST['price'];
+			$newItem->category = $_POST['category'];
+			$newId = $newItem->insert(); //Get the id of the new item to be used as file name
 		
-		$newItem = $this->model('Item');
-		$newItem->id = $newId;
-		$newItem->user_id = $userId;
-		$newItem->name = $_POST['name'];
-		$newItem->description = $_POST['description'];
-		$newItem->category = $_POST['category'];
-		$newItem->price = $_POST['price'];
-		$newItem->status = 'enabled';
-		$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $newId);
-		$newItem->update();
-		header("location:/Items");
+			$newItem->id = $newId;
+			//Update the item with the image filename, using the new item id
+			$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $newId);
+			$newItem->update();
+
+			//Redirect to the items index
+			header("location:/Items");
 		} else {
-			
 			$category = $this->model('Category');
 		    $category = $category->get();
-			
 			
 			$this->view('Items/createItem',['category'=>$category ]);
 		}
 	}
 
+
+	//Update an item 
+	//$id The id of the item to be updated
 	function editItem($id){
 		if(isset($_POST['action'])){
-		$newItem = $this->model('Item');
+			$newItem = $this->model('Item');
 		
-		$userId =  $_SESSION['userID'];
-		$newItem = $newItem->find($id);
+			//Get the existing item record
+			$userId =  $_SESSION['userID'];
+			$newItem = $newItem->find($id);
 
-		$newItem->user_id = $userId;
-		$newItem->status = 'enabled';
-		$newItem->name = $_POST['name'];
-		$newItem->description = $_POST['description'];
-		$newItem->price = $_POST['price'];
-		$newItem->category = $_POST['category'];
-		if($_FILES['fileToUpload']['size'] != 0){
-			$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
-		}
-		$newItem->update();
-		header("location:/Items");
+			//Set the updated item information
+			$newItem->user_id = $userId;
+			$newItem->status = 'enabled';
+			$newItem->name = $_POST['name'];
+			$newItem->description = $_POST['description'];
+			$newItem->price = $_POST['price'];
+			$newItem->category = $_POST['category'];
+			//Update the item image if a file has been provided
+			if($_FILES['fileToUpload']['size'] != 0){
+				$newItem->image_path = $this->uploadImage($_FILES["fileToUpload"], $id);
+			}
+			$newItem->update();
+			header("location:/Items");
 		} else {
 			$aItem = $this->model('Item');
 		    $aItem = $aItem->find($id);
@@ -73,13 +75,17 @@ class Items extends Controller{
 		}
 	}
 	
+	//Delete an item
+	//$id The id of the item to be deleted
 	function delete($id){
 		$aItem = $this->model('Item');
 		$aItem = $aItem->find($id);
-		$aItem->delete();
+		$aItem->status = "deleted";
+		$aItem->update();
 		header("location:/Items");
 	}
 
+	//Change the status of an item
 	function setStatus(){
 	   $id = intval( $_GET['itemId'] );
 	   $status = $_GET['status'];
@@ -87,14 +93,21 @@ class Items extends Controller{
 	   return $anItem->setStatus($id, $status);
    }
 
+   //Search for an item by matching the name to a keyword
    function search(){
-	   $keyword = $_POST['keyword'];
+	   if(isset($_POST['keyword'])){
+			$keyword = $_POST['keyword'];
+	   }else{
+			$keyword = "";
+	   }
+	   
 	   $keyword = "%" . $keyword . "%";
 	   $anItem = $this->model('Item');
-	   $searchItems1 = $anItem->where('t1.name', 'LIKE', $keyword)->getDisplayInfo();
+	   $searchItems1 = $anItem->where('user_id', '=', $_SESSION['userID'])->where('status', '<>', 'deleted')->where('t1.name', 'LIKE', $keyword)->getDisplayInfo(); //Get the item details
 	   $this->view('Items/index',['items'=>$searchItems1]);
    }
 
+   //Upload an image to the database
 	function uploadImage($theFile, $id){
 		$target_dir = "images/";	//the folder where files will be saved
 		$allowedTypes = array("jpg", "png", "jpeg", "gif", "bmp");// Allow certain file formats
@@ -115,14 +128,6 @@ class Items extends Controller{
 				//give a name to the file such that it should never collide with an existing file name.
 				$target_file_name = $id . '.' . $extension;	
 				$target_path = $target_dir . $target_file_name;
-				//NOTE: that this file path probably should be saved to the database for later retrieval
-		
-				//It is very unlikely given the naming scheme that another file of the same name will exist... 
-				// Check if file already exists
-				/*if (file_exists($target_path)) {
-					echo "Sorry, file already exists.";
-					$uploadOk = 0;
-				}*/
 		
 				//You may limit the size of the incoming file... Check file size
 				if ($theFile["size"] > $max_upload_bytes) {
@@ -149,7 +154,7 @@ class Items extends Controller{
 				}
 			}
 
-		return $target_dir . 'noimage.png';
+		return $target_dir . 'noimage.png'; //Return the default image if the uploaded file is invalid
 	}
 }
 ?>

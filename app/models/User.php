@@ -32,7 +32,7 @@ class User extends Model
 
 	function search($keyword){
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
-		$select = "SELECT u.id, u.display_name, u.join_date, u.phone_number, u.street_address, u.city_address, u.postal_code_address, u.province_address, u.show_email, u.show_phone, u.show_address, (SELECT COUNT(i.id) FROM item i WHERE i.user_id = u.ID) as count FROM user u WHERE u.display_name LIKE $keywordQuote";
+		$select = "SELECT u.id, u.display_name, u.join_date, u.phone_number, u.street_address, u.city_address, u.postal_code_address, u.province_address, u.show_email, u.show_phone, u.show_address, (SELECT COUNT(i.id) FROM item i WHERE i.user_id = u.ID) as count FROM user u WHERE u.account_status = 'active' AND u.display_name LIKE $keywordQuote";
 		$stmt = $this->_connection->prepare($select);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, $this->_className);
@@ -41,6 +41,19 @@ class User extends Model
 			$returnVal[] = $rec;
 		}
 		return $returnVal;
+	}
+
+	function clearUserData(){
+		$userId = $_SESSION['userID'];
+		$deleteFavorites = "DELETE FROM favorite WHERE user_id = $userId";
+		$deleteRentals = "DELETE FROM rental WHERE status = 'pending' AND user_id = $userId";
+		$disableListings = "UPDATE item SET status = 'disabled' WHERE user_id = $userId";
+		$stmt = $this->_connection->prepare($deleteFavorites);
+		$stmt->execute();
+		$stmt = $this->_connection->prepare($deleteRentals);
+		$stmt->execute();
+		$stmt = $this->_connection->prepare($disableListings);
+		$stmt->execute();
 	}
 }
 

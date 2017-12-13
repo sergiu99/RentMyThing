@@ -47,32 +47,17 @@ class Listing extends Model{
 		$categoryQuote = $this->_connection->quote($category);
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
 
-		$where = "";
+		$where = "WHERE t1.status = 'enabled'";
 		if($category != ""){
-			if($keyword != ""){
-				$where .= "WHERE t1.category = 
-							(SELECT c.id 
-							FROM category c
-							WHERE c.name = $categoryQuote) AND (t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote)";
-			}else{
-				$where .= "WHERE t1.category = 
-							(SELECT c.id 
-							FROM category c
-							WHERE c.name = $categoryQuote)";
-			}
-		}else{
-			if($keyword != ""){
-				$where .= "WHERE t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote";
-			}
+			$where .= " AND t1.category = (SELECT c.id FROM category c WHERE c.name = $categoryQuote)";
+		}
+
+		if($keyword != ""){
+			$where .= "AND t1.name LIKE $keywordQuote OR t1.description LIKE $keywordQuote";
 		}
 
 		if($location != null){
-			if($where != ""){
-				$where .= " AND ";
-			}else{
-				$where .= " WHERE ";
-			}
-			$where .= " user_id IN (SELECT id FROM user WHERE SUBSTRING(postal_code_address,1,3) IN (";
+			$where .= "AND user_id IN (SELECT id FROM user WHERE SUBSTRING(postal_code_address,1,3) IN (";
 			for($i = 0; $i < sizeof($location) - 1; $i++){
 				$where .= $this->_connection->quote($location[$i]);
 				$where .= ",";

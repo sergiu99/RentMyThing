@@ -28,7 +28,7 @@
 			}else{
 				echo "<td>$item->rating/5</td>";
 			}
-			echo "<td><a href='/Listings/viewItem/$item->id'>View</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='/Favorites/removeFavoriteWithId/$item->id'>Remove</a></td>";
+			echo "<td><a href='/Listings/viewItem/$item->id'>View</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='/Favorites/removeFavorite/$item->id'>Remove</a></td>";
 		}
 		echo "</table>";
 	}else{

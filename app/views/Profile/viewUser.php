@@ -74,7 +74,7 @@
 		if(document.getElementById("favorite" + id).checked == true){
 			urlString = "/Favorites/setFavorite?item=" + id;
 		}else{
-			urlString = "/Favorites/removeFavorite?item=" + id;
+			urlString = "/Favorites/removeFavorite/" + id;
 		}
 		$.ajax({
 			type: "POST",
