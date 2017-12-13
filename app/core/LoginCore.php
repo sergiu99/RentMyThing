@@ -7,6 +7,7 @@ class LoginCore{
 		if(isset($users[0])){
 			if(password_verify($password, $users[0]->password)){
 				session_start();
+				//Set the session variables
 				$_SESSION['username'] = $username;
 				$_SESSION['userID'] = $users[0]->ID;
 				$_SESSION['errors'] = [];

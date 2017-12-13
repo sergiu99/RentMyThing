@@ -99,7 +99,7 @@ class Listings extends Controller{
 			$newNotification->user_id = $aItem->user_id;
 			$content = 'Someone wants to rent your '. $aItem->name .' item.';
 			$newNotification->content = $content;
-			$newNotification->redirect = "/Rentals";
+			$newNotification->redirect = "/Rentals/tab/proposals";
  
 			$newRental->total = $total;
 

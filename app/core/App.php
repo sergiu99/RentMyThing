@@ -50,8 +50,7 @@ class App
 		$url = $_GET['url'];
 		return in_array ( $url , $this->publicURL);
 	}
-
-
+	
 }
 
 ?>

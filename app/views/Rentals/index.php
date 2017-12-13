@@ -11,16 +11,16 @@
 		<div class="col-10">
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#home">Renting from others</a>
+    <a class="nav-link active" id="home_toggle" data-toggle="tab" href="#home">Renting from others</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link"  data-toggle="tab" href="#menu2">Renting to others</a>
+    <a class="nav-link" id="menu1_toggle" data-toggle="tab" href="#menu2">Renting to others</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#menu1">Proposals to you</a>
+    <a class="nav-link" id="menu2_toggle" data-toggle="tab" href="#menu1">Proposals to you</a>
   </li>
    <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#menu3">Completed Rentals</a>
+    <a class="nav-link" id="menu3_toggle" data-toggle="tab" href="#menu3">Completed Rentals</a>
   </li>
 </ul>
 
@@ -280,6 +280,34 @@
 <div id="chat_toggle"></div>
 
 <script type="text/javascript">
+
+function setTab(){
+	var tab = "<?php echo $data['tab']?>";
+	if(tab == "proposals"){
+		//Open proposals tab
+		document.getElementById("home").className = "tab-pane fade in";
+		document.getElementById("home").setAttribute("aria-expanded", "false");
+		document.getElementById("menu1").className = "tab-pane fade active show";
+		document.getElementById("menu1").setAttribute("aria-expanded", "true");
+		document.getElementById("home_toggle").className = "nav-link";
+		document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
+		document.getElementById("menu2_toggle").className = "nav-link active";
+		document.getElementById("menu2_toggle").setAttribute("aria-expanded", "true");
+	}else{
+		if(tab == "completed"){
+			//Open completed tab
+			document.getElementById("home").className = "tab-pane fade in";
+			document.getElementById("home").setAttribute("aria-expanded", "false");
+			document.getElementById("menu3").className = "tab-pane fade active show";
+			document.getElementById("menu3").setAttribute("aria-expanded", "true");
+			document.getElementById("home_toggle").className = "nav-link";
+			document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
+			document.getElementById("menu3_toggle").className = "nav-link active";
+			document.getElementById("menu3_toggle").setAttribute("aria-expanded", "true");
+		}
+	}
+}
+
 var lastTimeID = 0;
 var chatStatus = "initial";
 $('#chatInput').val("");
@@ -358,6 +386,8 @@ function closeChat(){
     clearInterval(chatInterval);
 	lastTimeID = 0;
 }
+
+setTab();
 </script>
 
 	<div id="toggleChat">

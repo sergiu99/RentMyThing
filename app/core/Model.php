@@ -7,8 +7,6 @@ class Model{
     protected $_orderBy;
     protected $_PKName = 'id';// default name for the primary key
 	
-	//TODO: add JOIN clauses
-	
 	public function __construct(PDO $connection = null)
     {
 		//database parameters
@@ -58,12 +56,9 @@ class Model{
         return $value;
     }
 
-    // SELECT * FROM Client WHERE firstName = 'Jon' AND lastName = 'Doe'
     public function where($field, $op, $value){
         //TODO : only if this is a string-type value
-        if(strpos($value, '(')){
-            
-        }
+        //if(strpos($value, '(')){}
         $value = $this->_connection->quote($value);
         if($this->_whereClause == '')
             $this->_whereClause .= "WHERE $field $op $value";
@@ -83,7 +78,6 @@ class Model{
         return $this;
     }
 
-    // SELECT * FROM Client ... ORDERBY firstName ASC, lastName ASC
     public function orderBy($field, $order = 'ASC'){
         if($this->_orderBy == '')
             $this->_orderBy .= "ORDERBY $field $order";
