@@ -1,6 +1,6 @@
 <?php
 
-class Listing extends Model{
+/*class Listing extends Model{
 	public $name;
 	public $user_id;
 	public $description;
@@ -68,5 +68,5 @@ class Listing extends Model{
 		$this->_whereClause .= $where;
 		return $this->getDisplayInfo();
 	}
-}
+}*/
 ?>

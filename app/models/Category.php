@@ -10,6 +10,5 @@ class Category extends Model{
 	function isValid(){
 		return ($this->name!='');
 	}
-
 }
 ?>

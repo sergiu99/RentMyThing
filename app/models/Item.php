@@ -15,11 +15,12 @@ class Item extends Model{
 		parent::__construct();
 	}
 	
-public	function isValid(){
+	public	function isValid(){
 		return ($this->name!='' && $this->user_id != '');
 	}
 
-public function getDisplayInfo(){
+	//Gets the details of an item query
+	public function getDisplayInfo(){
 		$select	= "SELECT t1.id, t1.user_id, t1.name, t1.description, t1.image_path, t1.price, t2.name as category,  t3.postal_code_address as postal_code, t1.rating, t1.status FROM item t1 INNER JOIN category t2 ON t1.category = t2.id INNER JOIN user t3 ON t1.user_id = t3.id $this->_whereClause $this->_orderBy";
         $stmt = $this->_connection->prepare($select);
         $stmt->execute();
@@ -31,6 +32,7 @@ public function getDisplayInfo(){
         return $returnVal;
 	}
 	
+	//Gets the details of a single item
 	public function getItem($id){
 		$select = "SELECT t1.id, t1.user_id, t1.name, t1.description, t1.image_path, t1.price, t2.name as category, t3.postal_code_address as postal_code, t1.rating, t1.status FROM item t1 INNER JOIN category t2 ON t1.category = t2.id INNER JOIN user t3 ON t1.user_id = t3.id WHERE t1.id=$id";
 		$stmt = $this->_connection->prepare($select);
@@ -43,10 +45,13 @@ public function getDisplayInfo(){
         return $returnVal;
 	}
 
+	//Search for an item by category and/or keyword and/or location
 	public function search($category, $keyword, $location){
+		//Quote the search parameter
 		$categoryQuote = $this->_connection->quote($category);
 		$keywordQuote = $this->_connection->quote('%' . $keyword . '%');
 
+		//Set the query conditions
 		$where = "WHERE t1.status = 'enabled'";
 		if($category != ""){
 			$where .= " AND t1.category = (SELECT c.id FROM category c WHERE c.name = $categoryQuote)";
@@ -66,9 +71,10 @@ public function getDisplayInfo(){
 			$where .= "))";
 		}
 		$this->_whereClause .= $where;
-		return $this->getDisplayInfo();
+		return $this->getDisplayInfo(); //Get the query result details
 	}
 
+	//Update an item's status
 	function setStatus($itemId, $status){
 		$status = $this->_connection->quote($status);
 		$update	= "UPDATE item SET status = $status WHERE id = $itemId";

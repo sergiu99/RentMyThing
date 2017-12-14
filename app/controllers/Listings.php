@@ -53,7 +53,7 @@ class Listings extends Controller{
 	
 	//Get and view an item's details
 	function viewItem($id){
-		$thisItem = $this->model('Listing');
+		$thisItem = $this->model('Item');
 		$thisItem = $thisItem->getItem($id)[0];
 		if($thisItem->name !='' && $thisItem->status = "enabled"){
 			if($thisItem->user_id == $_SESSION['userID']){

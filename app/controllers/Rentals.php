@@ -107,10 +107,11 @@ class Rentals extends Controller{
                     $anItem = $this->model('Item');
                     $anItem = $anItem->find($aRental->item_id);
                     $newNotification->user_id = $anItem->user_id;
+                    $newNotification->redirect = "/Rentals/tab/owned";
                 }else{
                     $newNotification->user_id = $aRental->user_id;
+                    $newNotification->redirect = "/Rentals";
                 }
-                $newNotification->redirect = "/Rentals";
 
                 //Set the notification and rental status
                 if($statuss == 'pending'){

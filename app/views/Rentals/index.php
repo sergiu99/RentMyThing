@@ -304,6 +304,18 @@ function setTab(){
 			document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
 			document.getElementById("menu3_toggle").className = "nav-link active";
 			document.getElementById("menu3_toggle").setAttribute("aria-expanded", "true");
+		} else {
+			if(tab == "owned"){
+				//Open renting to others tab
+				document.getElementById("home").className = "tab-pane fade in";
+				document.getElementById("home").setAttribute("aria-expanded", "false");
+				document.getElementById("menu2").className = "tab-pane fade active show";
+				document.getElementById("menu2").setAttribute("aria-expanded", "true");
+				document.getElementById("home_toggle").className = "nav-link";
+				document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
+				document.getElementById("menu1_toggle").className = "nav-link active";
+				document.getElementById("menu1_toggle").setAttribute("aria-expanded", "true");
+			}
 		}
 	}
 }

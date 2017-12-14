@@ -7,6 +7,7 @@ class Message extends Model
     public $created_on;
     public $content;
 
+    //Get all messages for a rental
     function getMessages($rentalId){
         $select = "SELECT * FROM message WHERE id = $rentalId";
         $stmt = $this->_connection->prepare($select);
@@ -19,6 +20,7 @@ class Message extends Model
 		return $returnVal;
     }
 
+    //Get unviewed messages for a rental
     function getNewMessages($lastId, $rentalId){
         $returnVal = '{"results":[';
         $select = "SELECT * FROM message WHERE id > $lastId AND rental_id = $rentalId";
@@ -31,7 +33,7 @@ class Message extends Model
         }
         $returnVal .=implode(",", $jsonResults); 
         $returnVal .= ']}';
-		return $returnVal;
+		return $returnVal; //Return messages as json
     }
 }
 ?>

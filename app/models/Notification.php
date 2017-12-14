@@ -14,6 +14,7 @@ class Notification extends Model{
 		return ($this->firstName!='' && $this->country != '');
 	}
 
+	//Delete all previous notifications for a conversation when a new one is created 
     function viewChatNotifs($rental_id, $user_id){
 		$redirect = $this->_connection->quote("/Rentals?chat=" . $rental_id);
 		$delete = "DELETE FROM notification
@@ -22,6 +23,7 @@ class Notification extends Model{
         $stmt->execute();
 	}
 	
+	//View all of a user's notifications
 	function clearNotifications(){
 		$userId =  $_SESSION['userID'];
 		$update = "UPDATE notification

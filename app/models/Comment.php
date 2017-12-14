@@ -5,6 +5,7 @@ class Comment extends Model{
 	public $rental_id;
 	public $rating;
 	public $poster_status;
+
 	public function __construct(){
 		parent::__construct();
 	}
@@ -13,6 +14,7 @@ class Comment extends Model{
 		return ($this->content!='' && $this->rental_id != '');
 	}
 
+	//Get comments made on an item
 	public function getRentalFromComment(){
 		$select = "SELECT t1.id as id, t1.content as content, t1.rating as rating, t2.item_id as item_id FROM comment t1 INNER JOIN rental t2 ON t1.rental_id = t2.id $this->_whereClause $this->_orderBy";
 		$stmt = $this->_connection->prepare($select);
@@ -25,6 +27,7 @@ class Comment extends Model{
         return $returnVal;
 	}
 
+	//Get rentals a user has commented
 	public function getCommented($userId){
 		$select = "SELECT rental_id FROM comment WHERE rental_id IN (SELECT id FROM rental WHERE user_id = $userId)";
 		$stmt = $this->_connection->prepare($select);
@@ -37,6 +40,7 @@ class Comment extends Model{
         return $returnVal;
 	}
 
+	//Update an item rating after a new comment insert
 	public function updateRating($rentalId){
 		$update = "UPDATE item 
 					SET rating = (SELECT AVG(comment.rating)

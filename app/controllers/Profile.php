@@ -145,7 +145,7 @@ class Profile extends Controller{
 		$theUser = $aUser->find($id);
 		//Check that the user account is active
 		if($theUser != false && $theUser->account_status == "active"){
-			$anItem = $this->model('Listing');
+			$anItem = $this->model('Item');
 			$userListings = $anItem->where('user_id','=',$id)->getDisplayInfo();
 			$aFavorite = $this->model('Favorite');
 			$userFavorites = $aFavorite->getUserFavoritesId(); //Get the logged in user's favorites
