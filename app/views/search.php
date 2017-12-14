@@ -71,6 +71,7 @@
 	//The API restricts the number of postal codes returned to 5 for a free account. 
 	//A large radius in a dense area will not return all included postal codes.
 	//A large radius in a lower density area might return less than 5.
+	//To change from the default radius parameter (4km), change the radius value, then select a location
 	function getNearbyPostalCodes(postalCodeValue){
 		//Retrieve the marker address and radius value
 		document.getElementById("locationString").value = postalCodeValue;

@@ -30,7 +30,11 @@ $item = $data['item'];
 
 	<?php
 		foreach($data['category'] as $category){
-			echo "<option value='$category->id' > $category->name</option>";
+			if($item->category ==  $category->id){
+				echo "<option value='$category->id' selected> $category->name</option>";
+			}else{
+				echo "<option value='$category->id' > $category->name</option>";
+			}
 		}
 	?>
 </select>

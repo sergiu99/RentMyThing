@@ -64,11 +64,14 @@
 		}else{
 			status = "&status=disabled";
 		}
-		
+
+		console.log(status);
+
 		$.ajax({
         	type: "GET",
-            url: "/Items/setStatus?itemId=" + id + "&status=disabled"
-        }).done(function (){
+            url: "/Items/setStatus?itemId=" + id + status
+        }).done(function (data){
+			console.log(data);
         });;
 	}
 </script>

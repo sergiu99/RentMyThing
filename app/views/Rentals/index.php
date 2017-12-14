@@ -281,7 +281,7 @@
 
 <script type="text/javascript">
 //Select a tab
-setTabAttributes(pane, toggle){
+function setTabAttributes(pane, toggle){
 	document.getElementById("home").className = "tab-pane fade in";
 	document.getElementById("home").setAttribute("aria-expanded", "false");
 	document.getElementById(pane).className = "tab-pane fade active show";
