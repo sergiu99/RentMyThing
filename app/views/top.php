@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 
+<!-- The common navigation bar for all pages -->
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,6 +41,8 @@
 
 <script type="text/javascript">
 var lastId = 0;
+
+//Get a users new notifications in an ajax request
 function getNotifications() {
   $.getJSON({
     type: "GET",
@@ -53,6 +57,7 @@ function getNotifications() {
         document.getElementById("notifCount").innerHTML = 0;
       }
     } else {
+        //Display the new notifications
         document.getElementById("view_ajax2").innerHTML = "";
         if(lastId == 0){
           document.getElementById("notifCount").innerHTML = jsonLength;
@@ -62,7 +67,7 @@ function getNotifications() {
           html = "<li style='padding-top:5px; margin-left:5px;'></li><form method='post' action='/Notifications/deleteNotif'><input id='notifId' name='notifId' type='hidden' value="+message.id+"/><input id='redirect' name='redirect' type='hidden' value='"+message.redirect+"'/><button class='btn notification' type='submit'>"+message.content+"</button></form>" + html;
         }
         var lastNotif = data[data.length - 1];
-        lastId = lastNotif.id;
+        lastId = lastNotif.id; //Update the last id value
         html = "<div style='' class='text-center'><b><i>Newest First</i></b><p onclick='clearNotifications()' class='openChat' style='display:inline; float:right !important; margin-right: 10px;'>Clear</p></div>" + html;
       $('#view_ajax2').append(html);
     }
@@ -70,6 +75,7 @@ function getNotifications() {
 }
 getNotifications();
 
+  //Clear a user's notifications (mark them as all viewed)
   function clearNotifications(){
     $.ajax({
 		  type: "GET",
@@ -81,6 +87,7 @@ getNotifications();
 	  });
   };
 
+  //Set an interval for automatically fetching new notifications 
   var notifInterval = setInterval(function() { getNotifications(); }, 10000);
 </script>
 

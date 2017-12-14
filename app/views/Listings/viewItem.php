@@ -1,25 +1,26 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php');
-$item = $data['item'];
-if(strlen($item->name) > 130){
-	$item->name = substr($item->name, 0, 130);
-}
-$urlItemNameWords = explode(' ', $item->name);
-$urlName = $urlItemNameWords[0];
-for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
-	$urlName .= "%20" . $urlItemNameWords[$i];
-}
-
+	$item = $data['item'];
+	if(strlen($item->name) > 130){
+		$item->name = substr($item->name, 0, 130);
+	}
+	$urlItemNameWords = explode(' ', $item->name);
+	$urlName = $urlItemNameWords[0];
+	for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
+		$urlName .= "%20" . $urlItemNameWords[$i];
+	}
  ?>
 
+<!-- Facebook share button -->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11';
-  fjs.parentNode.insertBefore(js, fjs);
+  	var js, fjs = d.getElementsByTagName(s)[0];
+  	if (d.getElementById(id)) return;
+  	js = d.createElement(s); js.id = id;
+  	js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11';
+  	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<!-- Twitter tweet button -->
 <script>window.twttr = (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],
     t = window.twttr || {};
@@ -113,15 +114,18 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 </div>
 <div class="form-group">
 <script type="text/javascript">
+	//initiate the map
 	function initMap(){
 		var map = new google.maps.Map(document.getElementById('mapDiv'), {
     		zoom: 14,
     		center: {lat: 40.731, lng: -73.997}
   		});;
 		var geocoder = new google.maps.Geocoder;
+		//Retrieve the coordinates of the item postal code
 		geocoder.geocode( { 'address': "<?php echo substr($item->postal_code, 0, 3)?>"}, function(results, status) {
 			if (status == 'OK') {
 			  map.setCenter(results[0].geometry.location);
+			  //Set the marker at the result coordinates
 			  var marker = new google.maps.Marker({
 				  map: map,
 				  position: results[0].geometry.location
@@ -136,6 +140,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9J8N8owe_ytoIftmgjWsYonoqfRTD7oc&callback=initMap"></script>
 
 <script type="text/javascript">
+			//Set the item details and starting dates
 			var price = <?php echo $item->price?>;
 			var pad = "00"
 			var today = new Date();
@@ -149,6 +154,7 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 			document.getElementById("end_date").min = startDate;
 			document.getElementById("totalInput").value = "$"+price;
 
+			//Calculate the rental total price
 			function calculate(){
 				var selectedText = document.getElementById('end_date').value;
    				var selectedDate = new Date(selectedText);
@@ -177,14 +183,13 @@ for($i = 1; $i < sizeOf($urlItemNameWords) - 1; $i ++){
 				}
 			}
 
+			//Validate the chosen date range
 			function checkDates(){
-				console.log("changes");
 				document.getElementById("end_date").min = document.getElementById("start_date").value;
 				$.ajax({
 					type: "GET",
 					url: "/Listings/checkDates?start=" + document.getElementById("start_date").value + "&end=" + document.getElementById("end_date").value + "&item=" + document.getElementById("item_id").value
 				}).done(function (data){
-					console.log(data);
 					var result = JSON.parse(data);
 					if(result.length > 0){
 						document.getElementById("dateRangeMessage").innerHTML = "Item not available for this date range";

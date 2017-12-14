@@ -3,6 +3,7 @@
 
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/search.php'); ?>
 
+<!-- Displaying the results of a user search -->
 <h2>Users</h2>
 </br>
 	<?php

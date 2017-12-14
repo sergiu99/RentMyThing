@@ -280,62 +280,56 @@
 <div id="chat_toggle"></div>
 
 <script type="text/javascript">
+//Select a tab
+setTabAttributes(pane, toggle){
+	document.getElementById("home").className = "tab-pane fade in";
+	document.getElementById("home").setAttribute("aria-expanded", "false");
+	document.getElementById(pane).className = "tab-pane fade active show";
+	document.getElementById(pane).setAttribute("aria-expanded", "true");
+	document.getElementById("home_toggle").className = "nav-link";
+	document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
+	document.getElementById(toggle).className = "nav-link active";
+	document.getElementById(toggle).setAttribute("aria-expanded", "true");
+}
 
+//Set the selected tab
 function setTab(){
 	var tab = "<?php echo $data['tab']?>";
 	if(tab == "proposals"){
 		//Open proposals tab
-		document.getElementById("home").className = "tab-pane fade in";
-		document.getElementById("home").setAttribute("aria-expanded", "false");
-		document.getElementById("menu1").className = "tab-pane fade active show";
-		document.getElementById("menu1").setAttribute("aria-expanded", "true");
-		document.getElementById("home_toggle").className = "nav-link";
-		document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
-		document.getElementById("menu2_toggle").className = "nav-link active";
-		document.getElementById("menu2_toggle").setAttribute("aria-expanded", "true");
+		setTabAttributes("menu1", "menu2_toggle");
 	}else{
 		if(tab == "completed"){
 			//Open completed tab
-			document.getElementById("home").className = "tab-pane fade in";
-			document.getElementById("home").setAttribute("aria-expanded", "false");
-			document.getElementById("menu3").className = "tab-pane fade active show";
-			document.getElementById("menu3").setAttribute("aria-expanded", "true");
-			document.getElementById("home_toggle").className = "nav-link";
-			document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
-			document.getElementById("menu3_toggle").className = "nav-link active";
-			document.getElementById("menu3_toggle").setAttribute("aria-expanded", "true");
+			setTabAttributes("menu3", "menu3_toggle");
 		} else {
 			if(tab == "owned"){
 				//Open renting to others tab
-				document.getElementById("home").className = "tab-pane fade in";
-				document.getElementById("home").setAttribute("aria-expanded", "false");
-				document.getElementById("menu2").className = "tab-pane fade active show";
-				document.getElementById("menu2").setAttribute("aria-expanded", "true");
-				document.getElementById("home_toggle").className = "nav-link";
-				document.getElementById("home_toggle").setAttribute("aria-expanded", "false");
-				document.getElementById("menu1_toggle").className = "nav-link active";
-				document.getElementById("menu1_toggle").setAttribute("aria-expanded", "true");
+				setTabAttributes("menu2", "menu1_toggle");
 			}
 		}
 	}
 }
 
-var lastTimeID = 0;
+var lastTimeID = 0; //The last viewed message id
 var chatStatus = "initial";
 $('#chatInput').val("");
 
+//Open the chatbox
 function toggleChat(id){
 	document.getElementById("toggleChat").innerHTML = "<div id='chatDiv' class='panel'><h5 class='chatHeading' style='width:100%; padding:5px; background-color:#007bff; color:white; margin-bottom: 0px !important; border-radius: 0.25rem;' onclick='collapseChat()'>Chat</h5><div id='chat_history'><ul id='view_ajax'></ul></div><div id='sendDiv' class='form-group' style='padding:5px;margin-bottom: 0px;'><div class='input-group'><input type='text' id='chatInput' class='form-control' name='" + id + "' style='width:80%; ' onkeypress = 'chatInputEnter(event)'/><span class='input-group-btn'><button class='btn btn-secondary' type='button' onclick='sendChatText()'>Send</button></span></div></div></div>";
-	setInterval(function() { getChatText(id); }, 2000);
+	setInterval(function() { getChatText(id); }, 2000); //Set a chat update interval
 	lastTimeID = 0;
 }
 
+//Get the new chat messages for a rental
 function getChatText(id) {
 	$.ajax({
 		type: "GET",
 		url: "/Chat/getNewMessages?lastTimeID=" + lastTimeID + "&rentalID=" + document.getElementById("chatInput").name
 	}).done( function( data )
 	{
+		//Process the json data and populate the message display
 		var messages = JSON.parse(data);
 		messages = JSON.parse(messages);
 		var jsonLength = messages.results.length;
@@ -352,7 +346,7 @@ function getChatText(id) {
 			lastTimeID = message.id;
 		}
 		$('#view_ajax').append(html);
-		console.log(chatStatus);
+		//Set the initial parameters
 		if(chatStatus == "initial"){
 			var objDiv = document.getElementById("chat_history");
 			objDiv.scrollTop = objDiv.scrollHeight;
@@ -361,6 +355,7 @@ function getChatText(id) {
 	});
 }
 
+//Send a chat message on ENTER
 function chatInputEnter(e){
 	if(e.which == 13){
 		chatStatus == "initial";
@@ -368,9 +363,9 @@ function chatInputEnter(e){
 	}
 }
 
+//Send the text in the chat input field as a chat message
 function sendChatText(){
 	var chatInput = $('#chatInput').val();
-	console.log("SENDING " + "/Chat/sendMessage?rentalID=" + document.getElementById("chatInput").name + "&content=" + encodeURIComponent(chatInput));
 	if(chatInput != ""){
 		$.ajax({
 			type: "GET",
@@ -383,6 +378,7 @@ function sendChatText(){
 	}
 }
 
+//Collapse or show the chat box
 function collapseChat(){
     if(document.getElementById("chat_history").hasAttribute("hidden")){
         document.getElementById("chat_history").removeAttribute("hidden");
@@ -393,6 +389,7 @@ function collapseChat(){
     }
 }
 
+//Close a chat box completely
 function closeChat(){
     document.getElementById("toggleChat").innerHTML = "";
     clearInterval(chatInterval);
@@ -402,6 +399,7 @@ function closeChat(){
 setTab();
 </script>
 
+	<!-- This div will contain the chat contents -->
 	<div id="toggleChat">
 	
 	</div>

@@ -134,9 +134,11 @@
 <a href="/Profile/deleteAccount" class="btn btn-danger pull-right" style="">Delete Account</a>
 
 <script>
+  //Validate the form server-side
   $('#profileForm').submit(function() {
     resetErrors();
     var data = {};
+    //Get the input values
     $.each($('form input, form select'), function(i, v) {
       if (v.type !== 'submit') {
         if(v.id == "show_phone" || v.id == "show_email" || v.id == "show_address"){
@@ -153,11 +155,11 @@
           data: data,
           success: function(resp) {
               resp = JSON.parse(resp);
-              console.log(resp);
               if (resp === true) {
                   	//successful validation
                     window.location = "/Profile"
               } else {
+                  //validation failed, set error hints
                   $.each(resp, function(i, v) {
 	                    console.log(i + " => " + v); // view in console for error messages
                       var msg = '<label class="error" for="'+i+'">'+v+'</label>';
@@ -179,6 +181,7 @@
       return false;
   });
 
+  //Reset form errors
   function resetErrors() {
       $('form input, form select').removeClass('inputTxtError');
       $('label.error').remove();

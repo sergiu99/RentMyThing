@@ -28,10 +28,10 @@ $item = $data['item'];
 
 	<select class='form-control' required='true' name='category' id='category' >
 
-		<?php
-	foreach($data['category'] as $category){
-		echo "<option value='$category->id' > $category->name</option>";
-	}
+	<?php
+		foreach($data['category'] as $category){
+			echo "<option value='$category->id' > $category->name</option>";
+		}
 	?>
 </select>
 	</div>

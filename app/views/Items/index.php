@@ -55,24 +55,21 @@
 		echo "<h3>No items were found!</h3>";
 	}
 	?>
-
-
-
 </div>
 <script>
+	//Update the status of an item on check
 	function enableCheck(id){
 		if(document.getElementById("checkbox" + id).checked == true){
-			$.ajax({
-                type: "GET",
-            	url: "/Items/setStatus?itemId=" + id + "&status=enabled"
-            });
+			status = "&status=enabled";
 		}else{
-			$.ajax({
-                type: "GET",
-            	url: "/Items/setStatus?itemId=" + id + "&status=disabled"
-            }).done(function (){
-            });;
+			status = "&status=disabled";
 		}
+		
+		$.ajax({
+        	type: "GET",
+            url: "/Items/setStatus?itemId=" + id + "&status=disabled"
+        }).done(function (){
+        });;
 	}
 </script>
 

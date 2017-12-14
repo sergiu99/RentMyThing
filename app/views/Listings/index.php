@@ -49,6 +49,7 @@
 </body>
 
 <script>
+	//Set an item as a favorite on check
 	function setFavorite(id){
 		var urlString = "";
 		if(document.getElementById("favorite" + id).checked == true){
@@ -60,7 +61,7 @@
 			type: "POST",
 			url: urlString
 		}).done(function (data){
-			console.log(data);
+			//console.log(data);
 		});
 	}
 

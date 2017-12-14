@@ -1,6 +1,8 @@
 <?php  include($_SERVER['DOCUMENT_ROOT'] . '/app/views/top.php'); ?>
 <div class="container">
 <br>
+
+<!-- Display the detais of a user profile -->
 <?php 
     $user = $data['user'];
     echo "<h3>$user->display_name's profile</h3>";
@@ -69,6 +71,7 @@
 ?>
 
 <script>
+	//Set a favorite item for the current user
 	function setFavorite(id){
 		var urlString = "";
 		if(document.getElementById("favorite" + id).checked == true){
