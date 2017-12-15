@@ -220,7 +220,7 @@
 <div id="searchMapDiv" class="collapse">
 	<h6>
 		Find listings inside a &nbsp;
-		<input type="number" id="radius" value="4" max="15" min="1" class="form-control" style="width:70px; display:inline;"/>&nbsp;&nbsp;km radius.&nbsp;&nbsp;
+		<input type="number" id="radius" value="6" max="15" min="1" class="form-control" style="width:70px; display:inline;"/>&nbsp;&nbsp;km radius.&nbsp;&nbsp;
 		Click on the map to select a location.&nbsp;&nbsp;
 		<input type="button" class="btn btn-primary" onclick="clearSelection()" value="Clear Selection"/>
 		<?php

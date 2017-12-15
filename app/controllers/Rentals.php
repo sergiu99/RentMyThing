@@ -3,28 +3,6 @@
 class Rentals extends Controller{
     //Get and show a user's rentals
 	function index(){
-		/*$aItem = $this->model('Rental');
-		$userId =  $_SESSION['userID'];
-        $myItems = $aItem->getMyRentals();
-        //Load a rental chat if the parameter is set
-        if(isset($_GET['chat'])){
-            $chat = $_GET['chat'];
-        }else{
-            $chat = "";
-        }
-        $completedItems = $aItem->getMyCompletedRentals(); //Get completed rentals
-		$proposals = $this->model('Rental');
-        $proposals = $proposals->getMyItemProposals(); //Get rental proposals
-        $currentlyRenting = $this->model('Rental');
-        $currentlyRenting = $currentlyRenting->getMyRentingItems(); //Get current rentals
-        $commentedRentals = $this->model('Comment');
-        $commentedRentals = $commentedRentals->getCommented($userId); //Get rentals the user has commented
-        $commentedIds = [];
-        foreach($commentedRentals as $comment){
-            $commentedIds[] = $comment->rental_id;
-        }
-		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting,'completedItems'=>$completedItems, 'this_user'=>$_SESSION['userID'], 'chat'=>$chat, 'commented'=>$commentedIds]);*/
-        //Load a rental chat if the parameter is set
         if(isset($_GET['chat'])){
             $_SESSION['chat'] = $_GET['chat'];
         }else{
@@ -47,6 +25,9 @@ class Rentals extends Controller{
         $commentedIds = [];
         foreach($commentedRentals as $comment){
             $commentedIds[] = $comment->rental_id;
+        }
+		if(!isset($_SESSION['chat'])){
+            $_SESSION['chat'] = "";
         }
 		$this->view('Rentals/index',['myRentals'=>$myItems, 'myRentalProposals'=>$proposals, 'getMyRentingItems'=>$currentlyRenting,'completedItems'=>$completedItems, 'this_user'=>$_SESSION['userID'], 'chat'=>$_SESSION['chat'], 'commented'=>$commentedIds, 'tab'=>$tab]);
     }
